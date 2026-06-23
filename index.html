@@ -3,406 +3,1230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Government Portal Template</title>
+    <title>Mock-Gov Community Portal Template</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for retro/vintage state design -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Space+Mono&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Lora', 'serif'],
+                        display: ['Cinzel', 'serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
+                    colors: {
+                        stateRed: {
+                            DEFAULT: '#961A1D',
+                            hover: '#731315',
+                            dark: '#520B0D'
+                        },
+                        stateGold: '#D4AF37',
+                        stateBeige: {
+                            light: '#FAF6ED',
+                            DEFAULT: '#F6F0DF',
+                            dark: '#E7DEC4'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        /* Base Reset & Core Styles */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
         }
-        body {
-            font-family: "Times New Roman", Times, serif;
-            background-color: #0d0d0d;
-            color: #ffffff;
+        ::-webkit-scrollbar-track {
+            background: #E7DEC4;
         }
-
-        /* 1. Ultra-Thin Top Header Strip */
-        .top-ticker-strip {
-            background-color: #800000;
-            color: #d4af37;
-            border-bottom: 2px solid #d4af37;
-            text-align: center;
-            font-size: 11px;
-            font-family: Arial, sans-serif;
-            padding: 4px 10px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+        ::-webkit-scrollbar-thumb {
+            background: #961A1D;
+            border-radius: 4px;
         }
-
-        /* 2. Main Red Header Section */
-        .main-header {
-            background: linear-gradient(180deg, #990000 0%, #660000 100%);
-            border-bottom: 4px solid #d4af37;
-            padding: 20px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        /* Custom CSS to handle active highlights & transitions */
+        .editable-active {
+            outline: 2px dashed #961A1D !important;
+            background-color: rgba(150, 26, 29, 0.05) !important;
+            padding: 2px;
+            border-radius: 4px;
+            transition: all 0.2s;
         }
-        .header-left-group {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-        }
-        
-        /* Updated Emblem Container */
-        .emblem-placeholder {
-            width: 95px;
-            height: 95px;
-            border-radius: 50%;
-            border: 2px solid #d4af37;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0;
-            overflow: hidden;
-        }
-        
-        .header-titles h1 {
-            font-size: 32px;
-            font-weight: normal;
-            letter-spacing: 0.5px;
-            color: #ffffff;
-            margin-bottom: 2px;
-        }
-        .header-titles p {
-            color: #d4af37;
-            font-size: 14px;
-            font-family: Arial, sans-serif;
-        }
-
-        /* Header Right Side Meta Text */
-        .header-meta-box {
-            text-align: right;
-            color: #d4af37;
-            font-family: Arial, sans-serif;
-            font-size: 12px;
-            line-height: 1.6;
-        }
-        .header-meta-box strong {
-            color: #ffffff;
-            font-size: 14px;
-        }
-
-        /* 3. Navigation Bar */
-        .navigation-bar {
-            background-color: #171717;
-            border-bottom: 3px solid #d4af37;
-            display: flex;
-            justify-content: center;
-            list-style: none;
-            flex-wrap: wrap;
-        }
-        .navigation-bar li {
-            border-right: 1px solid #333333;
-        }
-        .navigation-bar li:last-child {
-            border-right: none;
-        }
-        .navigation-bar a {
-            display: block;
-            padding: 14px 18px;
-            color: #b3b3b3;
-            text-decoration: none;
-            font-family: Arial, sans-serif;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-align: center;
-        }
-        .navigation-bar a:hover {
-            color: #d4af37;
-            background-color: #222222;
-        }
-
-        /* 4. Large Hero Text Area */
-        .hero-slogan-area {
-            text-align: center;
-            padding: 55px 20px;
-            background-color: #121212;
-        }
-        .hero-slogan-area h2 {
-            color: #e5c158;
-            font-size: 42px;
-            font-weight: normal;
-            margin-bottom: 12px;
-            letter-spacing: 1px;
-        }
-        .hero-slogan-area p {
-            color: #8a8a8a;
-            font-family: Arial, sans-serif;
-            font-size: 13px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        /* 5. Red Announcement Banner */
-        .announcement-banner {
-            background-color: #800000;
-            border-top: 2px solid #d4af37;
-            border-bottom: 2px solid #d4af37;
-            padding: 10px 40px;
-            font-family: Arial, sans-serif;
-            font-size: 13px;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .announcement-tag {
-            color: #e5c158;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* 6. Bottom Main Content Block */
-        .content-wrapper {
-            background-color: #121212;
-            padding: 30px 40px 60px 40px;
-            display: flex;
-            justify-content: center;
-        }
-        .cream-content-box {
-            background-color: #fbf9f1;
-            color: #1a1a1a;
-            border: 3px double #d4af37;
-            padding: 35px 45px;
-            width: 100%;
-            max-width: 1200px;
-            min-height: 300px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-        }
-
-        /* 7. New Stats Row Layout */
-        .stats-row {
-            display: flex;
-            border: 1px solid #e0d8c3;
-            background-color: #f3efe6;
-            margin-top: 20px;
-            margin-bottom: 35px;
-        }
-        .stat-box {
-            flex: 1;
-            text-align: center;
-            padding: 20px 10px;
-            border-right: 1px solid #e0d8c3;
-        }
-        .stat-box:last-child {
-            border-right: none;
-        }
-        .stat-number {
-            color: #990000;
-            font-size: 26px;
-            font-weight: bold;
-            margin-bottom: 6px;
-        }
-        .stat-label {
-            color: #666;
-            font-size: 10px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            font-family: Arial, sans-serif;
-        }
-
-        /* 8. New Quote Block */
-        .quote-block {
-            background-color: #8b0000;
-            border-left: 4px solid #d4af37;
-            padding: 25px 35px;
-            margin-bottom: 45px;
-        }
-        .quote-text {
-            color: #ffffff;
-            font-style: italic;
-            font-size: 16px;
-            line-height: 1.5;
-            margin-bottom: 12px;
-        }
-        .quote-author {
-            color: #e5c158;
-            font-size: 12px;
-            font-family: Arial, sans-serif;
-        }
-
-        /* 9. Section Header */
-        .section-header {
-            color: #990000;
-            font-size: 26px;
-            border-bottom: 2px solid #d4af37;
-            padding-bottom: 10px;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .section-header span {
-            color: #d4af37;
-            font-size: 22px;
-        }
-
-        /* 10. Three-Column Info Cards */
-        .cards-container {
-            display: flex;
-            gap: 20px;
-        }
-        .info-card {
-            flex: 1;
-            background-color: #f3efe6;
-            border-top: 3px solid #990000;
-            border-left: 1px solid #e0d8c3;
-            border-right: 1px solid #e0d8c3;
-            border-bottom: 1px solid #e0d8c3;
-            padding: 25px 20px;
-        }
-        .card-meta {
-            color: #888;
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-            font-family: Arial, sans-serif;
-        }
-        .card-title {
-            color: #990000;
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-        .card-text {
-            color: #333;
-            font-size: 14px;
-            line-height: 1.6;
+        .editable-active:hover {
+            background-color: rgba(150, 26, 29, 0.1) !important;
         }
     </style>
 </head>
-<body>
+<body class="bg-stateBeige text-stone-900 font-serif leading-relaxed selection:bg-stateRed selection:text-white transition-colors duration-200">
 
-    <!-- 1. TOP TICKER STRIP -->
-    <div class="top-ticker-strip">
-        TOP RUNNING BANNER TEXT HERE &bull; SECOND SECTION PLACEHOLDER &bull; MOSCOW
-    </div>
+    <!-- QUICK CUSTOMIZER PANEL (Will be excluded on export) -->
+    <div id="customizer-panel" class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3 font-sans print:hidden">
+        <!-- Floating Toggle Button -->
+        <button onclick="toggleCustomizer()" class="bg-stateRed text-white p-4 rounded-full shadow-2xl hover:scale-115 transition transform duration-200 border-2 border-stateGold flex items-center justify-center">
+            <i class="fas fa-sliders-h text-xl"></i>
+            <span class="ml-2 font-bold tracking-wider text-xs">TEMPLATE CONTROL</span>
+        </button>
 
-    <!-- 2. MAIN HEADER -->
-    <header class="main-header">
-        <div class="header-left-group">
-            <!-- Updated Emblem Box referencing your uploaded file -->
-            <div class="emblem-placeholder">
-                <img src="https://media.discordapp.net/attachments/1515057534828941412/1519055736947343380/Untitled32_20260623200421_edit_455640882524623.png?ex=6a3c2a66&is=6a3ad8e6&hm=89ebb1602fe3e187ee28fcb744b27cff95a8177f1203d0eaf2534f3594da9c4f&=&format=webp&quality=lossless&width=667&height=667" alt="Photo of the Remarkables mountain range in Queenstown, New Zealand." class="GeneratedImage"> alt="Government Emblem" style="width: 100%; height: 100%; object-fit: cover;">
+        <!-- Main Customizer UI -->
+        <div id="customizer-menu" class="hidden w-96 bg-stone-900 text-stone-100 p-6 rounded-2xl shadow-2xl border-2 border-stateGold flex flex-col gap-4 max-h-[80vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-stone-800 pb-3">
+                <h3 class="font-display text-lg text-stateGold tracking-wide">Template Settings</h3>
+                <button onclick="toggleCustomizer()" class="text-stone-400 hover:text-white"><i class="fas fa-times"></i></button>
             </div>
-            <div class="header-titles">
-                <h1>MAIN PORTAL TITLE HERE</h1>
-                <p>Official Government Portal Subtitle Text</p>
+
+            <!-- Edit Mode Toggle -->
+            <div class="bg-stone-800 p-4 rounded-xl flex flex-col gap-2 border border-stone-700">
+                <div class="flex justify-between items-center">
+                    <span class="text-sm font-bold text-white">Visual Edit Mode</span>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="edit-mode-toggle" class="sr-only peer" onchange="toggleEditMode(this.checked)">
+                        <div class="w-11 h-6 bg-stone-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+                    </label>
+                </div>
+                <p class="text-xs text-stone-400">Enable this to click and type anywhere directly on the webpage to replace titles, tables, descriptions, and logos!</p>
+            </div>
+
+            <!-- Accent Theme Picker -->
+            <div class="flex flex-col gap-1">
+                <label class="text-xs font-semibold text-stone-400">Community Theme Color</label>
+                <div class="grid grid-cols-4 gap-2 mt-1">
+                    <button onclick="changeTheme('#961A1D', '#D4AF37')" class="h-8 rounded bg-red-800 border border-white flex items-center justify-center text-[10px]" title="Soviet Crimson"></button>
+                    <button onclick="changeTheme('#1e3a8a', '#fbbf24')" class="h-8 rounded bg-blue-900 border border-transparent flex items-center justify-center text-[10px]" title="Royal Blue"></button>
+                    <button onclick="changeTheme('#0f5132', '#f59e0b')" class="h-8 rounded bg-emerald-900 border border-transparent flex items-center justify-center text-[10px]" title="Sovereign Green"></button>
+                    <button onclick="changeTheme('#292524', '#e7e5e4')" class="h-8 rounded bg-stone-800 border border-transparent flex items-center justify-center text-[10px]" title="Obsidian Guard"></button>
+                </div>
+            </div>
+
+            <!-- Live Text Injectors -->
+            <div class="flex flex-col gap-3 border-t border-stone-800 pt-3">
+                <h4 class="text-xs font-bold text-stateGold tracking-widest uppercase">Global Identifiers</h4>
+                <div class="flex flex-col gap-1">
+                    <label class="text-[11px] text-stone-400">Official State Name</label>
+                    <input type="text" id="input-state-name" value="Union of Soviet Socialist Republics" oninput="updateGlobalText('state-name', this.value)" class="bg-stone-800 text-sm p-2 rounded border border-stone-700 focus:outline-none focus:border-stateGold">
+                </div>
+                <div class="flex flex-col gap-1">
+                    <label class="text-[11px] text-stone-400">Navigation Motto / Slogan</label>
+                    <input type="text" id="input-motto" value="Workers of all countries, unite! - The world's first socialist state" oninput="updateGlobalText('motto-text', this.value)" class="bg-stone-800 text-sm p-2 rounded border border-stone-700 focus:outline-none focus:border-stateGold">
+                </div>
+                <div class="flex flex-col gap-1">
+                    <label class="text-[11px] text-stone-400">Discord Portal Version</label>
+                    <input type="text" id="input-version" value="Portal Version 1.0" oninput="updateGlobalText('portal-version', this.value)" class="bg-stone-800 text-sm p-2 rounded border border-stone-700 focus:outline-none focus:border-stateGold">
+                </div>
+            </div>
+
+            <!-- Export Option -->
+            <div class="border-t border-stone-800 pt-3 flex flex-col gap-2">
+                <button onclick="exportTemplate()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold p-3 rounded-xl transition duration-200 flex items-center justify-center gap-2">
+                    <i class="fas fa-file-export"></i>
+                    <span>Export Final HTML</span>
+                </button>
+                <p class="text-[10px] text-center text-stone-500">Downloads a fresh HTML file with your active changes and with the editors removed!</p>
             </div>
         </div>
-
-        <div class="header-meta-box">
-            <strong>Location Placeholder</strong><br>
-            Data Row Placeholder 1<br>
-            Data Row Placeholder 2<br>
-            System Version: 1.0
-        </div>
-    </header>
-
-    <!-- 3. NAVIGATION BAR -->
-    <nav>
-        <ul class="navigation-bar">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Leadership</a></li>
-            <li><a href="#">Ministries</a></li>
-            <li><a href="#">Central Committee</a></li>
-            <li><a href="#">Republics</a></li>
-            <li><a href="#">Supreme Soviet</a></li>
-            <li><a href="#">Military</a></li>
-            <li><a href="#">Departments</a></li>
-            <li><a href="#">Elected Government</a></li>
-        </ul>
-    </nav>
-
-    <!-- 4. HERO SLOGAN AREA -->
-    <section class="hero-slogan-area">
-        <h2>LARGE CENTRAL SLOGAN OR TEXT HERE</h2>
-        <p>Secondary sub-slogan translation text layer goes here</p>
-    </section>
-
-    <!-- 5. ANNOUNCEMENT BANNER -->
-    <div class="announcement-banner">
-        <span class="announcement-tag">ANNOUNCEMENT:</span> 
-        Important ticker update or notification milestone text goes right over here.
     </div>
 
-    <!-- 6. CREAM CONTENT BOX (Main Body) -->
-    <div class="content-wrapper">
-        <main class="cream-content-box">
-            
-            <p style="font-style: italic; margin-bottom: 15px;">Official Notice Placeholder: Initial introductory paragraph can go here if needed.</p>
+    <!-- NOTIFICATION SYSTEM -->
+    <div id="toast" class="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 bg-stone-900 text-white border-2 border-stateGold px-6 py-3 rounded-xl shadow-2xl hidden items-center gap-3">
+        <i class="fas fa-info-circle text-stateGold"></i>
+        <span id="toast-message" class="font-sans text-sm font-semibold"></span>
+    </div>
 
-            <!-- 7. STATS ROW -->
-            <div class="stats-row">
-                <div class="stat-box">
-                    <div class="stat-number">00</div>
-                    <div class="stat-label">STAT LABEL ONE</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-number">0000</div>
-                    <div class="stat-label">STAT LABEL TWO</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-number">00.0M</div>
-                    <div class="stat-label">STAT LABEL THREE</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-number">0</div>
-                    <div class="stat-label">STAT LABEL FOUR</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-number">0000</div>
-                    <div class="stat-label">STAT LABEL FIVE</div>
-                </div>
-            </div>
+    <!-- MAIN PAGE CONTAINER -->
+    <div class="max-w-7xl mx-auto px-4 py-6">
 
-            <!-- 8. QUOTE BLOCK -->
-            <div class="quote-block">
-                <div class="quote-text">"Insert your primary quote or philosophical statement here. It will run across this block in italics."</div>
-                <div class="quote-author">&mdash; Author Name or Attribution Text (Year)</div>
-            </div>
+        <!-- OFFICIAL TOP BAND BAR -->
+        <div class="bg-stone-950 text-[10px] sm:text-xs font-mono py-1 px-4 text-center border-b border-stateGold flex items-center justify-between tracking-widest text-stone-400">
+            <span class="hidden md:inline animate-pulse">● [STATE ONLINE PORTAL SECURITY HIGH]</span>
+            <span class="editable text-center mx-auto md:mx-0" data-key="top-bar-text">ОФИЦИАЛЬНЫЙ ПРАВИТЕЛЬСТВЕННЫЙ ПОРТАЛ • OFFICIAL GOVERNMENT PORTAL OF THE <span class="global-state-name">Union of Soviet Socialist Republics</span> • MOSCOW • DISCORD</span>
+            <span class="hidden md:inline global-portal-version">Portal Version 1.0</span>
+        </div>
 
-            <!-- 9. SECTION HEADER -->
-            <h3 class="section-header">
-                <span>&#9733;</span> Header Title Placeholder
-            </h3>
+        <!-- HEADER EMBLEM & TITLES -->
+        <header class="bg-stateRed text-white p-6 sm:p-8 flex flex-col md:flex-row justify-between items-center border-4 border-t-0 border-stateGold gap-6 shadow-xl relative overflow-hidden">
+            <!-- Vintage Red Banner Texture Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-r from-stateRed-dark via-stateRed to-stateRed-dark opacity-40 pointer-events-none"></div>
 
-            <!-- 10. INFO CARDS CONTAINER -->
-            <div class="cards-container">
-                <!-- Card 1 -->
-                <div class="info-card">
-                    <div class="card-meta">META CATEGORY ONE</div>
-                    <div class="card-title">Card Title One</div>
-                    <div class="card-text">
-                        Insert your paragraph text here. This section will automatically wrap and space itself evenly alongside the other two columns.
+            <!-- Left: Flag Emblem & State Title -->
+            <div class="flex flex-col sm:flex-row items-center gap-6 z-10 text-center sm:text-left">
+                <!-- Editable State Emblem SVG Placeholder -->
+                <div class="relative group cursor-pointer" onclick="changeEmblemColor()" title="Click to swap crest color style">
+                    <div class="w-24 h-24 bg-stone-900/40 rounded-full border-2 border-stateGold flex items-center justify-center shadow-lg transform transition group-hover:scale-105">
+                        <svg id="state-emblem" class="w-16 h-16 text-stateGold fill-current" viewBox="0 0 24 24">
+                            <!-- High Quality Vector Star Emblem -->
+                            <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192L12 .587z"/>
+                        </svg>
                     </div>
+                    <span class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-stone-950 text-[8px] text-stateGold px-1.5 py-0.5 rounded border border-stateGold hidden group-hover:block whitespace-nowrap">Click to Toggle</span>
+                </div>
+
+                <div class="flex flex-col">
+                    <h2 class="font-display tracking-widest text-xs sm:text-sm text-stateGold editable" data-key="state-cyrillic-name">СОЮЗ СОВЕТСКИХ СОЦИАЛИСТИЧЕСКИХ РЕСПУБЛИК</h2>
+                    <h1 class="font-display font-black text-2xl sm:text-3xl tracking-wider text-white mt-1 uppercase global-state-name">Union of Soviet Socialist Republics</h1>
+                    <span class="text-xs sm:text-sm italic font-serif text-stone-300 mt-1 tracking-wide editable" data-key="state-sub-agency">Official Government Portal — Central Administration Department</span>
+                </div>
+            </div>
+
+            <!-- Right: State Metadata Block -->
+            <div class="border-2 border-dashed border-stateGold/60 p-4 bg-stone-950/45 rounded z-10 w-full md:w-auto font-mono text-xs text-stateBeige-light grid grid-cols-2 md:grid-cols-1 gap-2 md:gap-1 text-center md:text-right">
+                <div>
+                    <span class="text-stone-400">LOCATION:</span> 
+                    <span class="font-bold text-white editable" data-key="meta-loc">MOSCOW, USSR</span>
+                </div>
+                <div>
+                    <span class="text-stone-400">ESTABLISHED:</span> 
+                    <span class="font-bold text-white editable" data-key="meta-est">DECEMBER 30, 2022</span>
+                </div>
+                <div>
+                    <span class="text-stone-400">CAPITALS:</span> 
+                    <span class="font-bold text-white editable" data-key="meta-cap">MOSCOW / CHITA</span>
+                </div>
+                <div>
+                    <span class="text-stone-400">PORTAL VERSION:</span> 
+                    <span class="font-bold text-stateGold global-portal-version">Portal Version 1.0</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- MAIN PORTAL NAVIGATION -->
+        <nav class="bg-stone-950 border-4 border-t-0 border-stateGold grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-10 text-center font-display text-[10px] md:text-xs tracking-widest font-bold text-stone-200 divide-x divide-y divide-stateGold/30 select-none">
+            <a href="#about" class="py-3 px-1 hover:bg-stateRed hover:text-white transition duration-150 flex flex-col justify-center gap-1">
+                <i class="fas fa-home text-stateGold"></i>
+                <span class="editable" data-key="nav-1">HOME</span>
+            </a>
+            <a href="#leadership" class="py-3 px-1 hover:bg-stateRed hover:text-white transition duration-150 flex flex-col justify-center gap-1">
+                <i class="fas fa-user-shield text-stateGold"></i>
+                <span class="editable" data-key="nav-2">LEADERSHIP</span>
+            </a>
+            <a href="#ministries" class="py-3 px-1 hover:bg-stateRed hover:text-white transition duration-150 flex flex-col justify-center gap-1">
+                <i class="fas fa-building text-stateGold"></i>
+                <span class="editable" data-key="nav-3">MINISTRIES</span>
+            </a>
+            <a href="#central-committee" class="py-3 px-1 hover:bg-stateRed hover:text-white transition duration-150 flex flex-col justify-center gap-1">
+                <i class="fas fa-users text-stateGold"></i>
+                <span class="editable" data-key="nav-4">CENTRAL CMTE</span>
+            </a>
+            <a href="#republics" class="py-3 px-1 hover:bg-stateRed hover:text-white transition duration-150 flex flex-col justify-center gap-1">
+                <i class="fas fa-map-marked-alt text-stateGold"></i>
+                <span class="editable" data-key="nav-5">REPUBLICS</span>
+            </a>
+            <a href="#legislative" class="py-3 px-1 hover:bg-stateRed hover:text-white transition duration-150 flex flex-col justify-center gap-1">
+                <i class="fas fa-gavel text-stateGold"></i>
+                <span class="editable" data-key="nav-6">SUPREME SOVIET</span>
+            </a>
+            <a href="#military" class="py-3 px-1 hover:bg-stateRed hover:text-white transition duration-150 flex flex-col justify-center gap-1">
+                <i class="fas fa-shield-alt text-stateGold"></i>
+                <span class="editable" data-key="nav-7">MILITARY</span>
+            </a>
+            <a href="#departments" class="py-3 px-1 hover:bg-stateRed hover:text-white transition duration-150 flex flex-col justify-center gap-1">
+                <i class="fas fa-network-wired text-stateGold"></i>
+                <span class="editable" data-key="nav-8">DEPARTMENTS</span>
+            </a>
+            <a href="#elected" class="py-3 px-1 hover:bg-stateRed hover:text-white transition duration-150 flex flex-col justify-center gap-1">
+                <i class="fas fa-vote-yea text-stateGold"></i>
+                <span class="editable" data-key="nav-9">GOVERNMENT</span>
+            </a>
+            <a href="#news" class="py-3 px-1 hover:bg-stateRed hover:text-white transition duration-150 flex flex-col justify-center gap-1">
+                <i class="fas fa-newspaper text-stateGold"></i>
+                <span class="editable" data-key="nav-10">PRAVDA NEWS</span>
+            </a>
+        </nav>
+
+        <!-- NATIVE HERO SLOGAN CALLOUT -->
+        <section class="mt-8 border-4 border-stateRed bg-stone-950 p-8 text-center relative shadow-lg overflow-hidden flex flex-col items-center justify-center gap-4">
+            <div class="absolute inset-0 bg-[radial-gradient(#961a1d_1px,transparent_1px)] [background-size:16px_16px] opacity-10"></div>
+            
+            <h2 class="font-display text-2xl sm:text-4xl text-stateGold tracking-widest editable" data-key="hero-native-slogan">Пролетарии всех стран, соединяйтесь!</h2>
+            
+            <div class="h-[2px] w-24 bg-stateGold my-1"></div>
+            
+            <p class="font-sans text-xs sm:text-sm tracking-widest uppercase font-bold text-stone-200 mt-1 global-motto-text">
+                Workers of all countries, unite! - The world's first socialist state
+            </p>
+        </section>
+
+        <!-- LIVE TICKER & ANNOUNCEMENTS -->
+        <section class="mt-4 bg-stateRed text-white py-3 px-4 border-2 border-stateGold flex flex-col sm:flex-row items-center gap-3 text-xs shadow-md">
+            <div class="flex items-center gap-2 font-display tracking-widest font-bold border-b sm:border-b-0 sm:border-r border-stateGold/60 pb-2 sm:pb-0 pr-4 shrink-0 text-stateGold">
+                <i class="fas fa-bullhorn text-sm animate-bounce"></i>
+                <span>ANNOUNCEMENTS</span>
+            </div>
+            <div class="overflow-hidden w-full relative flex items-center">
+                <span class="font-sans font-medium tracking-wide block truncate editable" data-key="announcement-text" style="width: 100%;">
+                    [IMPORTANT STATE UPDATE] The 7th Five-Year Plan (2022-2027) has reached 112% of its goals. All workers are commended for heroic service.
+                </span>
+            </div>
+        </section>
+
+        <!-- OFFICIAL NOTICE DECREE -->
+        <section class="mt-6 bg-stateBeige-light border-l-4 border-stateRed p-4 shadow-sm text-stone-800 text-xs sm:text-sm italic">
+            <span class="font-bold uppercase text-stateRed not-italic block mb-1">Official Executive Notice:</span>
+            <span class="editable" data-key="official-notice-body">This centralized portal serves as the primary informational terminal of our digital sovereign community. All documentation, leadership structures, and administrative protocols displayed herein represent active mock roleplay parameters. Authentication is mandated by State Council measures.</span>
+        </section>
+
+        <!-- METRICS / STATS GRIDS -->
+        <section class="grid grid-cols-2 md:grid-cols-5 mt-8 gap-4">
+            <div class="bg-stateBeige-light border-2 border-stone-800 p-4 text-center rounded shadow-sm hover:scale-[1.02] transition duration-200">
+                <h3 class="text-3xl font-display font-black text-stateRed editable" id="stat-1" data-key="stat-val-1">15</h3>
+                <p class="text-[10px] font-sans tracking-widest text-stone-500 font-bold uppercase mt-1 editable" data-key="stat-lbl-1">Union Republics</p>
+            </div>
+            <div class="bg-stateBeige-light border-2 border-stone-800 p-4 text-center rounded shadow-sm hover:scale-[1.02] transition duration-200">
+                <h3 class="text-3xl font-display font-black text-stateRed editable" id="stat-2" data-key="stat-val-2">5601+</h3>
+                <p class="text-[10px] font-sans tracking-widest text-stone-500 font-bold uppercase mt-1 editable" data-key="stat-lbl-2">Population (Users)</p>
+            </div>
+            <div class="bg-stateBeige-light border-2 border-stone-800 p-4 text-center rounded shadow-sm hover:scale-[1.02] transition duration-200">
+                <h3 class="text-3xl font-display font-black text-stateRed editable" id="stat-3" data-key="stat-val-3">22.4M</h3>
+                <p class="text-[10px] font-sans tracking-widest text-stone-500 font-bold uppercase mt-1 editable" data-key="stat-lbl-3">KM² Territory</p>
+            </div>
+            <div class="bg-stateBeige-light border-2 border-stone-800 p-4 text-center rounded shadow-sm hover:scale-[1.02] transition duration-200">
+                <h3 class="text-3xl font-display font-black text-stateRed editable" id="stat-4" data-key="stat-val-4">8</h3>
+                <p class="text-[10px] font-sans tracking-widest text-stone-500 font-bold uppercase mt-1 editable" data-key="stat-lbl-4">Central Ministries</p>
+            </div>
+            <div class="bg-stateBeige-light border-2 border-stone-800 p-4 text-center rounded shadow-sm hover:scale-[1.02] transition duration-200 col-span-2 md:col-span-1">
+                <h3 class="text-3xl font-display font-black text-stateRed editable" id="stat-5" data-key="stat-val-5">2022</h3>
+                <p class="text-[10px] font-sans tracking-widest text-stone-500 font-bold uppercase mt-1 editable" data-key="stat-lbl-5">Year Founded</p>
+            </div>
+        </section>
+
+        <!-- STATE QUOTE BLOCK -->
+        <section class="mt-8 bg-stone-900 text-stone-200 p-6 rounded border-2 border-stateGold/60 shadow-lg relative">
+            <span class="absolute top-3 left-4 text-6xl text-stateGold/20 font-serif pointer-events-none">“</span>
+            <div class="relative pl-6">
+                <p class="italic text-sm sm:text-base tracking-wide editable" data-key="quote-body">"Our union is not merely a political design, but a cultural meeting point for administrative planning, historic roleplay, and community solidarity. Build with determination, collaborate with honor, and secure the state's vision."</p>
+                <p class="text-xs text-stateGold font-display font-bold tracking-widest mt-3 text-right editable" data-key="quote-author">— General Secretary Representative Statement, Central Plenum</p>
+            </div>
+        </section>
+
+        <!-- ABOUT THE UNION GOVERNMENT (3-COLUMN SECTION) -->
+        <span id="about" class="block relative -top-6"></span>
+        <section class="mt-12">
+            <h2 class="font-display text-xl tracking-widest text-stateRed border-b-2 border-stateRed pb-2 mb-6 flex items-center gap-2">
+                <i class="fas fa-star text-sm"></i>
+                <span class="editable" data-key="sec-title-about">About the Central Government structure</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-stateBeige-light border-2 border-stone-800 p-5 rounded hover:shadow-md transition">
+                    <span class="text-[9px] font-sans font-bold tracking-widest text-stateRed uppercase block mb-1 editable" data-key="about-card-tag-1">Constitutional Base</span>
+                    <h3 class="font-display text-md font-bold text-stone-900 border-b border-stone-300 pb-2 mb-3 editable" data-key="about-card-title-1">The State Constitution</h3>
+                    <p class="text-xs text-stone-700 leading-relaxed editable" data-key="about-card-body-1">The portal operates under foundational legislative charts updated during successive administrative plenums. The primary goal is the coordination of active ministries, oversight of local territories, and managing judicial arbitrations of server affairs.</p>
                 </div>
                 <!-- Card 2 -->
-                <div class="info-card">
-                    <div class="card-meta">META CATEGORY TWO</div>
-                    <div class="card-title">Card Title Two</div>
-                    <div class="card-text">
-                        Insert your paragraph text here. This section will automatically wrap and space itself evenly alongside the other two columns.
-                    </div>
+                <div class="bg-stateBeige-light border-2 border-stone-800 p-5 rounded hover:shadow-md transition">
+                    <span class="text-[9px] font-sans font-bold tracking-widest text-stateRed uppercase block mb-1 editable" data-key="about-card-tag-2">Supreme Legislation</span>
+                    <h3 class="font-display text-md font-bold text-stone-900 border-b border-stone-300 pb-2 mb-3 editable" data-key="about-card-title-2">The Representative Assembly</h3>
+                    <p class="text-xs text-stone-700 leading-relaxed editable" data-key="about-card-body-2">The primary legislative framework, acting on behalf of regional representations to draft codes, ratify ministerial portfolios, and validate international community pacts. Sessions convene regularly in dedicated conference lobbies.</p>
                 </div>
                 <!-- Card 3 -->
-                <div class="info-card">
-                    <div class="card-meta">META CATEGORY THREE</div>
-                    <div class="card-title">Card Title Three</div>
-                    <div class="card-text">
-                        Insert your paragraph text here. This section will automatically wrap and space itself evenly alongside the other two columns.
+                <div class="bg-stateBeige-light border-2 border-stone-800 p-5 rounded hover:shadow-md transition">
+                    <span class="text-[9px] font-sans font-bold tracking-widest text-stateRed uppercase block mb-1 editable" data-key="about-card-tag-3">Administrative Desk</span>
+                    <h3 class="font-display text-md font-bold text-stone-900 border-b border-stone-300 pb-2 mb-3 editable" data-key="about-card-title-3">The Council of Ministers</h3>
+                    <p class="text-xs text-stone-700 leading-relaxed editable" data-key="about-card-body-3">The main active engine managing operations across logistics, culture, educational events, defense, and external media bulletins. Guided directly by executive instructions to ensure dynamic community execution.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- LEADERSHIP CHRONICLES SECTION -->
+        <span id="leadership" class="block relative -top-6"></span>
+        <section class="mt-12">
+            <h2 class="font-display text-xl tracking-widest text-stateRed border-b-2 border-stateRed pb-2 mb-6 flex items-center gap-2">
+                <i class="fas fa-history text-sm"></i>
+                <span class="editable" data-key="sec-title-chronicles">Supreme Leadership Chronicles</span>
+            </h2>
+            <div class="overflow-x-auto border-2 border-stone-800 rounded bg-stateBeige-light shadow-sm">
+                <table class="w-full text-left border-collapse text-xs">
+                    <thead>
+                        <tr class="bg-stone-950 text-white font-display tracking-wider border-b-2 border-stone-800">
+                            <th class="p-3 editable" data-key="th-chron-name">REPRESENTATIVE NAME</th>
+                            <th class="p-3 editable" data-key="th-chron-period">TERM OF RESPONSIBILITY</th>
+                            <th class="p-3 editable" data-key="th-chron-policies">NOTABLE DIRECTIVES & MILESTONES</th>
+                            <th class="p-3 editable" data-key="th-chron-era">HISTORICAL ERA / CLASSIFICATION</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-stone-300 text-stone-800 font-sans">
+                        <tr class="hover:bg-stone-200/50 transition">
+                            <td class="p-3 font-bold font-serif text-stone-950 editable" data-key="chron-n1">Admin_Founder</td>
+                            <td class="p-3 text-stone-600 editable" data-key="chron-t1">2022 – 2023</td>
+                            <td class="p-3 editable" data-key="chron-p1">Codified original state constitution; established initial 8 ministries; drafted charter laws.</td>
+                            <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-red-800 text-white editable" data-key="chron-e1">Foundational</span></td>
+                        </tr>
+                        <tr class="hover:bg-stone-200/50 transition">
+                            <td class="p-3 font-bold font-serif text-stone-950 editable" data-key="chron-n2">Comrade_Sovereign</td>
+                            <td class="p-3 text-stone-600 editable" data-key="chron-t2">2023 – 2024</td>
+                            <td class="p-3 editable" data-key="chron-p2">Expanded regional boundaries; organized state security councils; instituted standard civic ranks.</td>
+                            <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-800 text-white editable" data-key="chron-e2">Consolidation</span></td>
+                        </tr>
+                        <tr class="hover:bg-stone-200/50 transition">
+                            <td class="p-3 font-bold font-serif text-stone-950 editable" data-key="chron-n3">StateSecretary_Beta</td>
+                            <td class="p-3 text-stone-600 editable" data-key="chron-t3">2024 – 2025</td>
+                            <td class="p-3 editable" data-key="chron-p3">Restructured Central Committee; created the 15 autonomous republics directory systems.</td>
+                            <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-800 text-white editable" data-key="chron-e3">Institutional</span></td>
+                        </tr>
+                        <tr class="hover:bg-stone-200/50 transition">
+                            <td class="p-3 font-bold font-serif text-stone-950 editable" data-key="chron-n4">User_Representative</td>
+                            <td class="p-3 text-stone-600 editable" data-key="chron-t4">2025 – Present</td>
+                            <td class="p-3 editable" data-key="chron-p4">Digitized foreign bulletins; established active news channels; authorized comprehensive treaty reviews.</td>
+                            <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-800 text-white editable" data-key="chron-e4">Modern Era</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- CURRENT SENIOR EXECUTIVE LEADERS (EMBLEM BADGES) -->
+        <section class="mt-8 bg-stone-950 border-4 border-stateGold p-6 rounded shadow-lg text-white">
+            <h3 class="font-display text-sm tracking-widest text-stateGold text-center border-b border-stateGold/30 pb-3 mb-6 uppercase editable" data-key="current-senior-title">Current Senior Administrative Desk</h3>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Leader 1 -->
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-16 h-16 rounded-full bg-stateRed border-2 border-stateGold flex items-center justify-center text-xl font-display font-black text-stateGold shadow-md editable" data-key="lead-initial-1">TC</div>
+                    <h4 class="font-serif font-bold text-sm text-stone-100 mt-3 editable" data-key="lead-name-1">Comrade Admin A</h4>
+                    <p class="text-[10px] font-sans text-stone-400 tracking-wider uppercase mt-1 editable" data-key="lead-role-1">Executive General Secretary</p>
+                    <span class="mt-1.5 px-2 py-0.5 rounded bg-stateRed text-[8px] tracking-widest uppercase font-bold text-white editable" data-key="lead-lbl-1">PARTY CONTROL</span>
+                </div>
+                <!-- Leader 2 -->
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-16 h-16 rounded-full bg-stone-800 border-2 border-stateGold flex items-center justify-center text-xl font-display font-black text-stateGold shadow-md editable" data-key="lead-initial-2">IIC</div>
+                    <h4 class="font-serif font-bold text-sm text-stone-100 mt-3 editable" data-key="lead-name-2">Representative B</h4>
+                    <p class="text-[10px] font-sans text-stone-400 tracking-wider uppercase mt-1 editable" data-key="lead-role-2">Presidium Chairman</p>
+                    <span class="mt-1.5 px-2 py-0.5 rounded bg-amber-700 text-[8px] tracking-widest uppercase font-bold text-white editable" data-key="lead-lbl-2">LEGISLATION</span>
+                </div>
+                <!-- Leader 3 -->
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-16 h-16 rounded-full bg-stone-800 border-2 border-stateGold flex items-center justify-center text-xl font-display font-black text-stateGold shadow-md editable" data-key="lead-initial-3">CM</div>
+                    <h4 class="font-serif font-bold text-sm text-stone-100 mt-3 editable" data-key="lead-name-3">Minister Chancellor C</h4>
+                    <p class="text-[10px] font-sans text-stone-400 tracking-wider uppercase mt-1 editable" data-key="lead-role-3">Council Chairman</p>
+                    <span class="mt-1.5 px-2 py-0.5 rounded bg-stone-700 text-[8px] tracking-widest uppercase font-bold text-white editable" data-key="lead-lbl-3">ADMINISTRATION</span>
+                </div>
+                <!-- Leader 4 -->
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-16 h-16 rounded-full bg-stone-800 border-2 border-stateGold flex items-center justify-center text-xl font-display font-black text-stateGold shadow-md editable" data-key="lead-initial-4">CJ</div>
+                    <h4 class="font-serif font-bold text-sm text-stone-100 mt-3 editable" data-key="lead-name-4">Judge Advocate D</h4>
+                    <p class="text-[10px] font-sans text-stone-400 tracking-wider uppercase mt-1 editable" data-key="lead-role-4">Supreme Arbiter</p>
+                    <span class="mt-1.5 px-2 py-0.5 rounded bg-blue-800 text-[8px] tracking-widest uppercase font-bold text-white editable" data-key="lead-lbl-4">JUDICIAL CONFLICTS</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- COUNCIL OF MINISTRIES TABBED SECTION -->
+        <span id="ministries" class="block relative -top-6"></span>
+        <section class="mt-12">
+            <h2 class="font-display text-xl tracking-widest text-stateRed border-b-2 border-stateRed pb-2 mb-6 flex items-center gap-2">
+                <i class="fas fa-hotel text-sm"></i>
+                <span class="editable" data-key="sec-title-ministries">Council of Ministries — Portfolios</span>
+            </h2>
+
+            <!-- Dynamic Tab Selectors -->
+            <div class="flex border-2 border-stone-800 rounded overflow-hidden divide-x divide-stone-800 font-display text-xs font-bold tracking-wider mb-4 bg-stone-900 text-stone-400 select-none">
+                <button onclick="switchMinistryTab('econ')" id="btn-tab-econ" class="flex-1 py-3 bg-stateRed text-white hover:bg-stateRed hover:text-white transition focus:outline-none">
+                    ECONOMY & DEVELOPMENT
+                </button>
+                <button onclick="switchMinistryTab('civic')" id="btn-tab-civic" class="flex-1 py-3 hover:bg-stone-800 transition focus:outline-none">
+                    CIVIC & DEVELOPMENT
+                </button>
+                <button onclick="switchMinistryTab('defence')" id="btn-tab-defence" class="flex-1 py-3 hover:bg-stone-800 transition focus:outline-none">
+                    DEFENSE & EXTERNAL CODES
+                </button>
+            </div>
+
+            <!-- TAB CONTENT 1: ECONOMY -->
+            <div id="tab-econ" class="tab-content overflow-x-auto border-2 border-stone-800 rounded bg-stateBeige-light shadow-sm">
+                <table class="w-full text-left border-collapse text-xs">
+                    <thead>
+                        <tr class="bg-stone-900 text-stone-200 border-b border-stone-800">
+                            <th class="p-3 w-1/4 editable" data-key="tab-e-th1">COMMUNITY SECTOR</th>
+                            <th class="p-3 w-2/5 editable" data-key="tab-e-th2">PRIMARY TASKS</th>
+                            <th class="p-3 w-1/4 editable" data-key="tab-e-th3">SUBORDINATE BOARDS</th>
+                            <th class="p-3 w-1/12 editable" data-key="tab-e-th4">STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-stone-300 text-stone-800 font-sans">
+                        <tr class="hover:bg-stone-200/50 transition">
+                            <td class="p-3 font-serif font-bold text-stone-950 editable" data-key="min-e-n1">Ministry of Finance</td>
+                            <td class="p-3 editable" data-key="min-e-t1">Managing user-experience metrics, checking bot economies, regulating server rewards and level currencies.</td>
+                            <td class="p-3 editable" data-key="min-e-s1">State Bank, Exchange Logs, Treasury Committee</td>
+                            <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-800 font-bold border border-emerald-300 editable" data-key="min-e-st1">Active</span></td>
+                        </tr>
+                        <tr class="hover:bg-stone-200/50 transition">
+                            <td class="p-3 font-serif font-bold text-stone-950 editable" data-key="min-e-n2">Ministry of Planning</td>
+                            <td class="p-3 editable" data-key="min-e-t2">Designing seasonal roadmaps, executing target goals, monitoring division activity logs.</td>
+                            <td class="p-3 editable" data-key="min-e-s2">Plenum Council, Regional Development, Targets desk</td>
+                            <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-800 font-bold border border-emerald-300 editable" data-key="min-e-st2">Active</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- TAB CONTENT 2: CIVIC -->
+            <div id="tab-civic" class="tab-content hidden overflow-x-auto border-2 border-stone-800 rounded bg-stateBeige-light shadow-sm">
+                <table class="w-full text-left border-collapse text-xs">
+                    <thead>
+                        <tr class="bg-stone-900 text-stone-200 border-b border-stone-800">
+                            <th class="p-3 w-1/4 editable" data-key="tab-c-th1">CIVIC PORTFOLIO</th>
+                            <th class="p-3 w-2/5 editable" data-key="tab-c-th2">PRIMARY TASKS</th>
+                            <th class="p-3 w-1/4 editable" data-key="tab-c-th3">REPRESENTATIVE BODIES</th>
+                            <th class="p-3 w-1/12 editable" data-key="tab-c-th4">STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-stone-300 text-stone-800 font-sans">
+                        <tr class="hover:bg-stone-200/50 transition">
+                            <td class="p-3 font-serif font-bold text-stone-950 editable" data-key="min-c-n1">Ministry of Culture</td>
+                            <td class="p-3 editable" data-key="min-c-t1">Organizing server events, managing debate channels, community games, and historical trivia updates.</td>
+                            <td class="p-3 editable" data-key="min-c-s1">Radio Center, Event Planning, Debate Desk</td>
+                            <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-800 font-bold border border-emerald-300 editable" data-key="min-c-st1">Active</span></td>
+                        </tr>
+                        <tr class="hover:bg-stone-200/50 transition">
+                            <td class="p-3 font-serif font-bold text-stone-950 editable" data-key="min-c-n2">Ministry of Education</td>
+                            <td class="p-3 editable" data-key="min-c-t2">Onboarding new users, maintaining state wiki, publishing guides, updating policy definitions.</td>
+                            <td class="p-3 editable" data-key="min-c-s2">State Academy, Archives Board, Onboarding Team</td>
+                            <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-800 font-bold border border-emerald-300 editable" data-key="min-c-st2">Active</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- TAB CONTENT 3: DEFENSE -->
+            <div id="tab-defence" class="tab-content hidden overflow-x-auto border-2 border-stone-800 rounded bg-stateBeige-light shadow-sm">
+                <table class="w-full text-left border-collapse text-xs">
+                    <thead>
+                        <tr class="bg-stone-900 text-stone-200 border-b border-stone-800">
+                            <th class="p-3 w-1/4 editable" data-key="tab-d-th1">SECURITY DEPARTMENT</th>
+                            <th class="p-3 w-2/5 editable" data-key="tab-d-th2">PRIMARY TASKS</th>
+                            <th class="p-3 w-1/4 editable" data-key="tab-d-th3">OPERATIVE TEAMS</th>
+                            <th class="p-3 w-1/12 editable" data-key="tab-d-th4">STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-stone-300 text-stone-800 font-sans">
+                        <tr class="hover:bg-stone-200/50 transition">
+                            <td class="p-3 font-serif font-bold text-stone-950 editable" data-key="min-d-n1">Internal Security (MVD)</td>
+                            <td class="p-3 editable" data-key="min-d-t1">Server moderation, checking spam bots, preventing raid events, reviewing automated bot actions.</td>
+                            <td class="p-3 editable" data-key="min-d-s1">Moderator Guard, Verification Desk, Log Review</td>
+                            <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-800 font-bold border border-emerald-300 editable" data-key="min-d-st1">Active</span></td>
+                        </tr>
+                        <tr class="hover:bg-stone-200/50 transition">
+                            <td class="p-3 font-serif font-bold text-stone-950 editable" data-key="min-d-n2">State Security Council</td>
+                            <td class="p-3 editable" data-key="min-d-t2">Analyzing server growth, monitoring diplomatic ties with other mock-govs, updating state-level treaties.</td>
+                            <td class="p-3 editable" data-key="min-d-s2">State Intelligence, Alliance Board, Treaties Office</td>
+                            <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] bg-amber-100 text-amber-800 font-bold border border-amber-300 editable" data-key="min-d-st2">Pending</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- CENTRAL COMMITTEE OF THE PARTY (2-COLUMN GRID) -->
+        <span id="central-committee" class="block relative -top-6"></span>
+        <section class="mt-12">
+            <h2 class="font-display text-xl tracking-widest text-stateRed border-b-2 border-stateRed pb-2 mb-6 flex items-center gap-2">
+                <i class="fas fa-users-cog text-sm"></i>
+                <span class="editable" data-key="sec-title-cc">Central Committee of the Party</span>
+            </h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Left: Full Politburo Members Table -->
+                <div class="lg:col-span-2 overflow-x-auto border-2 border-stone-800 rounded bg-stateBeige-light shadow-sm">
+                    <div class="bg-stone-900 text-stateGold p-3 font-display text-xs tracking-wider border-b border-stone-800 uppercase editable" data-key="pb-title">Politburo Full Members</div>
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="bg-stone-950 text-white font-display tracking-wider border-b border-stone-800">
+                                <th class="p-3 editable" data-key="th-pb-name">NAME</th>
+                                <th class="p-3 editable" data-key="th-pb-position">REPRESENTATIVE RESPONSIBILITY</th>
+                                <th class="p-3 editable" data-key="th-pb-status">REPRESENTATION TYPE</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-stone-300 text-stone-800 font-sans">
+                            <tr class="hover:bg-stone-200/50 transition">
+                                <td class="p-3 font-bold font-serif text-stone-950 editable" data-key="pb-n1">User_One</td>
+                                <td class="p-3 editable" data-key="pb-r1">Managing Supreme Court Decisions & Arbitration Rules</td>
+                                <td class="p-3 text-stone-600 editable" data-key="pb-s1">State Judiciary Board</td>
+                            </tr>
+                            <tr class="hover:bg-stone-200/50 transition">
+                                <td class="p-3 font-bold font-serif text-stone-950 editable" data-key="pb-n2">User_Two</td>
+                                <td class="p-3 editable" data-key="pb-r2">Coordination of External Alliances & Public Relations</td>
+                                <td class="p-3 text-stone-600 editable" data-key="pb-s2">State Diplomacy Council</td>
+                            </tr>
+                            <tr class="hover:bg-stone-200/50 transition">
+                                <td class="p-3 font-bold font-serif text-stone-950 editable" data-key="pb-n3">User_Three</td>
+                                <td class="p-3 editable" data-key="pb-r3">Server Leveling Bots and Economy Oversight</td>
+                                <td class="p-3 text-stone-600 editable" data-key="pb-s3">Treasury desk</td>
+                            </tr>
+                            <tr class="hover:bg-stone-200/50 transition">
+                                <td class="p-3 font-bold font-serif text-stone-950 editable" data-key="pb-n4">User_Four</td>
+                                <td class="p-3 editable" data-key="pb-r4">State Verification, Spam Block, and Moderator Codes</td>
+                                <td class="p-3 text-stone-600 editable" data-key="pb-s4">Moderator Guard Desk</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Right: CC Departments & Party Congresses List -->
+                <div class="flex flex-col gap-6">
+                    <div class="bg-stateBeige-light border-2 border-stone-800 p-4 rounded shadow-sm">
+                        <h4 class="font-display text-xs font-bold text-stateRed border-b border-stone-300 pb-2 mb-3 uppercase editable" data-key="dept-list-title">Central Departments</h4>
+                        <ul class="space-y-2 text-xs font-sans text-stone-800 divide-y divide-stone-200">
+                            <li class="pt-1.5 flex justify-between items-center"><span class="editable" data-key="dept-1">Department of State Administration</span> <i class="fas fa-check text-emerald-600"></i></li>
+                            <li class="pt-1.5 flex justify-between items-center"><span class="editable" data-key="dept-2">Department of External Treaties</span> <i class="fas fa-check text-emerald-600"></i></li>
+                            <li class="pt-1.5 flex justify-between items-center"><span class="editable" data-key="dept-3">Department of Internal Civic Affairs</span> <i class="fas fa-check text-emerald-600"></i></li>
+                            <li class="pt-1.5 flex justify-between items-center"><span class="editable" data-key="dept-4">Department of Public Media Bulletins</span> <i class="fas fa-check text-emerald-600"></i></li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-stateBeige-light border-2 border-stone-800 p-4 rounded shadow-sm">
+                        <h4 class="font-display text-xs font-bold text-stone-900 border-b border-stone-300 pb-2 mb-3 uppercase editable" data-key="cong-list-title">Server Congress History</h4>
+                        <div class="space-y-2 text-xs font-sans text-stone-700 max-h-[140px] overflow-y-auto pr-1">
+                            <div class="border-l-2 border-stateRed pl-2 py-0.5">
+                                <p class="font-bold text-stone-900 editable" data-key="cong-t1">1st Server Congress — 2022</p>
+                                <p class="text-[10px] text-stone-500 editable" data-key="cong-d1">Original foundation, drafting server roles framework.</p>
+                            </div>
+                            <div class="border-l-2 border-stateRed pl-2 py-0.5">
+                                <p class="font-bold text-stone-900 editable" data-key="cong-t2">2nd Server Congress — 2024</p>
+                                <p class="text-[10px] text-stone-500 editable" data-key="cong-d2">Restructured regional administration and verification bots.</p>
+                            </div>
+                            <div class="border-l-2 border-stateRed pl-2 py-0.5">
+                                <p class="font-bold text-stone-900 editable" data-key="cong-t3">3rd Server Congress — 2026</p>
+                                <p class="text-[10px] text-stone-500 editable" data-key="cong-d3">Drafted state news guidelines, modernized portal design.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- THE 15 REPUBLICS SECTORS (GRID DISPLAY) -->
+        <span id="republics" class="block relative -top-6"></span>
+        <section class="mt-12">
+            <h2 class="font-display text-xl tracking-widest text-stateRed border-b-2 border-stateRed pb-2 mb-6 flex items-center gap-2">
+                <i class="fas fa-globe-europe text-sm"></i>
+                <span class="editable" data-key="sec-title-republics">The 15 Associated State Districts</span>
+            </h2>
+            <p class="text-xs italic text-stone-600 mb-4 editable" data-key="republics-desc">Each Associated District maintains its own regional lobby system, local events, and designated administrators under the main server directory.</p>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                <!-- 01 -->
+                <div class="bg-stateBeige-light border-2 border-stone-800 p-3 rounded text-center relative group overflow-hidden">
+                    <span class="absolute top-1 left-2 text-[10px] font-mono text-stone-400">01</span>
+                    <h4 class="font-display text-xs font-bold text-stateRed mt-2 editable" data-key="rep-n1">District Alpha</h4>
+                    <p class="text-[9px] font-sans text-stone-500 mt-1 editable" data-key="rep-s1">Regional Hub</p>
+                </div>
+                <!-- 02 -->
+                <div class="bg-stateBeige-light border-2 border-stone-800 p-3 rounded text-center relative group">
+                    <span class="absolute top-1 left-2 text-[10px] font-mono text-stone-400">02</span>
+                    <h4 class="font-display text-xs font-bold text-stone-900 mt-2 editable" data-key="rep-n2">District Beta</h4>
+                    <p class="text-[9px] font-sans text-stone-500 mt-1 editable" data-key="rep-s2">Regional Hub</p>
+                </div>
+                <!-- 03 -->
+                <div class="bg-stateBeige-light border-2 border-stone-800 p-3 rounded text-center relative group">
+                    <span class="absolute top-1 left-2 text-[10px] font-mono text-stone-400">03</span>
+                    <h4 class="font-display text-xs font-bold text-stone-900 mt-2 editable" data-key="rep-n3">District Gamma</h4>
+                    <p class="text-[9px] font-sans text-stone-500 mt-1 editable" data-key="rep-s3">Regional Hub</p>
+                </div>
+                <!-- 04 -->
+                <div class="bg-stateBeige-light border-2 border-stone-800 p-3 rounded text-center relative group">
+                    <span class="absolute top-1 left-2 text-[10px] font-mono text-stone-400">04</span>
+                    <h4 class="font-display text-xs font-bold text-stone-900 mt-2 editable" data-key="rep-n4">District Delta</h4>
+                    <p class="text-[9px] font-sans text-stone-500 mt-1 editable" data-key="rep-s4">Regional Hub</p>
+                </div>
+                <!-- 05 -->
+                <div class="bg-stateBeige-light border-2 border-stone-800 p-3 rounded text-center relative group">
+                    <span class="absolute top-1 left-2 text-[10px] font-mono text-stone-400">05</span>
+                    <h4 class="font-display text-xs font-bold text-stone-900 mt-2 editable" data-key="rep-n5">District Epsilon</h4>
+                    <p class="text-[9px] font-sans text-stone-500 mt-1 editable" data-key="rep-s5">Regional Hub</p>
+                </div>
+                <!-- 06 -->
+                <div class="bg-stateBeige-light border-2 border-stone-800 p-3 rounded text-center relative group">
+                    <span class="absolute top-1 left-2 text-[10px] font-mono text-stone-400">06</span>
+                    <h4 class="font-display text-xs font-bold text-stone-900 mt-2 editable" data-key="rep-n6">District Zeta</h4>
+                    <p class="text-[9px] font-sans text-stone-500 mt-1 editable" data-key="rep-s6">Regional Hub</p>
+                </div>
+                <!-- 07 -->
+                <div class="bg-stateBeige-light border-2 border-stone-800 p-3 rounded text-center relative group">
+                    <span class="absolute top-1 left-2 text-[10px] font-mono text-stone-400">07</span>
+                    <h4 class="font-display text-xs font-bold text-stone-900 mt-2 editable" data-key="rep-n7">District Eta</h4>
+                    <p class="text-[9px] font-sans text-stone-500 mt-1 editable" data-key="rep-s7">Regional Hub</p>
+                </div>
+                <!-- 08 -->
+                <div class="bg-stateBeige-light border-2 border-stone-800 p-3 rounded text-center relative group">
+                    <span class="absolute top-1 left-2 text-[10px] font-mono text-stone-400">08</span>
+                    <h4 class="font-display text-xs font-bold text-stone-900 mt-2 editable" data-key="rep-n8">District Theta</h4>
+                    <p class="text-[9px] font-sans text-stone-500 mt-1 editable" data-key="rep-s8">Regional Hub</p>
+                </div>
+                <!-- 09 -->
+                <div class="bg-stateBeige-light border-2 border-stone-800 p-3 rounded text-center relative group">
+                    <span class="absolute top-1 left-2 text-[10px] font-mono text-stone-400">09</span>
+                    <h4 class="font-display text-xs font-bold text-stone-900 mt-2 editable" data-key="rep-n9">District Iota</h4>
+                    <p class="text-[9px] font-sans text-stone-500 mt-1 editable" data-key="rep-s9">Regional Hub</p>
+                </div>
+                <!-- 10 -->
+                <div class="bg-stateBeige-light border-2 border-stone-800 p-3 rounded text-center relative group">
+                    <span class="absolute top-1 left-2 text-[10px] font-mono text-stone-400">10</span>
+                    <h4 class="font-display text-xs font-bold text-stone-900 mt-2 editable" data-key="rep-n10">District Kappa</h4>
+                    <p class="text-[9px] font-sans text-stone-500 mt-1 editable" data-key="rep-s10">Regional Hub</p>
+                </div>
+                <!-- 11 -->
+                <div class="bg-stateBeige-light border-2 border-stone-800 p-3 rounded text-center relative group">
+                    <span class="absolute top-1 left-2 text-[10px] font-mono text-stone-400">11</span>
+                    <h4 class="font-display text-xs font-bold text-stone-900 mt-2 editable" data-key="rep-n11">District Lambda</h4>
+                    <p class="text-[9px] font-sans text-stone-500 mt-1 editable" data-key="rep-s11">Regional Hub</p>
+                </div>
+                <!-- 12 -->
+                <div class="bg-stateBeige-light border-2 border-stone-800 p-3 rounded text-center relative group">
+                    <span class="absolute top-1 left-2 text-[10px] font-mono text-stone-400">12</span>
+                    <h4 class="font-display text-xs font-bold text-stone-900 mt-2 editable" data-key="rep-n12">District Mu</h4>
+                    <p class="text-[9px] font-sans text-stone-500 mt-1 editable" data-key="rep-s12">Regional Hub</p>
+                </div>
+                <!-- 13 -->
+                <div class="bg-stateBeige-light border-2 border-stone-800 p-3 rounded text-center relative group">
+                    <span class="absolute top-1 left-2 text-[10px] font-mono text-stone-400">13</span>
+                    <h4 class="font-display text-xs font-bold text-stone-900 mt-2 editable" data-key="rep-n13">District Nu</h4>
+                    <p class="text-[9px] font-sans text-stone-500 mt-1 editable" data-key="rep-s13">Regional Hub</p>
+                </div>
+                <!-- 14 -->
+                <div class="bg-stateBeige-light border-2 border-stone-800 p-3 rounded text-center relative group">
+                    <span class="absolute top-1 left-2 text-[10px] font-mono text-stone-400">14</span>
+                    <h4 class="font-display text-xs font-bold text-stone-900 mt-2 editable" data-key="rep-n14">District Xi</h4>
+                    <p class="text-[9px] font-sans text-stone-500 mt-1 editable" data-key="rep-s14">Regional Hub</p>
+                </div>
+                <!-- 15 -->
+                <div class="bg-stateBeige-light border-2 border-stone-800 p-3 rounded text-center relative group">
+                    <span class="absolute top-1 left-2 text-[10px] font-mono text-stone-400">15</span>
+                    <h4 class="font-display text-xs font-bold text-stone-900 mt-2 editable" data-key="rep-n15">District Omicron</h4>
+                    <p class="text-[9px] font-sans text-stone-500 mt-1 editable" data-key="rep-s15">Regional Hub</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUPREME SOVIET / LEGISLATURE DETAILS -->
+        <span id="legislative" class="block relative -top-6"></span>
+        <section class="mt-12">
+            <h2 class="font-display text-xl tracking-widest text-stateRed border-b-2 border-stateRed pb-2 mb-6 flex items-center gap-2">
+                <i class="fas fa-landmark text-sm"></i>
+                <span class="editable" data-key="sec-title-legislative">The Central Representative Council</span>
+            </h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Left: Presidium Leadership Table -->
+                <div class="lg:col-span-2 overflow-x-auto border-2 border-stone-800 rounded bg-stateBeige-light shadow-sm">
+                    <div class="bg-stone-900 text-stateGold p-3 font-display text-xs tracking-wider border-b border-stone-800 uppercase editable" data-key="pres-table-title">Assembly Council Leadership</div>
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="bg-stone-950 text-white font-display tracking-wider border-b border-stone-800">
+                                <th class="p-3 editable" data-key="pres-th-status">OFFICIAL STATUS</th>
+                                <th class="p-3 editable" data-key="pres-th-role">ROLE RESPONSIBILITY</th>
+                                <th class="p-3 editable" data-key="pres-th-alignment">CIVIC ALIGNMENT</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-stone-300 text-stone-800 font-sans">
+                            <tr class="hover:bg-stone-200/50 transition">
+                                <td class="p-3 text-red-700 font-bold editable" data-key="pres-status-1">Representative Elite</td>
+                                <td class="p-3 font-bold font-serif text-stone-950 editable" data-key="pres-role-1">Chairman of the Council</td>
+                                <td class="p-3 editable" data-key="pres-align-1">Active Staff Alliance</td>
+                            </tr>
+                            <tr class="hover:bg-stone-200/50 transition">
+                                <td class="p-3 text-amber-700 font-bold editable" data-key="pres-status-2">Representative Delegate</td>
+                                <td class="p-3 font-bold font-serif text-stone-950 editable" data-key="pres-role-2">First Deputy Chairman</td>
+                                <td class="p-3 editable" data-key="pres-align-2">General State Coalition</td>
+                            </tr>
+                            <tr class="hover:bg-stone-200/50 transition">
+                                <td class="p-3 text-amber-700 font-bold editable" data-key="pres-status-3">Representative Delegate</td>
+                                <td class="p-3 font-bold font-serif text-stone-950 editable" data-key="pres-role-3">Committee Deputy Office</td>
+                                <td class="p-3 editable" data-key="pres-align-3">General State Coalition</td>
+                            </tr>
+                            <tr class="hover:bg-stone-200/50 transition">
+                                <td class="p-3 text-stone-500 font-bold editable" data-key="pres-status-4">General Representative</td>
+                                <td class="p-3 font-bold font-serif text-stone-950 editable" data-key="pres-role-4">General Floor Secretary</td>
+                                <td class="p-3 editable" data-key="pres-align-4">Independent Representatives</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Right: Powers & Factions Lists -->
+                <div class="flex flex-col gap-6">
+                    <div class="bg-stateBeige-light border-2 border-stone-800 p-4 rounded shadow-sm">
+                        <h4 class="font-display text-xs font-bold text-stateRed border-b border-stone-300 pb-2 mb-3 uppercase editable" data-key="powers-list-title">Assigned Assembly Powers</h4>
+                        <ul class="space-y-1.5 text-xs font-sans text-stone-700 list-disc pl-4">
+                            <li class="editable" data-key="power-1">Proposing and voting on new server rules.</li>
+                            <li class="editable" data-key="power-2">Ratifying state cabinet ministries.</li>
+                            <li class="editable" data-key="power-3">Approving diplomatic treaties.</li>
+                            <li class="editable" data-key="power-4">Investigating channel conflicts.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-stateBeige-light border-2 border-stone-800 p-4 rounded shadow-sm">
+                        <h4 class="font-display text-xs font-bold text-stone-900 border-b border-stone-300 pb-2 mb-3 uppercase editable" data-key="parties-list-title">Registered Civic Coalitions</h4>
+                        <ul class="space-y-1.5 text-xs font-sans text-stone-700 list-decimal pl-4">
+                            <li class="editable" data-key="party-1">Sovereign State Alliance (Staff)</li>
+                            <li class="editable" data-key="party-2">Constitutional Reform Group</li>
+                            <li class="editable" data-key="party-3">Independent Civic Forum</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MILITARY & STATE SECURITY SECTIONS -->
+        <span id="military" class="block relative -top-6"></span>
+        <section class="mt-12">
+            <h2 class="font-display text-xl tracking-widest text-stateRed border-b-2 border-stateRed pb-2 mb-6 flex items-center gap-2">
+                <i class="fas fa-shield-halved text-sm"></i>
+                <span class="editable" data-key="sec-title-military">State Security & Community Defense</span>
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Sector 1 -->
+                <div class="bg-stone-950 text-white p-5 rounded border-2 border-stateGold relative overflow-hidden flex flex-col justify-between">
+                    <div class="absolute inset-0 bg-gradient-to-b from-stone-900 to-stone-950 pointer-events-none"></div>
+                    <div class="z-10">
+                        <span class="text-[9px] font-mono tracking-widest text-stateGold uppercase editable" data-key="sec-mil-tag-1">GROUND PROTECTION UNIT</span>
+                        <h3 class="font-display text-sm font-bold mt-1 text-white border-b border-stone-800 pb-2 mb-3 editable" data-key="sec-mil-title-1">Administrative Guard Forces</h3>
+                        <p class="text-xs text-stone-300 leading-relaxed editable" data-key="sec-mil-body-1">The main active moderation team tasked with enforcing server rules, managing general channel security, monitoring chat safety, and executing ban/kick directives when authorized by state codes.</p>
+                    </div>
+                </div>
+                <!-- Sector 2 -->
+                <div class="bg-stone-950 text-white p-5 rounded border-2 border-stateGold relative overflow-hidden flex flex-col justify-between">
+                    <div class="absolute inset-0 bg-gradient-to-b from-stone-900 to-stone-950 pointer-events-none"></div>
+                    <div class="z-10">
+                        <span class="text-[9px] font-mono tracking-widest text-stateGold uppercase editable" data-key="sec-mil-tag-2">INTERNAL OPERATIONS UNIT</span>
+                        <h3 class="font-display text-sm font-bold mt-1 text-white border-b border-stone-800 pb-2 mb-3 editable" data-key="sec-mil-title-2">Internal Affairs Bureau (MVD)</h3>
+                        <p class="text-xs text-stone-300 leading-relaxed editable" data-key="sec-mil-body-2">Responsible for administrative auditing, review of moderator behavior, investigation of internal community conflicts, spam check management, and processing of member appeals.</p>
+                    </div>
+                </div>
+                <!-- Sector 3 -->
+                <div class="bg-stone-950 text-white p-5 rounded border-2 border-stateGold relative overflow-hidden flex flex-col justify-between">
+                    <div class="absolute inset-0 bg-gradient-to-b from-stone-900 to-stone-950 pointer-events-none"></div>
+                    <div class="z-10">
+                        <span class="text-[9px] font-mono tracking-widest text-stateGold uppercase editable" data-key="sec-mil-tag-3">HIGH INTELLIGENCE BOARD</span>
+                        <h3 class="font-display text-sm font-bold mt-1 text-white border-b border-stone-800 pb-2 mb-3 editable" data-key="sec-mil-title-3">State Security Council (KGB)</h3>
+                        <p class="text-xs text-stone-300 leading-relaxed editable" data-key="sec-mil-body-3">A specialized committee dedicated to external diplomatic analysis, managing alliances with other mock-governments, reporting external raids, and preserving security protocol frameworks.</p>
                     </div>
                 </div>
             </div>
 
-        </main>
+            <!-- Military Leaders Table -->
+            <div class="overflow-x-auto border-2 border-stone-800 rounded bg-stateBeige-light shadow-sm mt-6">
+                <div class="bg-stone-900 text-white p-3 font-display text-xs tracking-wider border-b border-stone-800 uppercase editable" data-key="mil-table-title">Senior Security Leadership Command</div>
+                <table class="w-full text-left border-collapse text-xs">
+                    <thead>
+                        <tr class="bg-stone-950 text-white font-display tracking-wider border-b border-stone-800">
+                            <th class="p-3 editable" data-key="mil-th-name">REPRESENTATIVE NAME</th>
+                            <th class="p-3 editable" data-key="mil-th-rank">ASSIGNED COMMISSION</th>
+                            <th class="p-3 editable" data-key="mil-th-role">OPERATIVE JURISDICTION</th>
+                            <th class="p-3 editable" data-key="mil-th-branch">DEFENSE DIVISION</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-stone-300 text-stone-800 font-sans">
+                        <tr class="hover:bg-stone-200/50 transition">
+                            <td class="p-3 font-bold font-serif text-stone-950 editable" data-key="mil-n1">Comrade_Furious</td>
+                            <td class="p-3 text-stone-600 editable" data-key="mil-r1">Marshal of Security</td>
+                            <td class="p-3 editable" data-key="mil-p1">Commander of Ground Guard Staff</td>
+                            <td class="p-3 text-red-800 font-bold editable" data-key="mil-b1">Administrative Guard</td>
+                        </tr>
+                        <tr class="hover:bg-stone-200/50 transition">
+                            <td class="p-3 font-bold font-serif text-stone-950 editable" data-key="mil-n2">Commander_Storm</td>
+                            <td class="p-3 text-stone-600 editable" data-key="mil-r2">Director of Auditing</td>
+                            <td class="p-3 editable" data-key="mil-p2">Director of Internal Affairs Log</td>
+                            <td class="p-3 text-amber-800 font-bold editable" data-key="mil-b2">Internal Affairs (MVD)</td>
+                        </tr>
+                        <tr class="hover:bg-stone-200/50 transition">
+                            <td class="p-3 font-bold font-serif text-stone-950 editable" data-key="mil-n3">Agent_Vanguard</td>
+                            <td class="p-3 text-stone-600 editable" data-key="mil-r3">Chief of Intelligence</td>
+                            <td class="p-3 editable" data-key="mil-p3">Chairman of Diplomatic Intelligence</td>
+                            <td class="p-3 text-blue-800 font-bold editable" data-key="mil-b3">Diplomatic Council (KGB)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- DEPARTMENTS INDEX GRID SECTION -->
+        <span id="departments" class="block relative -top-6"></span>
+        <section class="mt-12">
+            <h2 class="font-display text-xl tracking-widest text-stateRed border-b-2 border-stateRed pb-2 mb-6 flex items-center gap-2">
+                <i class="fas fa-sitemap text-sm"></i>
+                <span class="editable" data-key="sec-title-depts">State Committees & Associated Departments</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-stateBeige-light border-2 border-stone-800 p-4 rounded shadow-sm">
+                    <span class="text-[9px] font-sans font-bold text-stateRed tracking-widest uppercase editable" data-key="dept-lbl-f1">FINANCE & LEVEL METRICS</span>
+                    <h3 class="font-display text-sm font-bold mt-1 text-stone-900 border-b border-stone-300 pb-2 mb-3 editable" data-key="dept-t-f1">Committee of Finance</h3>
+                    <p class="text-xs text-stone-700 editable" data-key="dept-b-f1">Manages exchange channels, checks bot economy commands, and oversees state wealth transactions.</p>
+                </div>
+                <div class="bg-stateBeige-light border-2 border-stone-800 p-4 rounded shadow-sm">
+                    <span class="text-[9px] font-sans font-bold text-stone-500 tracking-widest uppercase editable" data-key="dept-lbl-f2">EXTERNAL ENVOY SYSTEMS</span>
+                    <h3 class="font-display text-sm font-bold mt-1 text-stone-900 border-b border-stone-300 pb-2 mb-3 editable" data-key="dept-t-f2">Committee of Foreign Alliances</h3>
+                    <p class="text-xs text-stone-700 editable" data-key="dept-b-f2">Directs communication with neighboring Discord mock-governments and handles alliance treaties.</p>
+                </div>
+                <div class="bg-stateBeige-light border-2 border-stone-800 p-4 rounded shadow-sm">
+                    <span class="text-[9px] font-sans font-bold text-stone-500 tracking-widest uppercase editable" data-key="dept-lbl-f3">CIVIC AUDIT DIVISION</span>
+                    <h3 class="font-display text-sm font-bold mt-1 text-stone-900 border-b border-stone-300 pb-2 mb-3 editable" data-key="dept-t-f3">Committee of Civic Audit</h3>
+                    <p class="text-xs text-stone-700 editable" data-key="dept-b-f3">Maintains official user verification logs, audits staff roles, and updates democratic registries.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ELECTED CABINET MEMBERS -->
+        <span id="elected" class="block relative -top-6"></span>
+        <section class="mt-12">
+            <h2 class="font-display text-xl tracking-widest text-stateRed border-b-2 border-stateRed pb-2 mb-6 flex items-center gap-2">
+                <i class="fas fa-vote-yea text-sm"></i>
+                <span class="editable" data-key="sec-title-elected">Elected Administration of the Sovereign Portal</span>
+            </h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Left: Cabinet Table -->
+                <div class="lg:col-span-2 overflow-x-auto border-2 border-stone-800 rounded bg-stateBeige-light shadow-sm">
+                    <div class="bg-stone-900 text-stateGold p-3 font-display text-xs tracking-wider border-b border-stone-800 uppercase editable" data-key="elect-table-title">Elected Council Executive Members</div>
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="bg-stone-950 text-white font-display tracking-wider border-b border-stone-800">
+                                <th class="p-3 editable" data-key="elect-th-name">REPRESENTATIVE NAME</th>
+                                <th class="p-3 editable" data-key="elect-th-portfolio">ASSIGNED PORTFOLIO</th>
+                                <th class="p-3 editable" data-key="elect-th-status">ADMINISTRATIVE STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-stone-300 text-stone-800 font-sans">
+                            <tr class="hover:bg-stone-200/50 transition">
+                                <td class="p-3 font-bold font-serif text-stone-950 editable" data-key="elect-n1">Active_Elected_Premier</td>
+                                <td class="p-3 font-bold editable" data-key="elect-p1">Interim Head of Elected Council</td>
+                                <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-800 font-bold border border-emerald-300 editable" data-key="elect-s1">Active</span></td>
+                            </tr>
+                            <tr class="hover:bg-stone-200/50 transition">
+                                <td class="p-3 font-serif text-stone-500 editable" data-key="elect-n2">Vacant_Spot</td>
+                                <td class="p-3 editable" data-key="elect-p2">Elected Minister of Finance Portfolio</td>
+                                <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] bg-stone-100 text-stone-500 border border-stone-300 editable" data-key="elect-s2">Vacant</span></td>
+                            </tr>
+                            <tr class="hover:bg-stone-200/50 transition">
+                                <td class="p-3 font-serif text-stone-500 editable" data-key="elect-n3">Vacant_Spot</td>
+                                <td class="p-3 editable" data-key="elect-p3">Elected Minister of Defense Portfolio</td>
+                                <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] bg-stone-100 text-stone-500 border border-stone-300 editable" data-key="elect-s3">Vacant</span></td>
+                            </tr>
+                            <tr class="hover:bg-stone-200/50 transition">
+                                <td class="p-3 font-serif text-stone-500 editable" data-key="elect-n4">Vacant_Spot</td>
+                                <td class="p-3 editable" data-key="elect-p4">Elected Minister of Diplomacy Bureau</td>
+                                <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] bg-stone-100 text-stone-500 border border-stone-300 editable" data-key="elect-s4">Vacant</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Right: Assembly Goals & Structure Lists -->
+                <div class="flex flex-col gap-6">
+                    <div class="bg-stateBeige-light border-2 border-stone-800 p-4 rounded shadow-sm">
+                        <h4 class="font-display text-xs font-bold text-stateRed border-b border-stone-300 pb-2 mb-3 uppercase editable" data-key="gov-resp-title">Administrative Targets</h4>
+                        <ul class="space-y-1.5 text-xs font-sans text-stone-700 list-disc pl-4">
+                            <li class="editable" data-key="gov-resp-1">Execution of assembly state legislation.</li>
+                            <li class="editable" data-key="gov-resp-2">Oversight of server active level indexes.</li>
+                            <li class="editable" data-key="gov-resp-3">General coordination of active ministries.</li>
+                            <li class="editable" data-key="gov-resp-4">Managing citizen petition boards.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-stateBeige-light border-2 border-stone-800 p-4 rounded shadow-sm">
+                        <h4 class="font-display text-xs font-bold text-stone-900 border-b border-stone-300 pb-2 mb-3 uppercase editable" data-key="motto-list-title">Administrative Principles</h4>
+                        <ul class="space-y-1.5 text-xs font-sans text-stone-700 list-decimal pl-4">
+                            <li class="editable" data-key="gov-motto-1">System, Order, Development</li>
+                            <li class="editable" data-key="gov-motto-2">Service to the Civic Community</li>
+                            <li class="editable" data-key="gov-motto-3">Executive Cooperation and Transparency</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRAVDA NEWS BULLETIN SECTION -->
+        <span id="news" class="block relative -top-6"></span>
+        <section class="mt-12 mb-12">
+            <h2 class="font-display text-xl tracking-widest text-stateRed border-b-2 border-stateRed pb-2 mb-6 flex items-center gap-2">
+                <i class="fas fa-newspaper text-sm"></i>
+                <span class="editable" data-key="sec-title-news">Pravda — Official News Bulletin</span>
+            </h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Left: 2 Columns of News Articles -->
+                <div class="lg:col-span-2 flex flex-col gap-4">
+                    <!-- Article 1 -->
+                    <article class="bg-stateBeige-light border-2 border-stone-800 rounded p-4 flex gap-4 hover:shadow-md transition">
+                        <div class="bg-stateRed text-white p-3 rounded flex flex-col items-center justify-center font-mono w-16 shrink-0 h-16 shadow">
+                            <span class="text-lg font-bold editable" data-key="news-d1">15</span>
+                            <span class="text-[9px] uppercase tracking-wider editable" data-key="news-m1">Nov</span>
+                        </div>
+                        <div>
+                            <h3 class="font-display text-sm font-bold text-stone-900 hover:text-stateRed transition cursor-pointer editable" data-key="news-h1">General Council Announces Restructuring of Central Departments</h3>
+                            <p class="text-xs text-stone-600 mt-1 editable" data-key="news-b1">The General Secretary has authorized the reorganization of active state ministries, creating new sub-committees to focus specifically on onboarding user events and level-tracking commands.</p>
+                        </div>
+                    </article>
+
+                    <!-- Article 2 -->
+                    <article class="bg-stateBeige-light border-2 border-stone-800 rounded p-4 flex gap-4 hover:shadow-md transition">
+                        <div class="bg-stone-900 text-stateGold p-3 rounded flex flex-col items-center justify-center font-mono w-16 shrink-0 h-16 shadow">
+                            <span class="text-lg font-bold editable" data-key="news-d2">12</span>
+                            <span class="text-[9px] uppercase tracking-wider editable" data-key="news-m2">Nov</span>
+                        </div>
+                        <div>
+                            <h3 class="font-display text-sm font-bold text-stone-900 hover:text-stateRed transition cursor-pointer editable" data-key="news-h2">Server Development Team Unveils Interactive Government Interface</h3>
+                            <p class="text-xs text-stone-600 mt-1 editable" data-key="news-b2">State technicians have completed deployment of our digital server portal. The template provides simplified live modification systems for all district coordinates.</p>
+                        </div>
+                    </article>
+
+                    <!-- Article 3 -->
+                    <article class="bg-stateBeige-light border-2 border-stone-800 rounded p-4 flex gap-4 hover:shadow-md transition">
+                        <div class="bg-stone-900 text-stone-300 p-3 rounded flex flex-col items-center justify-center font-mono w-16 shrink-0 h-16 shadow">
+                            <span class="text-lg font-bold editable" data-key="news-d3">08</span>
+                            <span class="text-[9px] uppercase tracking-wider editable" data-key="news-m3">Nov</span>
+                        </div>
+                        <div>
+                            <h3 class="font-display text-sm font-bold text-stone-900 hover:text-stateRed transition cursor-pointer editable" data-key="news-h3">Civic Representatives Organize Historical Commemorative Debate</h3>
+                            <p class="text-xs text-stone-600 mt-1 editable" data-key="news-b3">In celebration of the server foundation milestone, the Ministry of Culture held a comprehensive diplomatic simulation debate in the Central Auditorium, yielding record participant turnout.</p>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Right: Bulletins & Channels Lists -->
+                <div class="flex flex-col gap-6">
+                    <div class="bg-stateBeige-light border-2 border-stone-800 p-4 rounded shadow-sm">
+                        <h4 class="font-display text-xs font-bold text-stateRed border-b border-stone-300 pb-2 mb-3 uppercase editable" data-key="pub-news-title">Official Publications</h4>
+                        <ul class="space-y-2 text-xs font-sans text-stone-700 list-disc pl-4">
+                            <li class="editable" data-key="pub-news-1">Pravda — General State Channel Bulletin</li>
+                            <li class="editable" data-key="pub-news-2">Sovereign — State Announcements Registry</li>
+                            <li class="editable" data-key="pub-news-3">The Forum — Public Debate Summaries</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-stateBeige-light border-2 border-stone-800 p-4 rounded shadow-sm">
+                        <h4 class="font-display text-xs font-bold text-stone-900 border-b border-stone-300 pb-2 mb-3 uppercase editable" data-key="radio-news-title">Broadcast Channels</h4>
+                        <ul class="space-y-2 text-xs font-sans text-stone-700 list-disc pl-4">
+                            <li class="editable" data-key="radio-news-1">State Radio — Central Voice Channel</li>
+                            <li class="editable" data-key="radio-news-2">News Broadcast — Main Media Transmission</li>
+                            <li class="editable" data-key="radio-news-3">Alliance News — Foreign Affairs Updates</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </div>
 
+    <!-- COMPREHENSIVE FOOTER SECTION -->
+    <footer class="bg-stone-950 border-t-4 border-stateGold text-stone-400 py-12 px-6 font-sans text-xs mt-12">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <!-- Col 1: Identity -->
+            <div class="flex flex-col gap-3">
+                <div class="flex items-center gap-3">
+                    <svg class="w-8 h-8 text-stateGold fill-current" viewBox="0 0 24 24">
+                        <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192L12 .587z"/>
+                    </svg>
+                    <span class="font-display text-sm font-bold tracking-wider text-white uppercase global-state-name">Union of Soviet Socialist Republics</span>
+                </div>
+                <p class="text-stone-500 leading-relaxed editable" data-key="foot-desc">This is an open, community-driven mock-government roleplay and educational platform structured purely for recreational and historical world-building simulation.</p>
+                <span class="text-stateGold font-mono text-[10px] global-portal-version">Portal Version 1.0</span>
+            </div>
+
+            <!-- Col 2: Organs -->
+            <div>
+                <h4 class="font-display text-xs font-bold tracking-widest text-white uppercase mb-4 editable" data-key="foot-col2-title">Government Organs</h4>
+                <ul class="space-y-2 text-stone-500">
+                    <li><a href="#about" class="hover:text-stateGold transition editable" data-key="foot-col2-item1">Sovereign State Presidium</a></li>
+                    <li><a href="#ministries" class="hover:text-stateGold transition editable" data-key="foot-col2-item2">Active Council of Ministers</a></li>
+                    <li><a href="#legislative" class="hover:text-stateGold transition editable" data-key="foot-col2-item3">Central Council Assembly</a></li>
+                    <li><a href="#central-committee" class="hover:text-stateGold transition editable" data-key="foot-col2-item4">Central Committee Plenum</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 3: Community Sectors -->
+            <div>
+                <h4 class="font-display text-xs font-bold tracking-widest text-white uppercase mb-4 editable" data-key="foot-col3-title">State Sectors</h4>
+                <ul class="space-y-2 text-stone-500">
+                    <li><a href="#central-committee" class="hover:text-stateGold transition editable" data-key="foot-col3-item1">Party Plenum Desk</a></li>
+                    <li><a href="#republics" class="hover:text-stateGold transition editable" data-key="foot-col3-item2">Associated State Districts</a></li>
+                    <li><a href="#military" class="hover:text-stateGold transition editable" data-key="foot-col3-item3">Internal Security Guard</a></li>
+                    <li><a href="#news" class="hover:text-stateGold transition editable" data-key="foot-col3-item4">Pravda Newspaper Office</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 4: Platform Coordinates -->
+            <div>
+                <h4 class="font-display text-xs font-bold tracking-widest text-white uppercase mb-4 editable" data-key="foot-col4-title">Coordinates</h4>
+                <ul class="space-y-2 text-stone-500">
+                    <li><a href="#" class="hover:text-stateGold transition editable" data-key="foot-col4-item1">Archive Documentation</a></li>
+                    <li><a href="#" class="hover:text-stateGold transition editable" data-key="foot-col4-item2">State Citizen Register</a></li>
+                    <li><a href="#" class="hover:text-stateGold transition editable" data-key="foot-col4-item3">Diplomatic Envoy Form</a></li>
+                    <li><a href="#" class="hover:text-stateGold transition editable" data-key="foot-col4-item4">General State Rules Log</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto border-t border-stone-800 pt-6 flex flex-col md:flex-row justify-between items-center text-stone-600 gap-4">
+            <span class="text-[10px] tracking-wide text-center md:text-left editable" data-key="foot-disclaimer">© 2026 Sovereign Portal Mock-Gov Administration. Created as a community template. All resources are fictional mock elements.</span>
+            <span class="font-display text-[10px] tracking-widest text-stateGold editable" data-key="foot-banner-motto">Workers of All Countries, Unite!</span>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT CONTROLLERS -->
+    <script>
+        // Tab switching logic for Ministry Portfolios
+        function switchMinistryTab(tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.add('hidden'));
+
+            // Show target content
+            const activeContent = document.getElementById('tab-' + tabName);
+            if (activeContent) {
+                activeContent.classList.remove('hidden');
+            }
+
+            // Reset tab button styling
+            const tabs = ['econ', 'civic', 'defence'];
+            tabs.forEach(tab => {
+                const btn = document.getElementById('btn-tab-' + tab);
+                if (btn) {
+                    btn.classList.remove('bg-stateRed', 'text-white');
+                    btn.classList.add('hover:bg-stone-800');
+                }
+            });
+
+            // Set active button style
+            const activeBtn = document.getElementById('btn-tab-' + tabName);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-stateRed', 'text-white');
+                activeBtn.classList.remove('hover:bg-stone-800');
+            }
+        }
+
+        // Live Customizer Panel toggling
+        function toggleCustomizer() {
+            const menu = document.getElementById('customizer-menu');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+            } else {
+                menu.classList.add('hidden');
+            }
+        }
+
+        // Change Emblem star fill styles on click
+        const emblemStyles = [
+            'text-stateGold fill-current',
+            'text-red-500 fill-current',
+            'text-white fill-current',
+            'text-stone-400 fill-current'
+        ];
+        let emblemStyleIndex = 0;
+        function changeEmblemColor() {
+            const emblem = document.getElementById('state-emblem');
+            emblem.className = 'w-16 h-16 transition duration-200 ' + emblemStyles[emblemStyleIndex];
+            emblemStyleIndex = (emblemStyleIndex + 1) % emblemStyles.length;
+            showToast("Emblem visual style updated!");
+        }
+
+        // Theme Accent Colors Swapper
+        function changeTheme(primaryHex, secondaryHex) {
+            // This updates custom inline colors for Tailwind selectors
+            tailwind.config.theme.extend.colors.stateRed.DEFAULT = primaryHex;
+            tailwind.config.theme.extend.colors.stateGold = secondaryHex;
+
+            // We update real class background values and border values directly for instant feed
+            document.querySelectorAll('.bg-stateRed').forEach(el => {
+                el.style.backgroundColor = primaryHex;
+            });
+            document.querySelectorAll('.border-stateRed').forEach(el => {
+                el.style.borderColor = primaryHex;
+            });
+            document.querySelectorAll('.text-stateRed').forEach(el => {
+                el.style.color = primaryHex;
+            });
+            document.querySelectorAll('.border-stateGold').forEach(el => {
+                el.style.borderColor = secondaryHex;
+            });
+            document.querySelectorAll('.text-stateGold').forEach(el => {
+                el.style.color = secondaryHex;
+            });
+
+            showToast(`Theme updated successfully to primary ${primaryHex}`);
+        }
+
+        // Global Sync Text Inputs
+        function updateGlobalText(className, value) {
+            const elements = document.querySelectorAll('.global-' + className);
+            elements.forEach(el => {
+                el.textContent = value;
+            });
+        }
+
+        // Toggle Live Direct Text Edit Mode
+        function toggleEditMode(enabled) {
+            const editableElements = document.querySelectorAll('.editable');
+            
+            editableElements.forEach(el => {
+                if (enabled) {
+                    el.setAttribute('contenteditable', 'true');
+                    el.classList.add('editable-active');
+                } else {
+                    el.removeAttribute('contenteditable');
+                    el.classList.remove('editable-active');
+                }
+            });
+
+            showToast(enabled ? "Visual Edit Mode enabled! Click any text to customize directly." : "Visual Edit Mode disabled.");
+        }
+
+        // Show standard non-intrusive toast notices (No Alert box)
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const msgEl = document.getElementById('toast-message');
+            msgEl.textContent = message;
+            toast.classList.remove('hidden');
+            toast.classList.add('flex');
+            
+            setTimeout(() => {
+                toast.classList.remove('flex');
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+
+        // Export customized page as clean, independent HTML file
+        function exportTemplate() {
+            // Temporarily turn off edit outlines to copy the clean node
+            toggleEditMode(false);
+            const toggleCheckbox = document.getElementById('edit-mode-toggle');
+            if (toggleCheckbox) toggleCheckbox.checked = false;
+
+            // Clone current full HTML doc
+            const docHTML = document.documentElement.outerHTML;
+
+            // Clean the customizer control structures & panels out of the exported version
+            const parser = new DOMParser();
+            const cleanDoc = parser.parseFromString(docHTML, 'text/html');
+            
+            // Remove editor sidebar & notifications
+            const customizerPanel = cleanDoc.getElementById('customizer-panel');
+            if (customizerPanel) customizerPanel.remove();
+            
+            const toastNotification = cleanDoc.getElementById('toast');
+            if (toastNotification) toastNotification.remove();
+
+            const exportedHTML = "<!DOCTYPE html>\n" + cleanDoc.documentElement.outerHTML;
+
+            // Create downloadeable file stream
+            const blob = new Blob([exportedHTML], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'custom_mockgov_portal.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            showToast("HTML Export initiated successfully!");
+        }
+    </script>
 </body>
 </html>
