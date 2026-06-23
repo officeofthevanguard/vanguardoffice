@@ -44,22 +44,21 @@
             align-items: center;
             gap: 25px;
         }
-        /* Placeholder for the circular emblem/logo */
+        
+        /* Updated Emblem Container */
         .emblem-placeholder {
             width: 95px;
             height: 95px;
             border-radius: 50%;
             border: 2px solid #d4af37;
-            background-color: rgba(214, 175, 55, 0.15);
+            background-color: rgba(0, 0, 0, 0.5);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #d4af37;
-            font-size: 11px;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 5px;
+            padding: 0;
+            overflow: hidden;
         }
+        
         .header-titles h1 {
             font-size: 32px;
             font-weight: normal;
@@ -169,24 +168,128 @@
             background-color: #fbf9f1;
             color: #1a1a1a;
             border: 3px double #d4af37;
-            padding: 35px;
+            padding: 35px 45px;
             width: 100%;
             max-width: 1200px;
             min-height: 300px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
+
+        /* 7. New Stats Row Layout */
+        .stats-row {
+            display: flex;
+            border: 1px solid #e0d8c3;
+            background-color: #f3efe6;
+            margin-top: 20px;
+            margin-bottom: 35px;
+        }
+        .stat-box {
+            flex: 1;
+            text-align: center;
+            padding: 20px 10px;
+            border-right: 1px solid #e0d8c3;
+        }
+        .stat-box:last-child {
+            border-right: none;
+        }
+        .stat-number {
+            color: #990000;
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+        .stat-label {
+            color: #666;
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-family: Arial, sans-serif;
+        }
+
+        /* 8. New Quote Block */
+        .quote-block {
+            background-color: #8b0000;
+            border-left: 4px solid #d4af37;
+            padding: 25px 35px;
+            margin-bottom: 45px;
+        }
+        .quote-text {
+            color: #ffffff;
+            font-style: italic;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        .quote-author {
+            color: #e5c158;
+            font-size: 12px;
+            font-family: Arial, sans-serif;
+        }
+
+        /* 9. Section Header */
+        .section-header {
+            color: #990000;
+            font-size: 26px;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section-header span {
+            color: #d4af37;
+            font-size: 22px;
+        }
+
+        /* 10. Three-Column Info Cards */
+        .cards-container {
+            display: flex;
+            gap: 20px;
+        }
+        .info-card {
+            flex: 1;
+            background-color: #f3efe6;
+            border-top: 3px solid #990000;
+            border-left: 1px solid #e0d8c3;
+            border-right: 1px solid #e0d8c3;
+            border-bottom: 1px solid #e0d8c3;
+            padding: 25px 20px;
+        }
+        .card-meta {
+            color: #888;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            font-family: Arial, sans-serif;
+        }
+        .card-title {
+            color: #990000;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .card-text {
+            color: #333;
+            font-size: 14px;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
 
+    <!-- 1. TOP TICKER STRIP -->
     <div class="top-ticker-strip">
         TOP RUNNING BANNER TEXT HERE &bull; SECOND SECTION PLACEHOLDER &bull; MOSCOW
     </div>
 
+    <!-- 2. MAIN HEADER -->
     <header class="main-header">
         <div class="header-left-group">
+            <!-- Updated Emblem Box referencing your uploaded file -->
             <div class="emblem-placeholder">
-                [ EMBLEM PLACEHOLDER ]
+                <img src="VUSSR.jpg" alt="Government Emblem" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <div class="header-titles">
                 <h1>MAIN PORTAL TITLE HERE</h1>
@@ -202,6 +305,7 @@
         </div>
     </header>
 
+    <!-- 3. NAVIGATION BAR -->
     <nav>
         <ul class="navigation-bar">
             <li><a href="#">Home</a></li>
@@ -216,20 +320,87 @@
         </ul>
     </nav>
 
+    <!-- 4. HERO SLOGAN AREA -->
     <section class="hero-slogan-area">
-        <h2>WORKERS OF ALL LANDS, UNITE!</h2>
+        <h2>LARGE CENTRAL SLOGAN OR TEXT HERE</h2>
         <p>Secondary sub-slogan translation text layer goes here</p>
     </section>
 
+    <!-- 5. ANNOUNCEMENT BANNER -->
     <div class="announcement-banner">
         <span class="announcement-tag">ANNOUNCEMENT:</span> 
         Important ticker update or notification milestone text goes right over here.
     </div>
 
+    <!-- 6. CREAM CONTENT BOX (Main Body) -->
     <div class="content-wrapper">
         <main class="cream-content-box">
-            <p style="font-style: italic; margin-bottom: 15px;">Official Notice Placeholder:</p>
-            <p>This is the main content container area where you can add paragraphs, updates, tables, or laws later on. The background color and double gold borders match the document paper styling from your image snippet.</p>
+            
+            <p style="font-style: italic; margin-bottom: 15px;">Official Notice Placeholder: Initial introductory paragraph can go here if needed.</p>
+
+            <!-- 7. STATS ROW -->
+            <div class="stats-row">
+                <div class="stat-box">
+                    <div class="stat-number">00</div>
+                    <div class="stat-label">STAT LABEL ONE</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">0000</div>
+                    <div class="stat-label">STAT LABEL TWO</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">00.0M</div>
+                    <div class="stat-label">STAT LABEL THREE</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">STAT LABEL FOUR</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">0000</div>
+                    <div class="stat-label">STAT LABEL FIVE</div>
+                </div>
+            </div>
+
+            <!-- 8. QUOTE BLOCK -->
+            <div class="quote-block">
+                <div class="quote-text">"Insert your primary quote or philosophical statement here. It will run across this block in italics."</div>
+                <div class="quote-author">&mdash; Author Name or Attribution Text (Year)</div>
+            </div>
+
+            <!-- 9. SECTION HEADER -->
+            <h3 class="section-header">
+                <span>&#9733;</span> Header Title Placeholder
+            </h3>
+
+            <!-- 10. INFO CARDS CONTAINER -->
+            <div class="cards-container">
+                <!-- Card 1 -->
+                <div class="info-card">
+                    <div class="card-meta">META CATEGORY ONE</div>
+                    <div class="card-title">Card Title One</div>
+                    <div class="card-text">
+                        Insert your paragraph text here. This section will automatically wrap and space itself evenly alongside the other two columns.
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="info-card">
+                    <div class="card-meta">META CATEGORY TWO</div>
+                    <div class="card-title">Card Title Two</div>
+                    <div class="card-text">
+                        Insert your paragraph text here. This section will automatically wrap and space itself evenly alongside the other two columns.
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="info-card">
+                    <div class="card-meta">META CATEGORY THREE</div>
+                    <div class="card-title">Card Title Three</div>
+                    <div class="card-text">
+                        Insert your paragraph text here. This section will automatically wrap and space itself evenly alongside the other two columns.
+                    </div>
+                </div>
+            </div>
+
         </main>
     </div>
 
