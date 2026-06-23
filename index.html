@@ -1,10 +1,237 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Website</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Portal Template</title>
+    <style>
+        /* Base Reset & Core Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: "Times New Roman", Times, serif;
+            background-color: #0d0d0d;
+            color: #ffffff;
+        }
+
+        /* 1. Ultra-Thin Top Header Strip */
+        .top-ticker-strip {
+            background-color: #800000;
+            color: #d4af37;
+            border-bottom: 2px solid #d4af37;
+            text-align: center;
+            font-size: 11px;
+            font-family: Arial, sans-serif;
+            padding: 4px 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* 2. Main Red Header Section */
+        .main-header {
+            background: linear-gradient(180deg, #990000 0%, #660000 100%);
+            border-bottom: 4px solid #d4af37;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header-left-group {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+        /* Placeholder for the circular emblem/logo */
+        .emblem-placeholder {
+            width: 95px;
+            height: 95px;
+            border-radius: 50%;
+            border: 2px solid #d4af37;
+            background-color: rgba(214, 175, 55, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d4af37;
+            font-size: 11px;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 5px;
+        }
+        .header-titles h1 {
+            font-size: 32px;
+            font-weight: normal;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+            margin-bottom: 2px;
+        }
+        .header-titles p {
+            color: #d4af37;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Header Right Side Meta Text */
+        .header-meta-box {
+            text-align: right;
+            color: #d4af37;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+        .header-meta-box strong {
+            color: #ffffff;
+            font-size: 14px;
+        }
+
+        /* 3. Navigation Bar */
+        .navigation-bar {
+            background-color: #171717;
+            border-bottom: 3px solid #d4af37;
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        .navigation-bar li {
+            border-right: 1px solid #333333;
+        }
+        .navigation-bar li:last-child {
+            border-right: none;
+        }
+        .navigation-bar a {
+            display: block;
+            padding: 14px 18px;
+            color: #b3b3b3;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+        .navigation-bar a:hover {
+            color: #d4af37;
+            background-color: #222222;
+        }
+
+        /* 4. Large Hero Text Area */
+        .hero-slogan-area {
+            text-align: center;
+            padding: 55px 20px;
+            background-color: #121212;
+        }
+        .hero-slogan-area h2 {
+            color: #e5c158;
+            font-size: 42px;
+            font-weight: normal;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+        .hero-slogan-area p {
+            color: #8a8a8a;
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* 5. Red Announcement Banner */
+        .announcement-banner {
+            background-color: #800000;
+            border-top: 2px solid #d4af37;
+            border-bottom: 2px solid #d4af37;
+            padding: 10px 40px;
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .announcement-tag {
+            color: #e5c158;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* 6. Bottom Main Content Block */
+        .content-wrapper {
+            background-color: #121212;
+            padding: 30px 40px 60px 40px;
+            display: flex;
+            justify-content: center;
+        }
+        .cream-content-box {
+            background-color: #fbf9f1;
+            color: #1a1a1a;
+            border: 3px double #d4af37;
+            padding: 35px;
+            width: 100%;
+            max-width: 1200px;
+            min-height: 300px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello World!</h1>
-    <p>This is my GitHub Pages website.</p>
+
+    <div class="top-ticker-strip">
+        TOP RUNNING BANNER TEXT HERE &bull; SECOND SECTION PLACEHOLDER &bull; MOSCOW
+    </div>
+
+    <header class="main-header">
+        <div class="header-left-group">
+            <div class="emblem-placeholder">
+                [ EMBLEM PLACEHOLDER ]
+            </div>
+            <div class="header-titles">
+                <h1>MAIN PORTAL TITLE HERE</h1>
+                <p>Official Government Portal Subtitle Text</p>
+            </div>
+        </div>
+
+        <div class="header-meta-box">
+            <strong>Location Placeholder</strong><br>
+            Data Row Placeholder 1<br>
+            Data Row Placeholder 2<br>
+            System Version: 1.0
+        </div>
+    </header>
+
+    <nav>
+        <ul class="navigation-bar">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Leadership</a></li>
+            <li><a href="#">Ministries</a></li>
+            <li><a href="#">Central Committee</a></li>
+            <li><a href="#">Republics</a></li>
+            <li><a href="#">Supreme Soviet</a></li>
+            <li><a href="#">Military</a></li>
+            <li><a href="#">Departments</a></li>
+            <li><a href="#">Elected Government</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero-slogan-area">
+        <h2>LARGE CENTRAL SLOGAN OR TEXT HERE</h2>
+        <p>Secondary sub-slogan translation text layer goes here</p>
+    </section>
+
+    <div class="announcement-banner">
+        <span class="announcement-tag">ANNOUNCEMENT:</span> 
+        Important ticker update or notification milestone text goes right over here.
+    </div>
+
+    <div class="content-wrapper">
+        <main class="cream-content-box">
+            <p style="font-style: italic; margin-bottom: 15px;">Official Notice Placeholder:</p>
+            <p>This is the main content container area where you can add paragraphs, updates, tables, or laws later on. The background color and double gold borders match the document paper styling from your image snippet.</p>
+        </main>
+    </div>
+
 </body>
 </html>
