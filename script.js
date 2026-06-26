@@ -10,5 +10,3 @@ const { data, error } = await supabase
   .select("*")
 
 console.log(data, error)
-
-  </body>
