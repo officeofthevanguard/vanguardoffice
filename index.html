@@ -87,13 +87,29 @@
             </a>
 
             <!-- Navigation Links -->
-            <nav class="flex overflow-x-auto no-scrollbar w-full md:w-auto pb-2 md:pb-0 gap-1 md:gap-2 text-sm font-medium text-slate-600">
+            <nav class="flex overflow-x-auto no-scrollbar w-full md:w-auto pb-2 md:pb-0 gap-1 md:gap-2 text-sm font-medium text-slate-600 items-center">
                 <a href="#about" class="px-4 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition whitespace-nowrap">About</a>
                 <a href="#leadership" class="px-4 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition whitespace-nowrap">Leadership</a>
                 <a href="#ministries" class="px-4 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition whitespace-nowrap">Ministries</a>
                 <a href="#structure" class="px-4 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition whitespace-nowrap">Structure</a>
                 <a href="#security" class="px-4 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition whitespace-nowrap">Security</a>
                 <a href="#news" class="px-4 py-2 rounded-lg bg-slate-900 text-white hover:bg-slate-800 transition whitespace-nowrap shadow-md">Pravda News</a>
+                
+                <!-- Auth Section -->
+                <div class="ml-2 pl-4 border-l border-slate-200 flex items-center h-8">
+                    <button id="nav-login-btn" class="px-4 py-1.5 rounded-lg bg-brand-red text-white font-semibold shadow-md shadow-red-500/20 hover:-translate-y-0.5 transition duration-300 whitespace-nowrap">
+                        Sign In
+                    </button>
+                    <div id="nav-user-profile" class="hidden items-center gap-3">
+                        <div class="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-brand-red border border-slate-200">
+                            <i class="fas fa-user text-xs"></i>
+                        </div>
+                        <span id="nav-user-email" class="text-xs font-bold text-slate-700 max-w-[100px] truncate hidden sm:block"></span>
+                        <button id="nav-logout-btn" class="text-slate-400 hover:text-brand-red transition p-1" title="Sign Out">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                    </div>
+                </div>
             </nav>
         </div>
     </header>
@@ -516,34 +532,276 @@
         </div>
     </footer>
 
-    <script>
-        // Clean, simple script strictly for tab switching
-        function switchTab(tabId) {
-            // Get all tab buttons and panes
+    <!-- AUTHENTICATION MODAL -->
+    <div id="auth-modal" class="fixed inset-0 z-[100] hidden items-center justify-center">
+        <!-- Backdrop -->
+        <div id="auth-backdrop" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity opacity-0"></div>
+        
+        <!-- Modal Content -->
+        <div id="auth-content" class="relative bg-white rounded-3xl shadow-2xl w-full max-w-md mx-4 p-8 transform scale-95 opacity-0 transition-all duration-300">
+            <button id="close-modal-btn" class="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-slate-50 text-slate-400 hover:text-slate-900 hover:bg-slate-100 transition">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="text-center mb-8">
+                <div class="w-12 h-12 bg-brand-red rounded-xl flex items-center justify-center text-white shadow-lg shadow-red-500/20 mx-auto mb-4">
+                    <i class="fas fa-star text-lg"></i>
+                </div>
+                <h3 id="auth-title" class="text-2xl font-bold text-slate-900 tracking-tight">Access Terminal</h3>
+                <p id="auth-subtitle" class="text-sm text-slate-500 mt-2">Identify yourself to the Central Administration.</p>
+            </div>
+
+            <form id="auth-form" class="space-y-5">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">Email Designation</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i class="fas fa-envelope text-slate-400 text-sm"></i>
+                        </div>
+                        <input type="email" id="auth-email" required class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-brand-red focus:border-brand-red outline-none transition" placeholder="comrade@soviet.org">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">Security Cipher</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i class="fas fa-lock text-slate-400 text-sm"></i>
+                        </div>
+                        <input type="password" id="auth-password" required class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-brand-red focus:border-brand-red outline-none transition" placeholder="••••••••">
+                    </div>
+                </div>
+                
+                <button type="submit" id="auth-submit-btn" class="w-full py-3.5 bg-brand-red text-white font-bold rounded-xl shadow-lg shadow-red-500/30 hover:bg-brand-darkRed hover:-translate-y-0.5 transition duration-300 flex justify-center items-center gap-2">
+                    <span>Authenticate</span>
+                    <i class="fas fa-arrow-right text-sm"></i>
+                </button>
+            </form>
+
+            <div class="mt-6 text-center">
+                <p class="text-sm text-slate-500">
+                    <span id="auth-toggle-text">Not registered in the database?</span>
+                    <button id="auth-toggle-btn" class="text-brand-red font-bold hover:underline ml-1 focus:outline-none">Enlist Here</button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-[110] flex flex-col gap-3 pointer-events-none"></div>
+
+    <script type="module">
+        import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"
+
+        // Note: Removed /rest/v1/ from the URL to ensure auth works correctly
+        const supabaseUrl = "https://ivrsryervygjmncwlgdn.supabase.co";
+        const supabaseKey = "sb_publishable_Rsh_coNUNyNTvfiQ-42yQA_tOVqOaLk";
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
+        let isSignUpMode = false;
+        let currentUser = null;
+
+        // Make switchTab available globally since we are now in a module
+        window.switchTab = function(tabId) {
             const tabs = ['econ', 'civic', 'defence'];
             const panes = document.querySelectorAll('.tab-pane');
             
-            // Hide all panes
             panes.forEach(pane => {
                 pane.classList.add('opacity-0', 'pointer-events-none');
                 pane.classList.remove('opacity-100', 'pointer-events-auto', 'z-10');
             });
 
-            // Reset all buttons styling
             tabs.forEach(t => {
                 const btn = document.getElementById('btn-' + t);
                 btn.className = 'tab-btn px-6 py-2.5 rounded-xl text-slate-500 hover:text-slate-900 text-sm font-semibold transition-all';
             });
 
-            // Show selected pane
             const activePane = document.getElementById('tab-' + tabId);
             activePane.classList.remove('opacity-0', 'pointer-events-none');
             activePane.classList.add('opacity-100', 'pointer-events-auto', 'z-10');
 
-            // Style active button
             const activeBtn = document.getElementById('btn-' + tabId);
             activeBtn.className = 'tab-btn px-6 py-2.5 rounded-xl bg-white shadow-sm text-sm font-semibold text-slate-900 transition-all';
         }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            // DOM Elements
+            const loginBtn = document.getElementById('nav-login-btn');
+            const logoutBtn = document.getElementById('nav-logout-btn');
+            const userProfile = document.getElementById('nav-user-profile');
+            const userEmailDisplay = document.getElementById('nav-user-email');
+            
+            const modal = document.getElementById('auth-modal');
+            const backdrop = document.getElementById('auth-backdrop');
+            const content = document.getElementById('auth-content');
+            const closeBtn = document.getElementById('close-modal-btn');
+            const toggleBtn = document.getElementById('auth-toggle-btn');
+            const authForm = document.getElementById('auth-form');
+            
+            const authTitle = document.getElementById('auth-title');
+            const authSubtitle = document.getElementById('auth-subtitle');
+            const submitBtnText = document.querySelector('#auth-submit-btn span');
+            const toggleText = document.getElementById('auth-toggle-text');
+
+            // Modal Functions
+            const openModal = () => {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                // Trigger reflow for transition
+                void modal.offsetWidth; 
+                backdrop.classList.remove('opacity-0');
+                backdrop.classList.add('opacity-100');
+                content.classList.remove('opacity-0', 'scale-95');
+                content.classList.add('opacity-100', 'scale-100');
+            };
+
+            const closeModal = () => {
+                backdrop.classList.remove('opacity-100');
+                backdrop.classList.add('opacity-0');
+                content.classList.remove('opacity-100', 'scale-100');
+                content.classList.add('opacity-0', 'scale-95');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                    authForm.reset();
+                }, 300);
+            };
+
+            const toggleMode = (e) => {
+                e.preventDefault();
+                isSignUpMode = !isSignUpMode;
+                if (isSignUpMode) {
+                    authTitle.textContent = "Citizen Enlistment";
+                    authSubtitle.textContent = "Register your credentials to join the state.";
+                    submitBtnText.textContent = "Register";
+                    toggleText.textContent = "Already have clearance?";
+                    toggleBtn.textContent = "Sign In";
+                } else {
+                    authTitle.textContent = "Access Terminal";
+                    authSubtitle.textContent = "Identify yourself to the Central Administration.";
+                    submitBtnText.textContent = "Authenticate";
+                    toggleText.textContent = "Not registered in the database?";
+                    toggleBtn.textContent = "Enlist Here";
+                }
+            };
+
+            // Custom Toast Notification System
+            const showToast = (message, type = 'success') => {
+                const container = document.getElementById('toast-container');
+                const toast = document.createElement('div');
+                
+                const isError = type === 'error';
+                const bgColor = isError ? 'bg-red-50' : 'bg-emerald-50';
+                const borderColor = isError ? 'border-red-100' : 'border-emerald-100';
+                const textColor = isError ? 'text-red-800' : 'text-emerald-800';
+                const iconColor = isError ? 'text-red-500' : 'text-emerald-500';
+                const iconClass = isError ? 'fa-exclamation-circle' : 'fa-check-circle';
+
+                toast.className = `flex items-center gap-3 px-4 py-3 rounded-xl border ${bgColor} ${borderColor} ${textColor} shadow-lg transform translate-y-10 opacity-0 transition-all duration-300 pointer-events-auto max-w-sm`;
+                
+                toast.innerHTML = `
+                    <i class="fas ${iconClass} ${iconColor}"></i>
+                    <p class="text-sm font-semibold">${message}</p>
+                `;
+                
+                container.appendChild(toast);
+                
+                // Animate in
+                setTimeout(() => {
+                    toast.classList.remove('translate-y-10', 'opacity-0');
+                }, 10);
+
+                // Animate out and remove
+                setTimeout(() => {
+                    toast.classList.add('opacity-0', 'translate-y-2');
+                    setTimeout(() => toast.remove(), 300);
+                }, 4000);
+            };
+
+            // Auth Functions
+            const updateUI = (user) => {
+                if (user) {
+                    loginBtn.classList.add('hidden');
+                    userProfile.classList.remove('hidden');
+                    userProfile.classList.add('flex');
+                    userEmailDisplay.textContent = user.email;
+                } else {
+                    loginBtn.classList.remove('hidden');
+                    userProfile.classList.add('hidden');
+                    userProfile.classList.remove('flex');
+                }
+            };
+
+            const handleAuthSubmit = async (e) => {
+                e.preventDefault();
+                const email = document.getElementById('auth-email').value;
+                const password = document.getElementById('auth-password').value;
+                const submitBtn = document.getElementById('auth-submit-btn');
+                
+                // Loading state
+                const originalContent = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+                submitBtn.disabled = true;
+
+                try {
+                    let result;
+                    if (isSignUpMode) {
+                        result = await supabase.auth.signUp({ email, password });
+                    } else {
+                        result = await supabase.auth.signInWithPassword({ email, password });
+                    }
+
+                    if (result.error) throw result.error;
+
+                    if (isSignUpMode && !result.data.session) {
+                        showToast('Registration successful! Please check your email for confirmation.', 'success');
+                    } else {
+                        showToast(`Welcome back, Comrade.`, 'success');
+                        updateUI(result.data.user);
+                    }
+                    closeModal();
+
+                } catch (error) {
+                    showToast(error.message, 'error');
+                } finally {
+                    submitBtn.innerHTML = originalContent;
+                    submitBtn.disabled = false;
+                }
+            };
+
+            const handleLogout = async () => {
+                const { error } = await supabase.auth.signOut();
+                if (error) {
+                    showToast(error.message, 'error');
+                } else {
+                    showToast('Disconnected from the network.', 'success');
+                    updateUI(null);
+                }
+            };
+
+            // Initialize Session Check
+            const checkSession = async () => {
+                const { data: { session }, error } = await supabase.auth.getSession();
+                if (session) {
+                    updateUI(session.user);
+                }
+                
+                // Listen for auth changes
+                supabase.auth.onAuthStateChange((_event, session) => {
+                    updateUI(session?.user ?? null);
+                });
+            };
+
+            // Event Listeners
+            loginBtn.addEventListener('click', openModal);
+            closeBtn.addEventListener('click', closeModal);
+            backdrop.addEventListener('click', closeModal);
+            toggleBtn.addEventListener('click', toggleMode);
+            authForm.addEventListener('submit', handleAuthSubmit);
+            logoutBtn.addEventListener('click', handleLogout);
+
+            // Run initial check
+            checkSession();
+        });
     </script>
 </body>
 </html>
