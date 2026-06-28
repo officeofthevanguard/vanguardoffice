@@ -2,6 +2,186 @@
    USSR Mock Government — Interactive Script
    =================================================== */
 
+// ===== SUPABASE AUTH =====
+const SUPABASE_URL = 'https://ivrsryervygjmncwlgdn.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_Rsh_coNUNyNTvfiQ-42yQA_tOVqOaLk';
+
+let supabase;
+try {
+  supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+} catch (e) {
+  console.warn('Supabase client could not be initialized:', e.message);
+}
+
+// --- Auth DOM Elements ---
+const authLoginBtn = document.getElementById('auth-login-btn');
+const authUser = document.getElementById('auth-user');
+const authUserBtn = document.getElementById('auth-user-btn');
+const authAvatar = document.getElementById('auth-avatar');
+const authUsername = document.getElementById('auth-username');
+const authDropdown = document.getElementById('auth-dropdown');
+const authDropdownAvatar = document.getElementById('auth-dropdown-avatar');
+const authDropdownName = document.getElementById('auth-dropdown-name');
+const authLogoutBtn = document.getElementById('auth-logout-btn');
+const authModalOverlay = document.getElementById('auth-modal-overlay');
+const authModalClose = document.getElementById('auth-modal-close');
+const authDiscordBtn = document.getElementById('auth-discord-btn');
+const authToast = document.getElementById('auth-toast');
+const authToastTitle = document.getElementById('auth-toast-title');
+const authToastMessage = document.getElementById('auth-toast-message');
+
+// --- Toast Helper ---
+function showToast(title, message, isError = false) {
+  if (!authToast) return;
+  authToastTitle.textContent = title;
+  authToastMessage.textContent = message;
+  authToast.classList.toggle('error', isError);
+  authToast.classList.add('show');
+  setTimeout(() => authToast.classList.remove('show'), 4000);
+}
+
+// --- Update UI based on auth state ---
+function updateAuthUI(user) {
+  if (user) {
+    // User is logged in
+    const meta = user.user_metadata || {};
+    const avatarUrl = meta.avatar_url || meta.picture || '';
+    const displayName = meta.full_name || meta.name || meta.preferred_username || user.email || 'Comrade';
+
+    if (authLoginBtn) authLoginBtn.style.display = 'none';
+    if (authUser) authUser.style.display = 'block';
+    if (authAvatar) authAvatar.src = avatarUrl;
+    if (authUsername) authUsername.textContent = displayName;
+    if (authDropdownAvatar) authDropdownAvatar.src = avatarUrl;
+    if (authDropdownName) authDropdownName.textContent = displayName;
+  } else {
+    // User is logged out
+    if (authLoginBtn) authLoginBtn.style.display = 'inline-flex';
+    if (authUser) authUser.style.display = 'none';
+    // Close dropdown if open
+    if (authDropdown) authDropdown.classList.remove('open');
+    if (authUserBtn) authUserBtn.classList.remove('open');
+  }
+}
+
+// --- Modal Controls ---
+function openAuthModal() {
+  if (authModalOverlay) authModalOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeAuthModal() {
+  if (authModalOverlay) authModalOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Open modal on login button click
+if (authLoginBtn) {
+  authLoginBtn.addEventListener('click', openAuthModal);
+}
+
+// Close modal on X or overlay click
+if (authModalClose) {
+  authModalClose.addEventListener('click', closeAuthModal);
+}
+if (authModalOverlay) {
+  authModalOverlay.addEventListener('click', (e) => {
+    if (e.target === authModalOverlay) closeAuthModal();
+  });
+}
+
+// Close modal on Escape
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeAuthModal();
+    if (authDropdown) authDropdown.classList.remove('open');
+    if (authUserBtn) authUserBtn.classList.remove('open');
+  }
+});
+
+// --- Discord OAuth Login ---
+if (authDiscordBtn) {
+  authDiscordBtn.addEventListener('click', async () => {
+    if (!supabase) {
+      showToast('Connection Error', 'Could not connect to auth service.', true);
+      return;
+    }
+
+    authDiscordBtn.classList.add('loading');
+
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'discord',
+      options: {
+        redirectTo: window.location.origin + window.location.pathname,
+      },
+    });
+
+    if (error) {
+      authDiscordBtn.classList.remove('loading');
+      showToast('Authentication Failed', error.message, true);
+      console.error('OAuth error:', error);
+    }
+    // If successful, the page will redirect to Discord
+  });
+}
+
+// --- Profile Dropdown Toggle ---
+if (authUserBtn) {
+  authUserBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = authDropdown.classList.toggle('open');
+    authUserBtn.classList.toggle('open', isOpen);
+  });
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', (e) => {
+  if (authDropdown && !authDropdown.contains(e.target) && !authUserBtn.contains(e.target)) {
+    authDropdown.classList.remove('open');
+    if (authUserBtn) authUserBtn.classList.remove('open');
+  }
+});
+
+// --- Logout ---
+if (authLogoutBtn) {
+  authLogoutBtn.addEventListener('click', async () => {
+    if (!supabase) return;
+
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      showToast('Sign Out Error', error.message, true);
+    } else {
+      updateAuthUI(null);
+      showToast('Signed Out', 'Until next time, Comrade.');
+      if (authDropdown) authDropdown.classList.remove('open');
+      if (authUserBtn) authUserBtn.classList.remove('open');
+    }
+  });
+}
+
+// --- Listen for auth state changes ---
+if (supabase) {
+  supabase.auth.onAuthStateChange((event, session) => {
+    const user = session?.user || null;
+    updateAuthUI(user);
+
+    if (event === 'SIGNED_IN' && user) {
+      closeAuthModal();
+      const name = user.user_metadata?.full_name || user.user_metadata?.name || 'Comrade';
+      showToast(`Welcome, ${name}!`, 'Your citizenship has been verified.');
+    }
+
+    if (event === 'SIGNED_OUT') {
+      updateAuthUI(null);
+    }
+  });
+
+  // Check initial session on page load
+  supabase.auth.getSession().then(({ data: { session } }) => {
+    updateAuthUI(session?.user || null);
+  });
+}
+
 // ===== PARTICLES BACKGROUND =====
 (function initParticles() {
   const canvas = document.getElementById('particles-canvas');
