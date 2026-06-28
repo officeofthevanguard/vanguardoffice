@@ -1,1072 +1,405 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Official Portal | USSR Mock-Gov</title>
-    
-    <!-- Tailwind CSS for modern utility styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts: Inter for an ultra-clean, modern institutional look -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
-    <!-- FontAwesome Icons for clean vector symbols -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: {
-                            red: '#DC2626',      // Modern vivid red
-                            darkRed: '#991B1B', 
-                            gold: '#F59E0B',     // Clean amber/gold
-                            slate: '#0F172A',    // Deep modern slate for dark areas
-                            surface: '#FFFFFF',
-                            bg: '#F8FAFC'        // Very light cool gray for page bg
-                        }
-                    },
-                    boxShadow: {
-                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
-                        'floating': '0 10px 40px -10px rgba(0,0,0,0.08)'
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        /* Modern invisible scrollbar for inner elements */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        
-        /* Smooth fade-in for tab content */
-        .tab-pane {
-            animation: fadeIn 0.3s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Union of Soviet Socialist Republics — Official Portal</title>
+  <meta name="description" content="The official government portal of the Union of Soviet Socialist Republics. Explore the structure, decrees, and history of a Union that endured.">
+  <meta name="theme-color" content="#0a0a0f">
 
-        html.dark body { background-color: #0B1120; color: #F8FAFC; }
-        html.dark .bg-brand-bg { background-color: #0B1120; }
-        html.dark .bg-white { background-color: #1E293B !important; border-color: #334155 !important; }
-        html.dark .bg-slate-50 { background-color: #0F172A !important; border-color: #334155 !important; }
-        html.dark .bg-slate-100 { background-color: #334155 !important; color: #F8FAFC !important;}
-        html.dark .text-slate-900, html.dark .text-slate-800 { color: #F8FAFC !important; }
-        html.dark .text-slate-700 { color: #E2E8F0 !important; }
-        html.dark .text-slate-600, html.dark .text-slate-500 { color: #94A3B8 !important; }
-        html.dark .border-slate-100 { border-color: #334155 !important; }
-        html.dark .border-slate-200 { border-color: #475569 !important; }
-        html.dark header { background-color: rgba(15, 23, 42, 0.8) !important; border-bottom-color: #334155 !important; }
-        html.dark footer { background-color: #0F172A !important; border-top-color: #334155 !important;}
-        
-        /* Modal Custom Scrollbar */
-        .custom-scroll::-webkit-scrollbar { width: 6px; }
-        .custom-scroll::-webkit-scrollbar-track { background: transparent; }
-        .custom-scroll::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; }
-        html.dark .custom-scroll::-webkit-scrollbar-thumb { background-color: #475569; }
-    </style>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Favicon (red star SVG inline) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☭</text></svg>">
+
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-brand-bg text-slate-800 font-sans antialiased selection:bg-brand-red selection:text-white transition-colors duration-300">
+<body>
 
-    <!-- HEADER -->
-    <header class="sticky top-0 z-40 w-full bg-white/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 transition-colors duration-300">
-        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-            <!-- Brand Logo -->
-            <a href="#" class="flex items-center gap-3 shrink-0">
-                <div class="w-8 h-8 bg-brand-red rounded-lg flex items-center justify-center text-white font-black shadow-md shadow-red-500/20">
-                    <i class="fas fa-star text-xs"></i>
-                </div>
-                <div class="flex flex-col">
-                    <h1 class="text-xl font-bold text-slate-900 tracking-tight leading-none mb-1">USSR</h1>
-                    <p class="text-[10px] uppercase tracking-widest text-slate-500 font-semibold">Union of Soviet Socialist Republics</p>
-                </div>
-            </a>
+  <!-- Background Effects -->
+  <canvas id="particles-canvas"></canvas>
+  <div class="bg-noise"></div>
+  <div class="bg-gradient-orbs"></div>
 
-            <!-- Navigation Links -->
-            <nav class="flex overflow-x-auto no-scrollbar w-full md:w-auto pb-2 md:pb-0 gap-1 md:gap-2 text-sm font-medium text-slate-600 items-center">
-                <a href="#about" class="px-4 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition whitespace-nowrap">About</a>
-                <a href="#leadership" class="px-4 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition whitespace-nowrap">Leadership</a>
-                <a href="#ministries" class="px-4 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition whitespace-nowrap">Ministries</a>
-                <a href="#structure" class="px-4 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition whitespace-nowrap">Structure</a>
-                <a href="#security" class="px-4 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition whitespace-nowrap">Security</a>
-                <a href="#news" class="px-4 py-2 rounded-lg bg-slate-900 text-white hover:bg-slate-800 transition whitespace-nowrap shadow-md mr-2">Pravda News</a>
-                
-                <!-- Auth Section -->
-                <div class="ml-2 pl-4 border-l border-slate-200 dark:border-slate-700 flex items-center h-8">
-                    <!-- Standard Guest Sign In button -->
-                    <button id="nav-login-btn" class="px-4 py-1.5 rounded-lg bg-brand-red text-white font-semibold shadow-md shadow-red-500/20 hover:-translate-y-0.5 transition duration-300 whitespace-nowrap">
-                        Sign In
-                    </button>
-                    
-                    <!-- Clickable User Profile Dropdown Container -->
-                    <div id="nav-user-profile" class="hidden relative items-center cursor-pointer z-50">
-                        <div id="profile-dropdown-trigger" class="flex items-center gap-3 py-1.5 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200">
-                            <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-brand-red border border-slate-200 overflow-hidden relative">
-                                <img id="nav-user-avatar" src="" alt="Avatar" class="w-full h-full object-cover hidden absolute inset-0 z-10" />
-                                <i id="nav-user-icon" class="fas fa-user text-xs"></i>
-                            </div>
-                            <div class="flex flex-col">
-                                <span id="nav-user-email" class="text-xs font-bold text-slate-700 max-w-[100px] truncate hidden sm:block transition-colors" title="">Citizen</span>
-                            </div>
-                            <i class="fas fa-chevron-down text-[10px] text-slate-400"></i>
-                        </div>
-                        
-                        <!-- Dropdown Menu -->
-                        <div id="profile-dropdown" class="absolute top-full right-0 mt-2 w-48 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl shadow-floating opacity-0 pointer-events-none transform translate-y-2 transition-all duration-200 overflow-hidden z-50">
-                            <button id="btn-open-profile" class="w-full text-left px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-brand-red transition-colors flex items-center gap-3 font-medium">
-                                <i class="fas fa-id-card w-4 text-center"></i> View Profile
-                            </button>
-                            <button id="btn-open-settings" class="w-full text-left px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-brand-red transition-colors flex items-center gap-3 font-medium">
-                                <i class="fas fa-cog w-4 text-center"></i> Settings
-                            </button>
-                            <div class="border-t border-slate-100 dark:border-slate-700"></div>
-                            <button id="nav-logout-btn" class="w-full text-left px-4 py-3 text-sm text-brand-red hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors flex items-center gap-3 font-medium">
-                                <i class="fas fa-sign-out-alt w-4 text-center"></i> Sign Out
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </header>
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="nav" id="main-nav">
+    <a href="#" class="nav-logo">
+      <span class="logo-emblem">☭</span>
+      <span>USSR</span>
+    </a>
 
-    <!-- HERO SECTION -->
-    <main class="max-w-7xl mx-auto px-6 py-12 lg:py-20 flex flex-col gap-12">
-        
-        <section class="flex flex-col lg:flex-row gap-12 items-center">
-            <div class="flex-1 space-y-6">
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-50 dark:bg-red-950/30 border border-red-100 dark:border-red-900/50 text-brand-red text-xs font-semibold tracking-wide uppercase">
-                    <i class="fas fa-bolt"></i>
-                    <span>Official Community Portal</span>
-                </div>
-                <h2 class="text-4xl lg:text-6xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.1]">
-                    Workers of all countries, <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-red to-brand-darkRed">unite!</span>
-                </h2>
-                <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
-                    Welcome to the central administrative hub. This platform coordinates active ministries, oversees regional territories, and manages the structural flow of our digital community.
-                </p>
-                <div class="flex flex-wrap gap-4 pt-2">
-                    <a href="#news" class="px-6 py-3 rounded-xl bg-brand-red text-white font-semibold shadow-lg shadow-red-500/30 hover:-translate-y-1 transition duration-300">Read Latest Bulletins</a>
-                    <a href="#structure" class="px-6 py-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-semibold hover:bg-slate-50 dark:hover:bg-slate-700 transition duration-300 shadow-sm">View Government Structure</a>
-                </div>
-            </div>
-
-            <!-- Key Metrics Grid -->
-            <div class="w-full lg:w-5/12 grid grid-cols-2 gap-4">
-                <div class="bg-white p-6 rounded-2xl shadow-soft border border-slate-100 flex flex-col justify-center">
-                    <span class="text-4xl font-black text-brand-red tracking-tighter">15</span>
-                    <span class="text-xs font-semibold uppercase tracking-widest text-slate-400 mt-2">Union Republics</span>
-                </div>
-                <div class="bg-white p-6 rounded-2xl shadow-soft border border-slate-100 flex flex-col justify-center">
-                    <span class="text-4xl font-black text-slate-900 tracking-tighter">5.6K+</span>
-                    <span class="text-xs font-semibold uppercase tracking-widest text-slate-400 mt-2">Active Citizens</span>
-                </div>
-                <div class="bg-white p-6 rounded-2xl shadow-soft border border-slate-100 flex flex-col justify-center">
-                    <span class="text-4xl font-black text-slate-900 tracking-tighter">8</span>
-                    <span class="text-xs font-semibold uppercase tracking-widest text-slate-400 mt-2">Ministries</span>
-                </div>
-                <div class="bg-slate-900 p-6 rounded-2xl shadow-floating flex flex-col justify-center text-white">
-                    <span class="text-4xl font-black text-brand-gold tracking-tighter">2022</span>
-                    <span class="text-xs font-semibold uppercase tracking-widest text-slate-400 mt-2">Year Founded</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- LIVE ANNOUNCEMENT BANNER -->
-        <div class="bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/50 rounded-2xl p-5 flex flex-col sm:flex-row items-center gap-4 text-indigo-900 dark:text-indigo-200 shadow-sm">
-            <div class="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center shrink-0">
-                <i class="fas fa-bullhorn text-indigo-600 dark:text-indigo-400"></i>
-            </div>
-            <div class="flex-1">
-                <h4 class="text-sm font-bold">Important State Update</h4>
-                <p class="text-sm mt-1 opacity-90 text-indigo-800 dark:text-indigo-300">The 7th Five-Year Plan (2022-2027) has reached 112% of its goals. All workers are commended for heroic service. Check the local directories for event assignments.</p>
-            </div>
-        </div>
-
-        <!-- ABOUT THE GOVERNMENT -->
-        <section id="about" class="pt-10 scroll-mt-24">
-            <div class="flex items-center gap-3 mb-8">
-                <div class="h-8 w-1 bg-brand-red rounded-full"></div>
-                <h3 class="text-2xl font-bold text-slate-900 tracking-tight">Central Administration</h3>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white p-8 rounded-3xl shadow-soft border border-slate-100 hover:shadow-floating transition-shadow duration-300">
-                    <div class="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-xl text-slate-700 mb-6 border border-slate-100">
-                        <i class="fas fa-book-open"></i>
-                    </div>
-                    <h4 class="text-lg font-bold text-slate-900 mb-3">State Constitution</h4>
-                    <p class="text-sm text-slate-600 leading-relaxed">The portal operates under foundational legislative charts updated during successive administrative plenums. The primary goal is coordination and arbitration.</p>
-                </div>
-                <div class="bg-white p-8 rounded-3xl shadow-soft border border-slate-100 hover:shadow-floating transition-shadow duration-300">
-                    <div class="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-xl text-slate-700 mb-6 border border-slate-100">
-                        <i class="fas fa-landmark"></i>
-                    </div>
-                    <h4 class="text-lg font-bold text-slate-900 mb-3">Supreme Legislation</h4>
-                    <p class="text-sm text-slate-600 leading-relaxed">The primary legislative framework, acting on behalf of regional representations to draft codes, ratify ministerial portfolios, and validate pacts.</p>
-                </div>
-                <div class="bg-white p-8 rounded-3xl shadow-soft border border-slate-100 hover:shadow-floating transition-shadow duration-300">
-                    <div class="w-12 h-12 bg-brand-red rounded-2xl flex items-center justify-center text-xl text-white mb-6 shadow-lg shadow-red-500/20">
-                        <i class="fas fa-users-cog"></i>
-                    </div>
-                    <h4 class="text-lg font-bold text-slate-900 mb-3">Council of Ministers</h4>
-                    <p class="text-sm text-slate-600 leading-relaxed">The main active engine managing operations across logistics, culture, educational events, defense, and external media bulletins.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- LEADERSHIP SECTION -->
-        <section id="leadership" class="pt-10 scroll-mt-24">
-            <div class="flex items-center gap-3 mb-8">
-                <div class="h-8 w-1 bg-brand-red rounded-full"></div>
-                <h3 class="text-2xl font-bold text-slate-900 tracking-tight">Supreme Leadership</h3>
-            </div>
-
-            <!-- Current Leaders Profiles -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-                <div class="bg-white p-6 rounded-3xl shadow-soft border border-slate-100 text-center group">
-                    <div class="w-20 h-20 mx-auto bg-slate-900 rounded-full flex items-center justify-center text-2xl font-bold text-white shadow-xl mb-4 group-hover:scale-110 transition duration-300">
-                        A
-                    </div>
-                    <h4 class="text-lg font-bold text-slate-900">Comrade Admin</h4>
-                    <p class="text-xs text-brand-red font-semibold uppercase tracking-wider mt-1">General Secretary</p>
-                    <div class="mt-4 inline-block px-3 py-1 bg-slate-100 text-slate-600 text-[10px] font-bold rounded-lg uppercase tracking-widest">Party Control</div>
-                </div>
-                <div class="bg-white p-6 rounded-3xl shadow-soft border border-slate-100 text-center group">
-                    <div class="w-20 h-20 mx-auto bg-slate-100 rounded-full flex items-center justify-center text-2xl font-bold text-slate-700 shadow-inner mb-4 group-hover:scale-110 transition duration-300">
-                        R
-                    </div>
-                    <h4 class="text-lg font-bold text-slate-900">Representative B</h4>
-                    <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mt-1">Presidium Chairman</p>
-                    <div class="mt-4 inline-block px-3 py-1 bg-slate-100 text-slate-600 text-[10px] font-bold rounded-lg uppercase tracking-widest">Legislation</div>
-                </div>
-            </div>
-
-            <!-- Leadership Chronicles Table -->
-            <div class="bg-white rounded-3xl shadow-soft border border-slate-100 overflow-hidden">
-                <div class="px-6 py-5 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
-                    <h4 class="font-bold text-slate-800">Historical Chronicles</h4>
-                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-widest">Archive Log</span>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-sm whitespace-nowrap">
-                        <thead class="bg-white text-slate-400 font-semibold text-xs uppercase tracking-wider">
-                            <tr>
-                                <th class="px-6 py-4 border-b border-slate-100">Representative Name</th>
-                                <th class="px-6 py-4 border-b border-slate-100">Term Period</th>
-                                <th class="px-6 py-4 border-b border-slate-100">Directives</th>
-                                <th class="px-6 py-4 border-b border-slate-100 text-right">Era</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-slate-100 text-slate-700">
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="px-6 py-4 font-bold text-slate-900">Admin_Founder</td>
-                                <td class="px-6 py-4 text-slate-500">2022 – 2023</td>
-                                <td class="px-6 py-4 truncate max-w-[200px] xl:max-w-md">Codified original constitution; established ministries.</td>
-                                <td class="px-6 py-4 text-right">
-                                    <span class="px-2.5 py-1 rounded-md text-[10px] font-bold bg-indigo-50 text-indigo-600 uppercase tracking-widest">Foundational</span>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="px-6 py-4 font-bold text-slate-900">Comrade_Sovereign</td>
-                                <td class="px-6 py-4 text-slate-500">2023 – 2024</td>
-                                <td class="px-6 py-4 truncate max-w-[200px] xl:max-w-md">Expanded boundaries; instituted standard civic ranks.</td>
-                                <td class="px-6 py-4 text-right">
-                                    <span class="px-2.5 py-1 rounded-md text-[10px] font-bold bg-amber-50 text-amber-600 uppercase tracking-widest">Consolidation</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- MINISTRIES TABS SECTION -->
-        <section id="ministries" class="pt-10 scroll-mt-24">
-            <div class="flex items-center gap-3 mb-6">
-                <div class="h-8 w-1 bg-brand-red rounded-full"></div>
-                <h3 class="text-2xl font-bold text-slate-900 tracking-tight">Council of Ministries</h3>
-            </div>
-
-            <!-- Tab Navigation -->
-            <div class="flex space-x-2 bg-slate-100 p-1.5 rounded-2xl w-full max-w-fit mb-6 overflow-x-auto no-scrollbar">
-                <button onclick="switchTab('econ')" id="btn-econ" class="tab-btn px-6 py-2.5 rounded-xl bg-white shadow-sm text-sm font-semibold text-slate-900 transition-all">Economy & Dev</button>
-                <button onclick="switchTab('civic')" id="btn-civic" class="tab-btn px-6 py-2.5 rounded-xl text-slate-500 hover:text-slate-900 text-sm font-semibold transition-all">Civic Portfolio</button>
-                <button onclick="switchTab('defence')" id="btn-defence" class="tab-btn px-6 py-2.5 rounded-xl text-slate-500 hover:text-slate-900 text-sm font-semibold transition-all">Defense & Security</button>
-            </div>
-
-            <!-- Tab Content Area -->
-            <div class="bg-white rounded-3xl shadow-soft border border-slate-100 overflow-hidden relative min-h-[250px]">
-                
-                <!-- Econ Tab -->
-                <div id="tab-econ" class="tab-pane absolute inset-0 w-full p-6 sm:p-8">
-                    <h4 class="text-lg font-bold text-slate-900 mb-4">Ministry of Finance</h4>
-                    <p class="text-sm text-slate-600 mb-6 max-w-2xl">Managing user-experience metrics, checking bot economies, regulating server rewards and level currencies across the digital union.</p>
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                            <span class="text-[10px] uppercase font-bold text-slate-400 tracking-widest block mb-1">Subordinate Boards</span>
-                            <span class="text-sm font-medium text-slate-800">State Bank, Exchange Logs, Treasury Committee</span>
-                        </div>
-                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                            <span class="text-[10px] uppercase font-bold text-slate-400 tracking-widest block mb-1">Status</span>
-                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-100 text-emerald-700">
-                                <i class="fas fa-circle text-[8px]"></i> Active
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Civic Tab -->
-                <div id="tab-civic" class="tab-pane absolute inset-0 w-full p-6 sm:p-8 opacity-0 pointer-events-none transition-opacity duration-300">
-                    <h4 class="text-lg font-bold text-slate-900 mb-4">Ministry of Culture</h4>
-                    <p class="text-sm text-slate-600 mb-6 max-w-2xl">Organizing server events, managing debate channels, community games, and historical trivia updates to foster community engagement.</p>
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                            <span class="text-[10px] uppercase font-bold text-slate-400 tracking-widest block mb-1">Subordinate Boards</span>
-                            <span class="text-sm font-medium text-slate-800">Radio Center, Event Planning, Debate Desk</span>
-                        </div>
-                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                            <span class="text-[10px] uppercase font-bold text-slate-400 tracking-widest block mb-1">Status</span>
-                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-100 text-emerald-700">
-                                <i class="fas fa-circle text-[8px]"></i> Active
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Defence Tab -->
-                <div id="tab-defence" class="tab-pane absolute inset-0 w-full p-6 sm:p-8 opacity-0 pointer-events-none transition-opacity duration-300">
-                    <h4 class="text-lg font-bold text-slate-900 mb-4">Internal Security (MVD)</h4>
-                    <p class="text-sm text-slate-600 mb-6 max-w-2xl">Server moderation, checking spam bots, preventing raid events, and reviewing automated bot actions to maintain a safe environment.</p>
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                            <span class="text-[10px] uppercase font-bold text-slate-400 tracking-widest block mb-1">Subordinate Boards</span>
-                            <span class="text-sm font-medium text-slate-800">Moderator Guard, Verification Desk, Log Review</span>
-                        </div>
-                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                            <span class="text-[10px] uppercase font-bold text-slate-400 tracking-widest block mb-1">Status</span>
-                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-100 text-emerald-700">
-                                <i class="fas fa-circle text-[8px]"></i> Active
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- STRUCTURE & REPUBLICS -->
-        <section id="structure" class="pt-10 scroll-mt-24">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                
-                <!-- Central Committee -->
-                <div>
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="h-8 w-1 bg-brand-red rounded-full"></div>
-                        <h3 class="text-2xl font-bold text-slate-900 tracking-tight">Central Committee</h3>
-                    </div>
-                    <div class="bg-white p-6 rounded-3xl shadow-soft border border-slate-100">
-                        <ul class="space-y-4">
-                            <li class="flex items-start gap-4 pb-4 border-b border-slate-50">
-                                <div class="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0"><i class="fas fa-gavel text-xs"></i></div>
-                                <div>
-                                    <h5 class="font-bold text-slate-900 text-sm">State Judiciary Board</h5>
-                                    <p class="text-xs text-slate-500 mt-1">Managing Supreme Court Decisions & Arbitration Rules</p>
-                                </div>
-                            </li>
-                            <li class="flex items-start gap-4">
-                                <div class="w-8 h-8 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center shrink-0"><i class="fas fa-globe text-xs"></i></div>
-                                <div>
-                                    <h5 class="font-bold text-slate-900 text-sm">State Diplomacy Council</h5>
-                                    <p class="text-xs text-slate-500 mt-1">Coordination of External Alliances & Public Relations</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Associated Districts -->
-                <div>
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="h-8 w-1 bg-brand-red rounded-full"></div>
-                        <h3 class="text-2xl font-bold text-slate-900 tracking-tight">Associated Districts</h3>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-white p-5 rounded-2xl shadow-soft border border-slate-100 hover:border-slate-300 transition-colors">
-                            <span class="text-xs font-mono text-slate-400 mb-2 block">01</span>
-                            <h5 class="font-bold text-slate-900 text-sm">District Alpha</h5>
-                            <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Regional Hub</p>
-                        </div>
-                        <div class="bg-white p-5 rounded-2xl shadow-soft border border-slate-100 hover:border-slate-300 transition-colors">
-                            <span class="text-xs font-mono text-slate-400 mb-2 block">02</span>
-                            <h5 class="font-bold text-slate-900 text-sm">District Beta</h5>
-                            <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Regional Hub</p>
-                        </div>
-                        <div class="bg-white p-5 rounded-2xl shadow-soft border border-slate-100 hover:border-slate-300 transition-colors">
-                            <span class="text-xs font-mono text-slate-400 mb-2 block">03</span>
-                            <h5 class="font-bold text-slate-900 text-sm">District Gamma</h5>
-                            <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Regional Hub</p>
-                        </div>
-                        <div class="bg-slate-50 p-5 rounded-2xl border border-dashed border-slate-300 flex items-center justify-center text-slate-400 text-sm font-medium">
-                            + 12 More
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECURITY & DEFENSE -->
-        <section id="security" class="pt-10 scroll-mt-24">
-            <div class="flex items-center gap-3 mb-8">
-                <div class="h-8 w-1 bg-brand-red rounded-full"></div>
-                <h3 class="text-2xl font-bold text-slate-900 tracking-tight">State Security Protocols</h3>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Unit 1 -->
-                <div class="bg-slate-900 p-8 rounded-3xl text-white shadow-floating relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-[100px] -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
-                    <span class="text-[10px] font-semibold tracking-widest text-brand-gold uppercase block mb-4">Ground Protection</span>
-                    <h4 class="text-lg font-bold mb-3">Admin Guard Forces</h4>
-                    <p class="text-sm text-slate-400 leading-relaxed">The main moderation team tasked with enforcing rules, managing channel security, and monitoring chat safety.</p>
-                </div>
-                
-                <!-- Unit 2 -->
-                <div class="bg-slate-900 p-8 rounded-3xl text-white shadow-floating relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-[100px] -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
-                    <span class="text-[10px] font-semibold tracking-widest text-brand-gold uppercase block mb-4">Internal Operations</span>
-                    <h4 class="text-lg font-bold mb-3">Internal Affairs (MVD)</h4>
-                    <p class="text-sm text-slate-400 leading-relaxed">Responsible for administrative auditing, behavior review, internal conflict investigation, and appeal processing.</p>
-                </div>
-
-                <!-- Unit 3 -->
-                <div class="bg-slate-900 p-8 rounded-3xl text-white shadow-floating relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-[100px] -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
-                    <span class="text-[10px] font-semibold tracking-widest text-brand-gold uppercase block mb-4">High Intelligence</span>
-                    <h4 class="text-lg font-bold mb-3">Security Council (KGB)</h4>
-                    <p class="text-sm text-slate-400 leading-relaxed">Specialized committee dedicated to external diplomatic analysis, managing alliances, and preserving frameworks.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- PRAVDA NEWS SECTION -->
-        <section id="news" class="pt-10 scroll-mt-24 mb-10">
-            <div class="flex items-center gap-3 mb-8">
-                <div class="h-8 w-1 bg-brand-red rounded-full"></div>
-                <h3 class="text-2xl font-bold text-slate-900 tracking-tight">Pravda Bulletins</h3>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Articles List -->
-                <div class="lg:col-span-2 flex flex-col gap-5">
-                    <article class="bg-white p-6 rounded-3xl shadow-soft border border-slate-100 flex flex-col sm:flex-row gap-6 hover:shadow-floating transition duration-300">
-                        <div class="bg-slate-50 border border-slate-100 text-slate-900 p-4 rounded-2xl flex flex-col items-center justify-center w-full sm:w-20 h-24 shrink-0">
-                            <span class="text-2xl font-black">15</span>
-                            <span class="text-[10px] uppercase tracking-widest font-bold text-slate-500">Nov</span>
-                        </div>
-                        <div>
-                            <h4 class="text-lg font-bold text-slate-900 hover:text-brand-red transition cursor-pointer mb-2">General Council Announces Restructuring</h4>
-                            <p class="text-sm text-slate-600 leading-relaxed">The General Secretary has authorized the reorganization of active state ministries, creating new sub-committees to focus specifically on onboarding user events and level-tracking commands.</p>
-                        </div>
-                    </article>
-
-                    <article class="bg-white p-6 rounded-3xl shadow-soft border border-slate-100 flex flex-col sm:flex-row gap-6 hover:shadow-floating transition duration-300">
-                        <div class="bg-brand-red text-white p-4 rounded-2xl flex flex-col items-center justify-center w-full sm:w-20 h-24 shrink-0 shadow-md shadow-red-500/20">
-                            <span class="text-2xl font-black">12</span>
-                            <span class="text-[10px] uppercase tracking-widest font-bold text-red-200">Nov</span>
-                        </div>
-                        <div>
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="px-2 py-0.5 bg-red-50 text-brand-red text-[10px] font-bold uppercase tracking-widest rounded-md">Featured</span>
-                                <h4 class="text-lg font-bold text-slate-900 hover:text-brand-red transition cursor-pointer">Deployment of Modern Interface</h4>
-                            </div>
-                            <p class="text-sm text-slate-600 leading-relaxed">State technicians have completed deployment of our digital server portal. The redesign provides simplified, clean navigation for all district coordinates.</p>
-                        </div>
-                    </article>
-                </div>
-
-                <!-- Side Info -->
-                <div class="flex flex-col gap-5">
-                    <div class="bg-white p-6 rounded-3xl shadow-soft border border-slate-100">
-                        <h5 class="font-bold text-slate-900 text-sm uppercase tracking-widest mb-4">Official Channels</h5>
-                        <ul class="space-y-3 text-sm text-slate-600">
-                            <li class="flex items-center gap-3"><i class="fas fa-satellite-dish text-slate-400"></i> State Radio Broadcast</li>
-                            <li class="flex items-center gap-3"><i class="fas fa-newspaper text-slate-400"></i> Pravda Announcements</li>
-                            <li class="flex items-center gap-3"><i class="fas fa-comment-dots text-slate-400"></i> General Assembly Chat</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="bg-white border-t border-slate-200 mt-12 py-12">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-            <div class="md:col-span-1">
-                <div class="w-8 h-8 bg-brand-red rounded-lg flex items-center justify-center text-white mb-4">
-                    <i class="fas fa-star text-sm"></i>
-                </div>
-                <h5 class="font-bold text-slate-900 mb-2">USSR Mock-Gov</h5>
-                <p class="text-xs text-slate-500 leading-relaxed">A community-driven roleplay and educational platform structured purely for recreational world-building simulation.</p>
-            </div>
-            
-            <div>
-                <h6 class="font-bold text-slate-900 text-xs uppercase tracking-widest mb-4">Navigation</h6>
-                <ul class="space-y-2 text-sm text-slate-500">
-                    <li><a href="#about" class="hover:text-slate-900 transition">About Government</a></li>
-                    <li><a href="#leadership" class="hover:text-slate-900 transition">Leadership Roster</a></li>
-                    <li><a href="#ministries" class="hover:text-slate-900 transition">State Ministries</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h6 class="font-bold text-slate-900 text-xs uppercase tracking-widest mb-4">Sectors</h6>
-                <ul class="space-y-2 text-sm text-slate-500">
-                    <li><a href="#structure" class="hover:text-slate-900 transition">Districts</a></li>
-                    <li><a href="#security" class="hover:text-slate-900 transition">Security Guard</a></li>
-                    <li><a href="#news" class="hover:text-slate-900 transition">News Office</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h6 class="font-bold text-slate-900 text-xs uppercase tracking-widest mb-4">Coordinates</h6>
-                <ul class="space-y-2 text-sm text-slate-500">
-                    <li><a href="#" class="hover:text-slate-900 transition">Archive Documentation</a></li>
-                    <li><a href="#" class="hover:text-slate-900 transition">Citizen Register</a></li>
-                    <li><a href="#" class="hover:text-slate-900 transition">General Rules</a></li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="max-w-7xl mx-auto px-6 pt-8 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-400 font-medium">
-            <p>© 2026 Sovereign Mock-Gov Administration. Fictional entities.</p>
-            <p class="uppercase tracking-widest text-slate-500">Workers of All Countries, Unite</p>
-        </div>
-    </footer>
-
-    <!-- AUTHENTICATION MODAL -->
-    <div id="auth-modal" class="fixed inset-0 z-[100] hidden items-center justify-center">
-        <!-- Backdrop -->
-        <div id="auth-backdrop" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity opacity-0"></div>
-        
-        <!-- Modal Content -->
-        <div id="auth-content" class="relative bg-white rounded-3xl shadow-2xl w-full max-w-md mx-4 p-8 transform scale-95 opacity-0 transition-all duration-300">
-            <button id="close-modal-btn" class="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-slate-50 text-slate-400 hover:text-slate-900 hover:bg-slate-100 transition">
-                <i class="fas fa-times"></i>
-            </button>
-            
-            <div class="text-center mb-8">
-                <div class="w-12 h-12 bg-[#5865F2] rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#5865F2]/20 mx-auto mb-4">
-                    <i class="fab fa-discord text-xl"></i>
-                </div>
-                <h3 id="auth-title" class="text-2xl font-bold text-slate-900 tracking-tight">Access Terminal</h3>
-                <p id="auth-subtitle" class="text-sm text-slate-500 mt-2">Identify yourself via Discord to enter the network.</p>
-            </div>
-
-            <div class="space-y-5">
-                <button id="discord-login-btn" class="w-full py-3.5 bg-[#5865F2] text-white font-bold rounded-xl shadow-lg shadow-[#5865F2]/30 hover:bg-[#4752C4] hover:-translate-y-0.5 transition duration-300 flex justify-center items-center gap-3">
-                    <i class="fab fa-discord text-lg"></i>
-                    <span>Authenticate with Discord</span>
-                </button>
-            </div>
-        </div>
+    <div class="nav-links" id="nav-links">
+      <a href="#about">About</a>
+      <a href="#structure">Government</a>
+      <a href="#history">History</a>
+      <a href="#decrees">Decrees</a>
+      <a href="#join" class="nav-cta">Join the Union</a>
     </div>
 
-    <!-- SETTINGS MODAL -->
-    <div id="settings-modal" class="fixed inset-0 z-[100] hidden items-center justify-center">
-        <div id="settings-backdrop" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity opacity-0"></div>
-        <div id="settings-content" class="relative bg-white rounded-3xl shadow-2xl w-full max-w-lg mx-4 p-8 transform scale-95 opacity-0 transition-all duration-300 max-h-[90vh] overflow-y-auto custom-scroll">
-            <button id="close-settings-btn" class="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-slate-50 text-slate-400 hover:text-slate-900 hover:bg-slate-100 transition">
-                <i class="fas fa-times"></i>
-            </button>
-            
-            <div class="mb-6 flex items-center gap-3 border-b border-slate-100 pb-4">
-                <div class="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center text-slate-700">
-                    <i class="fas fa-cog"></i>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold text-slate-900 tracking-tight">Citizen Settings</h3>
-                    <p class="text-xs text-slate-500">Customize your roleplay identity and preferences.</p>
-                </div>
-            </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
 
-            <form id="settings-form" class="space-y-5">
-                <!-- Dark Mode Toggle -->
-                <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
-                    <div>
-                        <h4 class="text-sm font-bold text-slate-900">Dark Mode</h4>
-                        <p class="text-xs text-slate-500">Switch to night aesthetics</p>
-                    </div>
-                    <label class="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" id="setting-dark-mode" class="sr-only peer">
-                        <div class="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-slate-900"></div>
-                    </label>
-                </div>
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-radial"></div>
 
-                <!-- RP Name -->
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">Roleplay Name</label>
-                    <input type="text" id="setting-rp-name" placeholder="E.g. Comrade Ivanov" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 text-sm focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red transition">
-                    <p class="text-[10px] text-slate-500 mt-1">Leave blank to use your Discord name.</p>
-                </div>
+    <!-- Large background star SVG -->
+    <svg class="hero-star" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M100 10L123.5 73.5H190L136 115L155.5 180L100 143L44.5 180L64 115L10 73.5H76.5L100 10Z" fill="currentColor" stroke="rgba(212,168,67,0.3)" stroke-width="1"/>
+    </svg>
 
-                <!-- Banner URL -->
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">Banner Image URL</label>
-                    <input type="url" id="setting-banner" placeholder="https://example.com/image.jpg" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 text-sm focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red transition">
-                </div>
-
-                <!-- Profile Picture URL -->
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">Profile Picture URL</label>
-                    <input type="url" id="setting-pfp" placeholder="https://example.com/avatar.jpg" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 text-sm focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red transition">
-                </div>
-
-                <!-- Biography -->
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">Biography / Dossier</label>
-                    <textarea id="setting-bio" rows="4" placeholder="Enter your character's background..." class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 text-sm focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red transition resize-none"></textarea>
-                </div>
-
-                <div class="pt-4 flex justify-end gap-3">
-                    <button type="button" id="btn-cancel-settings" class="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-semibold text-sm hover:bg-slate-50 transition">Cancel</button>
-                    <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-red text-white font-semibold text-sm shadow-md shadow-red-500/20 hover:-translate-y-0.5 transition">Save Changes</button>
-                </div>
-            </form>
-        </div>
+    <div class="hero-badge">
+      <span class="pulse-dot"></span>
+      <span>Active Discord Government • Est. 2024</span>
     </div>
 
-    <!-- PROFILE MODAL -->
-    <div id="profile-modal" class="fixed inset-0 z-[100] hidden items-center justify-center">
-        <div id="profile-backdrop" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity opacity-0"></div>
-        <div id="profile-content" class="relative bg-white rounded-3xl shadow-2xl w-full max-w-md mx-4 transform scale-95 opacity-0 transition-all duration-300 overflow-hidden">
-            <!-- Close Button -->
-            <button id="close-profile-btn" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-black/20 text-white hover:bg-black/40 backdrop-blur-md transition z-20">
-                <i class="fas fa-times"></i>
-            </button>
-            
-            <!-- Banner -->
-            <div class="h-32 w-full bg-slate-900 relative">
-                <img id="display-banner" src="" alt="Banner" class="w-full h-full object-cover hidden absolute inset-0" onerror="this.style.display='none'">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-            </div>
+    <h1 class="hero-title">
+      The Union<br>
+      <span class="text-red">Endures</span><span class="text-gold">.</span>
+    </h1>
 
-            <!-- Profile Info Body -->
-            <div class="px-8 pb-8 pt-0 relative">
-                <!-- Profile Picture (Overlapping) -->
-                <div class="absolute -top-12 left-8 w-24 h-24 rounded-full border-4 border-white bg-slate-100 shadow-md flex items-center justify-center text-4xl text-slate-300 overflow-hidden">
-                    <img id="display-pfp" src="" alt="Avatar" class="w-full h-full object-cover hidden absolute inset-0 z-10" onerror="this.style.display='none'">
-                    <i class="fas fa-user relative z-0"></i>
-                </div>
+    <p class="hero-subtitle">
+      An alternative history where the Soviet Union never fell. A living, breathing mock government on Discord — where politics, roleplay, and community converge.
+    </p>
 
-                <div class="mt-14">
-                    <h3 id="display-rp-name" class="text-2xl font-black text-slate-900 tracking-tight leading-none mb-1">Roleplay Name</h3>
-                    <div class="flex items-center gap-2 text-sm text-slate-500 font-medium mb-6">
-                        <i class="fab fa-discord text-[#5865F2]"></i>
-                        <span id="display-discord-name">Discord Username</span>
-                    </div>
-
-                    <div class="bg-slate-50 rounded-2xl p-5 border border-slate-100">
-                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Personal Dossier</h4>
-                        <p id="display-bio" class="text-sm text-slate-700 leading-relaxed whitespace-pre-wrap">No biography provided.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="hero-actions">
+      <a href="#join" class="btn btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+        Join on Discord
+      </a>
+      <a href="#about" class="btn btn-secondary">
+        Learn More ↓
+      </a>
     </div>
 
-    <!-- TOAST NOTIFICATION CONTAINER -->
-    <div id="toast-container" class="fixed bottom-5 right-5 z-[110] flex flex-col gap-3 pointer-events-none"></div>
+    <div class="hero-scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
 
-    <script type="module">
-        import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"
+  <!-- ===== ABOUT ===== -->
+  <div class="section-divider"></div>
 
-        // Guarded Supabase connection so client-side preview engine doesn't crash on configuration mismatches
-        const supabaseUrl = "https://ivrsryervygjmncwlgdn.supabase.co";
-        const supabaseKey = "sb_publishable_Rsh_coNUNyNTvfiQ-42yQA_tOVqOaLk";
-        
-        let supabase = null;
-        try {
-            supabase = createClient(supabaseUrl, supabaseKey);
-        } catch (err) {
-            console.warn("Supabase client failed initialization, operating in sandbox mode:", err);
-        }
+  <section class="section" id="about">
+    <div class="about-grid">
+      <div class="about-content">
+        <div class="section-label reveal">
+          <span class="label-line"></span>
+          About the Union
+        </div>
+        <h2 class="section-title reveal reveal-delay-1">
+          What if the Soviet Union <span class="text-red">never collapsed?</span>
+        </h2>
+        <p class="about-text reveal reveal-delay-2">
+          In our alternative timeline, the reforms of the late 1980s took a different path. The Union adapted, evolved, and survived into the modern era. Our Discord server simulates this living, breathing government — complete with elected officials, legislative debates, and geopolitical roleplay.
+        </p>
+        <p class="about-text reveal reveal-delay-3">
+          This is not just a chat server. It's a community-driven political simulation where every citizen can rise through the ranks, propose legislation, serve in the Politburo, or shape foreign policy. We blend historical accuracy with creative worldbuilding.
+        </p>
+        <a href="#structure" class="btn btn-secondary reveal reveal-delay-4">
+          Explore the Government →
+        </a>
+      </div>
 
-        let currentUser = null;
-        let discordDisplayName = "Vanguard"; // Mock baseline as seen in image_3130ed.png
+      <div class="about-visual">
+        <div class="stat-grid">
+          <div class="stat-card reveal">
+            <div class="stat-number" data-count="15">0</div>
+            <div class="stat-label">Soviet Republics</div>
+          </div>
+          <div class="stat-card reveal reveal-delay-1">
+            <div class="stat-number" data-count="500" data-suffix="+">0</div>
+            <div class="stat-label">Active Citizens</div>
+          </div>
+          <div class="stat-card reveal reveal-delay-2">
+            <div class="stat-number" data-count="120" data-suffix="+">0</div>
+            <div class="stat-label">Decrees Passed</div>
+          </div>
+          <div class="stat-card reveal reveal-delay-3">
+            <div class="stat-number" data-count="2024">0</div>
+            <div class="stat-label">Year Established</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        let userPreferences = {
-            rpName: '',
-            bannerUrl: '',
-            pfpUrl: '',
-            bio: '',
-            darkMode: false
-        };
+  <!-- ===== GOVERNMENT STRUCTURE ===== -->
+  <div class="section-divider"></div>
 
-        const loadPreferences = (userId) => {
-            const saved = localStorage.getItem(`rp_prefs_${userId || 'guest'}`);
-            if (saved) {
-                userPreferences = { ...userPreferences, ...JSON.parse(saved) };
-            } else {
-                userPreferences = { rpName: '', bannerUrl: '', pfpUrl: '', bio: '', darkMode: false };
-            }
-            applyPreferences();
-        };
+  <section class="section" id="structure">
+    <div class="section-label reveal">
+      <span class="label-line"></span>
+      Government Structure
+    </div>
+    <h2 class="section-title reveal reveal-delay-1">
+      Organs of <span class="text-gold">State Power</span>
+    </h2>
+    <p class="section-description reveal reveal-delay-2">
+      The government operates through a structured hierarchy of councils and committees, each with defined responsibilities and elected or appointed officials.
+    </p>
 
-        const savePreferences = () => {
-            const currentId = currentUser ? currentUser.id : 'guest';
-            localStorage.setItem(`rp_prefs_${currentId}`, JSON.stringify(userPreferences));
-            applyPreferences();
-            showToast('Settings saved successfully.', 'success');
-        };
+    <div class="structure-grid">
+      <div class="structure-card reveal">
+        <div class="card-icon">⭐</div>
+        <div class="card-subtitle">Supreme Leadership</div>
+        <h3 class="card-title">The Politburo</h3>
+        <p class="card-description">
+          The highest decision-making body of the Communist Party. Members shape policy, approve decrees, and guide the ideological direction of the Union. Led by the General Secretary.
+        </p>
+      </div>
 
-        const applyPreferences = () => {
-            // Apply Dark Mode globally
-            if (userPreferences.darkMode) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
+      <div class="structure-card reveal reveal-delay-1">
+        <div class="card-icon">🏛️</div>
+        <div class="card-subtitle">Legislative Body</div>
+        <h3 class="card-title">Supreme Soviet</h3>
+        <p class="card-description">
+          The bicameral legislature comprising the Soviet of the Union and the Soviet of Nationalities. Debates and ratifies all federal legislation and constitutional amendments.
+        </p>
+      </div>
 
-            // Apply Display Name to Nav Bar
-            const navDisplay = document.getElementById('nav-user-email');
-            if (userPreferences.rpName && userPreferences.rpName.trim() !== '') {
-                navDisplay.textContent = userPreferences.rpName;
-                navDisplay.title = `Discord: ${discordDisplayName}`; // Tooltip reveals real username on hover
-            } else {
-                navDisplay.textContent = discordDisplayName;
-                navDisplay.title = "No RP name set";
-            }
+      <div class="structure-card reveal reveal-delay-2">
+        <div class="card-icon">⚖️</div>
+        <div class="card-subtitle">Executive Power</div>
+        <h3 class="card-title">Council of Ministers</h3>
+        <p class="card-description">
+          The executive branch responsible for implementing legislation and managing state affairs. Each minister oversees a specific portfolio — from defense to agriculture.
+        </p>
+      </div>
 
-            // Apply Avatar to Nav Bar
-            const navAvatar = document.getElementById('nav-user-avatar');
-            const navIcon = document.getElementById('nav-user-icon');
-            if (userPreferences.pfpUrl) {
-                navAvatar.src = userPreferences.pfpUrl;
-                navAvatar.classList.remove('hidden');
-                navIcon.classList.add('hidden');
-            } else {
-                navAvatar.classList.add('hidden');
-                navIcon.classList.remove('hidden');
-            }
-        };
+      <div class="structure-card reveal reveal-delay-3">
+        <div class="card-icon">🛡️</div>
+        <div class="card-subtitle">State Security</div>
+        <h3 class="card-title">Committee for State Security</h3>
+        <p class="card-description">
+          Responsible for intelligence, counterintelligence, and ensuring the security of the state. Operates both domestically and in the international arena through dedicated directorates.
+        </p>
+      </div>
 
-        // Make switchTab available globally since we are now in a module
-        window.switchTab = function(tabId) {
-            const tabs = ['econ', 'civic', 'defence'];
-            const panes = document.querySelectorAll('.tab-pane');
-            
-            panes.forEach(pane => {
-                pane.classList.add('opacity-0', 'pointer-events-none');
-                pane.classList.remove('opacity-100', 'pointer-events-auto', 'z-10');
-            });
+      <div class="structure-card reveal reveal-delay-4">
+        <div class="card-icon">🌍</div>
+        <div class="card-subtitle">International Relations</div>
+        <h3 class="card-title">Ministry of Foreign Affairs</h3>
+        <p class="card-description">
+          Manages diplomatic relations, treaties, and international cooperation. Coordinates with other mock governments and maintains the Union's position on the world stage.
+        </p>
+      </div>
 
-            tabs.forEach(t => {
-                const btn = document.getElementById('btn-' + t);
-                btn.className = 'tab-btn px-6 py-2.5 rounded-xl text-slate-500 hover:text-slate-900 text-sm font-semibold transition-all';
-            });
+      <div class="structure-card reveal">
+        <div class="card-icon">📜</div>
+        <div class="card-subtitle">Constitutional Oversight</div>
+        <h3 class="card-title">Presidium</h3>
+        <p class="card-description">
+          The permanent body of the Supreme Soviet that acts on its behalf between sessions. Issues decrees, interprets laws, and represents the Union in ceremonial matters.
+        </p>
+      </div>
+    </div>
+  </section>
 
-            const activePane = document.getElementById('tab-' + tabId);
-            activePane.classList.remove('opacity-0', 'pointer-events-none');
-            activePane.classList.add('opacity-100', 'pointer-events-auto', 'z-10');
+  <!-- ===== HISTORY / TIMELINE ===== -->
+  <div class="section-divider"></div>
 
-            const activeBtn = document.getElementById('btn-' + tabId);
-            activeBtn.className = 'tab-btn px-6 py-2.5 rounded-xl bg-white shadow-sm text-sm font-semibold text-slate-900 transition-all';
-        }
+  <section class="section" id="history">
+    <div class="section-label reveal">
+      <span class="label-line"></span>
+      Alternative Timeline
+    </div>
+    <h2 class="section-title reveal reveal-delay-1">
+      History of the <span class="text-red">Enduring Union</span>
+    </h2>
+    <p class="section-description reveal reveal-delay-2">
+      Key moments in our alternative history where the USSR charted a different course.
+    </p>
 
-        document.addEventListener('DOMContentLoaded', async () => {
-            // DOM Elements
-            const loginBtn = document.getElementById('nav-login-btn');
-            const logoutBtn = document.getElementById('nav-logout-btn');
-            const userProfile = document.getElementById('nav-user-profile');
-            const userEmailDisplay = document.getElementById('nav-user-email');
-            
-            const modal = document.getElementById('auth-modal');
-            const backdrop = document.getElementById('auth-backdrop');
-            const content = document.getElementById('auth-content');
-            const closeBtn = document.getElementById('close-modal-btn');
-            const discordBtn = document.getElementById('discord-login-btn');
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-year">1991 — The Turning Point</div>
+        <h3 class="timeline-title">Reform Prevails Over Collapse</h3>
+        <p class="timeline-text">
+          Rather than dissolving, the Union enacts sweeping but controlled economic reforms. The "August Compromise" preserves the federal structure while granting greater autonomy to individual republics. A new Union Treaty is signed by all 15 republics.
+        </p>
+      </div>
 
-            const profileDropdownTrigger = document.getElementById('profile-dropdown-trigger');
-            const profileDropdown = document.getElementById('profile-dropdown');
-            
-            const btnOpenSettings = document.getElementById('btn-open-settings');
-            const btnOpenProfile = document.getElementById('btn-open-profile');
-            
-            const settingsModal = document.getElementById('settings-modal');
-            const settingsBackdrop = document.getElementById('settings-backdrop');
-            const settingsContent = document.getElementById('settings-content');
-            const closeSettingsBtn = document.getElementById('close-settings-btn');
-            const cancelSettingsBtn = document.getElementById('btn-cancel-settings');
-            const settingsForm = document.getElementById('settings-form');
+      <div class="timeline-item reveal">
+        <div class="timeline-year">1997 — Economic Renaissance</div>
+        <h3 class="timeline-title">The Soviet Market Reforms</h3>
+        <p class="timeline-text">
+          A hybrid socialist-market economy takes shape. State enterprises are modernized, cooperative businesses flourish, and the ruble stabilizes. The Union becomes a major player in the emerging global tech economy.
+        </p>
+      </div>
 
-            const profileModal = document.getElementById('profile-modal');
-            const profileBackdrop = document.getElementById('profile-backdrop');
-            const profileContent = document.getElementById('profile-content');
-            const closeProfileBtn = document.getElementById('close-profile-btn');
+      <div class="timeline-item reveal">
+        <div class="timeline-year">2004 — Digital Revolution</div>
+        <h3 class="timeline-title">SOVNET Goes Online</h3>
+        <p class="timeline-text">
+          The Soviet internet — SOVNET — launches as a state-backed but increasingly open network. Soviet engineers and programmers become globally competitive, and Minsk emerges as the "Silicon Valley of the East."
+        </p>
+      </div>
 
-            const toggleElement = (modal, backdrop, content, action) => {
-                if (action === 'open') {
-                    modal.classList.remove('hidden');
-                    modal.classList.add('flex');
-                    void modal.offsetWidth; // Reflow triggers CSS transitions
-                    backdrop.classList.remove('opacity-0');
-                    backdrop.classList.add('opacity-100');
-                    content.classList.remove('opacity-0', 'scale-95');
-                    content.classList.add('opacity-100', 'scale-100');
-                } else {
-                    backdrop.classList.remove('opacity-100');
-                    backdrop.classList.add('opacity-0');
-                    content.classList.remove('opacity-100', 'scale-100');
-                    content.classList.add('opacity-0', 'scale-95');
-                    setTimeout(() => {
-                        modal.classList.add('hidden');
-                        modal.classList.remove('flex');
-                    }, 300);
-                }
-            };
+      <div class="timeline-item reveal">
+        <div class="timeline-year">2014 — New World Order</div>
+        <h3 class="timeline-title">The Eurasian Accords</h3>
+        <p class="timeline-text">
+          The USSR brokers a historic agreement with the European Union and China, establishing new frameworks for trade and arms reduction. The Cold War officially transitions into an era of "Competitive Cooperation."
+        </p>
+      </div>
 
-            const openSettings = (e) => {
-                if (e) e.stopPropagation();
-                closeDropdown(); 
-                // Populate form with current preferences
-                document.getElementById('setting-rp-name').value = userPreferences.rpName || '';
-                document.getElementById('setting-banner').value = userPreferences.bannerUrl || '';
-                document.getElementById('setting-pfp').value = userPreferences.pfpUrl || '';
-                document.getElementById('setting-bio').value = userPreferences.bio || '';
-                document.getElementById('setting-dark-mode').checked = userPreferences.darkMode;
-                
-                toggleElement(settingsModal, settingsBackdrop, settingsContent, 'open');
-            };
-            const closeSettings = () => toggleElement(settingsModal, settingsBackdrop, settingsContent, 'close');
+      <div class="timeline-item reveal">
+        <div class="timeline-year">2024 — Present Day</div>
+        <h3 class="timeline-title">A Union Reborn</h3>
+        <p class="timeline-text">
+          The modern USSR stands as a global superpower alongside the United States and China. With a population of 310 million, a space program on Mars, and a thriving cultural renaissance, the Union looks forward to its next century.
+        </p>
+      </div>
+    </div>
+  </section>
 
-            const openProfile = (e) => {
-                if (e) e.stopPropagation();
-                closeDropdown();
-                // Populate Profile View
-                document.getElementById('display-rp-name').textContent = userPreferences.rpName || discordDisplayName;
-                document.getElementById('display-discord-name').textContent = discordDisplayName;
-                document.getElementById('display-bio').textContent = userPreferences.bio || 'No biography provided in the state archives.';
-                
-                const bannerImg = document.getElementById('display-banner');
-                if (userPreferences.bannerUrl) {
-                    bannerImg.src = userPreferences.bannerUrl;
-                    bannerImg.classList.remove('hidden');
-                } else {
-                    bannerImg.classList.add('hidden');
-                }
+  <!-- ===== DECREES ===== -->
+  <div class="section-divider"></div>
 
-                const pfpImg = document.getElementById('display-pfp');
-                if (userPreferences.pfpUrl) {
-                    pfpImg.src = userPreferences.pfpUrl;
-                    pfpImg.classList.remove('hidden');
-                } else {
-                    pfpImg.classList.add('hidden');
-                }
+  <section class="section" id="decrees">
+    <div class="section-label reveal">
+      <span class="label-line"></span>
+      Recent Activity
+    </div>
+    <h2 class="section-title reveal reveal-delay-1">
+      Decrees & <span class="text-gold">Announcements</span>
+    </h2>
+    <p class="section-description reveal reveal-delay-2">
+      The latest legislative actions and state communications from the organs of power.
+    </p>
 
-                toggleElement(profileModal, profileBackdrop, profileContent, 'open');
-            };
-            const closeProfile = () => toggleElement(profileModal, profileBackdrop, profileContent, 'close');
+    <div class="decrees-list">
+      <div class="decree-item reveal">
+        <div class="decree-date">
+          <div class="day">27</div>
+          <div class="month">Jun 2026</div>
+        </div>
+        <div class="decree-content">
+          <span class="decree-tag">Decree</span>
+          <h3 class="decree-title">On the Reorganization of the Ministry of Digital Affairs</h3>
+          <p class="decree-excerpt">
+            The Presidium hereby establishes the Ministry of Digital Affairs & Innovation, consolidating oversight of SOVNET infrastructure, cybersecurity, and the national AI research program.
+          </p>
+        </div>
+      </div>
 
-            let isDropdownOpen = false;
-            const toggleDropdown = (e) => {
-                if (e) e.stopPropagation();
-                isDropdownOpen = !isDropdownOpen;
-                if (isDropdownOpen) {
-                    profileDropdown.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-2');
-                    profileDropdown.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
-                } else {
-                    closeDropdown();
-                }
-            };
-            const closeDropdown = () => {
-                isDropdownOpen = false;
-                profileDropdown.classList.add('opacity-0', 'pointer-events-none', 'translate-y-2');
-                profileDropdown.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
-            };
+      <div class="decree-item reveal reveal-delay-1">
+        <div class="decree-date">
+          <div class="day">22</div>
+          <div class="month">Jun 2026</div>
+        </div>
+        <div class="decree-content">
+          <span class="decree-tag tag-gold">Announcement</span>
+          <h3 class="decree-title">Supreme Soviet Summer Session Opens</h3>
+          <p class="decree-excerpt">
+            The Supreme Soviet convenes for its summer legislative session. Key agenda items include the Five-Year Digital Plan, agricultural modernization, and proposed amendments to Republic autonomy statutes.
+          </p>
+        </div>
+      </div>
 
-            // Close dropdown when clicking outside dropdown trigger & menu
-            document.addEventListener('click', (e) => {
-                if (isDropdownOpen && !profileDropdownTrigger.contains(e.target) && !profileDropdown.contains(e.target)) {
-                    closeDropdown();
-                }
-            });
+      <div class="decree-item reveal reveal-delay-2">
+        <div class="decree-date">
+          <div class="day">15</div>
+          <div class="month">Jun 2026</div>
+        </div>
+        <div class="decree-content">
+          <span class="decree-tag">Decree</span>
+          <h3 class="decree-title">On Diplomatic Relations with the European Federation</h3>
+          <p class="decree-excerpt">
+            The Ministry of Foreign Affairs is directed to establish a permanent diplomatic mission to the European Federation mock government server, commencing joint operations and treaty negotiations.
+          </p>
+        </div>
+      </div>
 
-            // Modal Functions
-            const openModal = () => toggleElement(modal, backdrop, content, 'open');
-            const closeModal = () => toggleElement(modal, backdrop, content, 'close');
+      <div class="decree-item reveal reveal-delay-3">
+        <div class="decree-date">
+          <div class="day">08</div>
+          <div class="month">Jun 2026</div>
+        </div>
+        <div class="decree-content">
+          <span class="decree-tag tag-gold">Announcement</span>
+          <h3 class="decree-title">Citizen Recruitment Drive — All Republics</h3>
+          <p class="decree-excerpt">
+            The Central Committee announces an open recruitment drive. New citizens are encouraged to join and participate in the governance of any of the 15 Soviet Republics.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            // Custom Toast Notification System
-            const showToast = (message, type = 'success') => {
-                const container = document.getElementById('toast-container');
-                const toast = document.createElement('div');
-                
-                const isError = type === 'error';
-                const bgColor = isError ? 'bg-red-50' : 'bg-emerald-50';
-                const borderColor = isError ? 'border-red-100' : 'border-emerald-100';
-                const textColor = isError ? 'text-red-800' : 'text-emerald-800';
-                const iconColor = isError ? 'text-red-500' : 'text-emerald-500';
-                const iconClass = isError ? 'fa-exclamation-circle' : 'fa-check-circle';
+  <!-- ===== JOIN CTA ===== -->
+  <section class="section cta-section" id="join">
+    <div class="cta-card reveal">
+      <h2 class="cta-title">
+        The Union Needs <span class="text-gold">You</span>
+      </h2>
+      <p class="cta-text">
+        Join hundreds of citizens in building an alternative history. Rise through the ranks, debate policy, shape nations — all on Discord.
+      </p>
+      <a href="#" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+        Join the Discord Server
+      </a>
+    </div>
+  </section>
 
-                toast.className = `flex items-center gap-3 px-4 py-3 rounded-xl border ${bgColor} ${borderColor} ${textColor} shadow-lg transform translate-y-10 opacity-0 transition-all duration-300 pointer-events-auto max-w-sm`;
-                
-                toast.innerHTML = `
-                    <i class="fas ${iconClass} ${iconColor}"></i>
-                    <p class="text-sm font-semibold">${message}</p>
-                `;
-                
-                container.appendChild(toast);
-                
-                // Animate in
-                setTimeout(() => {
-                    toast.classList.remove('translate-y-10', 'opacity-0');
-                }, 10);
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo">
+          <span class="logo-emblem">☭</span>
+          <span>USSR</span>
+        </a>
+        <p class="footer-brand-text">
+          A community-driven alternative history simulation. The Union of Soviet Socialist Republics — reimagined for the modern era. This is a fictional project for entertainment and political education.
+        </p>
+      </div>
 
-                // Animate out and remove
-                setTimeout(() => {
-                    toast.classList.add('opacity-0', 'translate-y-2');
-                    setTimeout(() => toast.remove(), 300);
-                }, 4000);
-            };
+      <div>
+        <h4 class="footer-heading">Government</h4>
+        <div class="footer-links">
+          <a href="#structure">Politburo</a>
+          <a href="#structure">Supreme Soviet</a>
+          <a href="#structure">Council of Ministers</a>
+          <a href="#decrees">Decrees</a>
+        </div>
+      </div>
 
-            // Auth Functions
-            const updateUI = (user) => {
-                currentUser = user;
-                if (user) {
-                    loginBtn.classList.add('hidden');
-                    userProfile.classList.remove('hidden');
-                    userProfile.classList.add('flex');
-                    
-                    // Attempt to display Discord username or fallback to metadata
-                    discordDisplayName = user.user_metadata?.custom_claims?.global_name || user.user_metadata?.full_name || user.user_metadata?.name || user.email || "Vanguard";
-                    userEmailDisplay.textContent = discordDisplayName;
-                    
-                    // Load and apply local settings
-                    loadPreferences(user.id);
-                } else {
-                    // Simulated Profile fallback to align with default state from visual mock-ups (image_3130ed.png)
-                    // Allows user customization & state retention even without dynamic database login
-                    loginBtn.classList.add('hidden');
-                    userProfile.classList.remove('hidden');
-                    userProfile.classList.add('flex');
-                    discordDisplayName = "Vanguard";
-                    loadPreferences('guest');
-                }
-            };
+      <div>
+        <h4 class="footer-heading">Community</h4>
+        <div class="footer-links">
+          <a href="#join">Join Discord</a>
+          <a href="#about">About Us</a>
+          <a href="#history">Timeline</a>
+        </div>
+      </div>
 
-            const handleDiscordLogin = async () => {
-                const originalContent = discordBtn.innerHTML;
-                discordBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-                discordBtn.disabled = true;
+      <div>
+        <h4 class="footer-heading">Resources</h4>
+        <div class="footer-links">
+          <a href="#">Constitution</a>
+          <a href="#">Citizen Guide</a>
+          <a href="#">Server Rules</a>
+        </div>
+      </div>
+    </div>
 
-                try {
-                    if (!supabase) {
-                        throw new Error("Supabase client is not loaded in sandbox environment.");
-                    }
-                    const { data, error } = await supabase.auth.signInWithOAuth({
-                        provider: 'discord',
-                        options: {
-                            redirectTo: 'https://officeofthevanguard.github.io/vanguardoffice/'
-                        }
-                    });
+    <div class="footer-bottom">
+      <span>© 2024–2026 USSR Mock Government. All rights reserved. This is a fictional simulation.</span>
+      <span>Built with ☭ for the people</span>
+    </div>
+  </footer>
 
-                    if (error) throw error;
-                } catch (error) {
-                    showToast(error.message, 'error');
-                    discordBtn.innerHTML = originalContent;
-                    discordBtn.disabled = false;
-                }
-            };
-
-            const handleLogout = async () => {
-                try {
-                    if (supabase) {
-                        const { error } = await supabase.auth.signOut();
-                        if (error) throw error;
-                    }
-                    showToast('Disconnected from the network.', 'success');
-                    updateUI(null);
-                } catch (err) {
-                    showToast(err.message, 'error');
-                }
-            };
-
-            // Initialize Session Check
-            const checkSession = async () => {
-                try {
-                    if (supabase) {
-                        const { data: { session }, error } = await supabase.auth.getSession();
-                        if (session) {
-                            updateUI(session.user);
-                        } else {
-                            updateUI(null);
-                        }
-                        
-                        supabase.auth.onAuthStateChange((_event, session) => {
-                            updateUI(session?.user ?? null);
-                        });
-                    } else {
-                        // Fallback trigger for sandbox preview
-                        updateUI(null);
-                    }
-                } catch (err) {
-                    console.warn("Session check degraded to mock-guest authentication:", err);
-                    updateUI(null);
-                }
-            };
-
-            // Event Listeners
-            loginBtn.addEventListener('click', openModal);
-            closeBtn.addEventListener('click', closeModal);
-            backdrop.addEventListener('click', closeModal);
-            discordBtn.addEventListener('click', handleDiscordLogin);
-            logoutBtn.addEventListener('click', handleLogout);
-
-            profileDropdownTrigger.addEventListener('click', toggleDropdown);
-            btnOpenSettings.addEventListener('click', openSettings);
-            btnOpenProfile.addEventListener('click', openProfile);
-            
-            closeSettingsBtn.addEventListener('click', closeSettings);
-            cancelSettingsBtn.addEventListener('click', closeSettings);
-            settingsBackdrop.addEventListener('click', closeSettings);
-            
-            closeProfileBtn.addEventListener('click', closeProfile);
-            profileBackdrop.addEventListener('click', closeProfile);
-
-            // Handle Settings Form Submission
-            settingsForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                userPreferences.rpName = document.getElementById('setting-rp-name').value;
-                userPreferences.bannerUrl = document.getElementById('setting-banner').value;
-                userPreferences.pfpUrl = document.getElementById('setting-pfp').value;
-                userPreferences.bio = document.getElementById('setting-bio').value;
-                userPreferences.darkMode = document.getElementById('setting-dark-mode').checked;
-                
-                savePreferences();
-                closeSettings();
-            });
-
-            // Run initial setup check
-            checkSession();
-        });
-    </script>
+  <script src="script.js"></script>
 </body>
 </html>
