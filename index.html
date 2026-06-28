@@ -597,6 +597,14 @@
         const supabaseKey = "sb_publishable_Rsh_coNUNyNTvfiQ-42yQA_tOVqOaLk";
         const supabase = createClient(supabaseUrl, supabaseKey);
 
+        await supabase.auth.signUp({
+  email,
+  password,
+  options: {
+    emailRedirectTo: "https://officeofthevanguard.github.io/vanguardoffice/"
+  }
+});
+
         let isSignUpMode = false;
         let currentUser = null;
 
