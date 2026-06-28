@@ -544,44 +544,18 @@
             </button>
             
             <div class="text-center mb-8">
-                <div class="w-12 h-12 bg-brand-red rounded-xl flex items-center justify-center text-white shadow-lg shadow-red-500/20 mx-auto mb-4">
-                    <i class="fas fa-star text-lg"></i>
+                <div class="w-12 h-12 bg-[#5865F2] rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#5865F2]/20 mx-auto mb-4">
+                    <i class="fab fa-discord text-xl"></i>
                 </div>
                 <h3 id="auth-title" class="text-2xl font-bold text-slate-900 tracking-tight">Access Terminal</h3>
-                <p id="auth-subtitle" class="text-sm text-slate-500 mt-2">Identify yourself to the Central Administration.</p>
+                <p id="auth-subtitle" class="text-sm text-slate-500 mt-2">Identify yourself via Discord to enter the network.</p>
             </div>
 
-            <form id="auth-form" class="space-y-5">
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">Email Designation</label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <i class="fas fa-envelope text-slate-400 text-sm"></i>
-                        </div>
-                        <input type="email" id="auth-email" required class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-brand-red focus:border-brand-red outline-none transition" placeholder="comrade@soviet.org">
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">Security Cipher</label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <i class="fas fa-lock text-slate-400 text-sm"></i>
-                        </div>
-                        <input type="password" id="auth-password" required class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-brand-red focus:border-brand-red outline-none transition" placeholder="••••••••">
-                    </div>
-                </div>
-                
-                <button type="submit" id="auth-submit-btn" class="w-full py-3.5 bg-brand-red text-white font-bold rounded-xl shadow-lg shadow-red-500/30 hover:bg-brand-darkRed hover:-translate-y-0.5 transition duration-300 flex justify-center items-center gap-2">
-                    <span>Authenticate</span>
-                    <i class="fas fa-arrow-right text-sm"></i>
+            <div class="space-y-5">
+                <button id="discord-login-btn" class="w-full py-3.5 bg-[#5865F2] text-white font-bold rounded-xl shadow-lg shadow-[#5865F2]/30 hover:bg-[#4752C4] hover:-translate-y-0.5 transition duration-300 flex justify-center items-center gap-3">
+                    <i class="fab fa-discord text-lg"></i>
+                    <span>Authenticate with Discord</span>
                 </button>
-            </form>
-
-            <div class="mt-6 text-center">
-                <p class="text-sm text-slate-500">
-                    <span id="auth-toggle-text">Not registered in the database?</span>
-                    <button id="auth-toggle-btn" class="text-brand-red font-bold hover:underline ml-1 focus:outline-none">Enlist Here</button>
-                </p>
             </div>
         </div>
     </div>
@@ -597,15 +571,6 @@
         const supabaseKey = "sb_publishable_Rsh_coNUNyNTvfiQ-42yQA_tOVqOaLk";
         const supabase = createClient(supabaseUrl, supabaseKey);
 
-        await supabase.auth.signUp({
-  email,
-  password,
-  options: {
-    emailRedirectTo: "https://officeofthevanguard.github.io/vanguardoffice/"
-  }
-});
-
-        let isSignUpMode = false;
         let currentUser = null;
 
         // Make switchTab available globally since we are now in a module
@@ -642,13 +607,7 @@
             const backdrop = document.getElementById('auth-backdrop');
             const content = document.getElementById('auth-content');
             const closeBtn = document.getElementById('close-modal-btn');
-            const toggleBtn = document.getElementById('auth-toggle-btn');
-            const authForm = document.getElementById('auth-form');
-            
-            const authTitle = document.getElementById('auth-title');
-            const authSubtitle = document.getElementById('auth-subtitle');
-            const submitBtnText = document.querySelector('#auth-submit-btn span');
-            const toggleText = document.getElementById('auth-toggle-text');
+            const discordBtn = document.getElementById('discord-login-btn');
 
             // Modal Functions
             const openModal = () => {
@@ -670,26 +629,7 @@
                 setTimeout(() => {
                     modal.classList.add('hidden');
                     modal.classList.remove('flex');
-                    authForm.reset();
                 }, 300);
-            };
-
-            const toggleMode = (e) => {
-                e.preventDefault();
-                isSignUpMode = !isSignUpMode;
-                if (isSignUpMode) {
-                    authTitle.textContent = "Citizen Enlistment";
-                    authSubtitle.textContent = "Register your credentials to join the state.";
-                    submitBtnText.textContent = "Register";
-                    toggleText.textContent = "Already have clearance?";
-                    toggleBtn.textContent = "Sign In";
-                } else {
-                    authTitle.textContent = "Access Terminal";
-                    authSubtitle.textContent = "Identify yourself to the Central Administration.";
-                    submitBtnText.textContent = "Authenticate";
-                    toggleText.textContent = "Not registered in the database?";
-                    toggleBtn.textContent = "Enlist Here";
-                }
             };
 
             // Custom Toast Notification System
@@ -731,7 +671,10 @@
                     loginBtn.classList.add('hidden');
                     userProfile.classList.remove('hidden');
                     userProfile.classList.add('flex');
-                    userEmailDisplay.textContent = user.email;
+                    
+                    // Attempt to display Discord username or fallback to email
+                    const displayName = user.user_metadata?.custom_claims?.global_name || user.user_metadata?.full_name || user.user_metadata?.name || user.email;
+                    userEmailDisplay.textContent = displayName;
                 } else {
                     loginBtn.classList.remove('hidden');
                     userProfile.classList.add('hidden');
@@ -739,40 +682,26 @@
                 }
             };
 
-            const handleAuthSubmit = async (e) => {
-                e.preventDefault();
-                const email = document.getElementById('auth-email').value;
-                const password = document.getElementById('auth-password').value;
-                const submitBtn = document.getElementById('auth-submit-btn');
-                
-                // Loading state
-                const originalContent = submitBtn.innerHTML;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-                submitBtn.disabled = true;
+            const handleDiscordLogin = async () => {
+                const originalContent = discordBtn.innerHTML;
+                discordBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+                discordBtn.disabled = true;
 
                 try {
-                    let result;
-                    if (isSignUpMode) {
-                        result = await supabase.auth.signUp({ email, password });
-                    } else {
-                        result = await supabase.auth.signInWithPassword({ email, password });
-                    }
+                    const { data, error } = await supabase.auth.signInWithOAuth({
+                        provider: 'discord',
+                        options: {
+                            redirectTo: 'https://officeofthevanguard.github.io/vanguardoffice/'
+                        }
+                    });
 
-                    if (result.error) throw result.error;
-
-                    if (isSignUpMode && !result.data.session) {
-                        showToast('Registration successful! Please check your email for confirmation.', 'success');
-                    } else {
-                        showToast(`Welcome back, Comrade.`, 'success');
-                        updateUI(result.data.user);
-                    }
-                    closeModal();
+                    if (error) throw error;
+                    // The page will automatically redirect to Discord for authentication
 
                 } catch (error) {
                     showToast(error.message, 'error');
-                } finally {
-                    submitBtn.innerHTML = originalContent;
-                    submitBtn.disabled = false;
+                    discordBtn.innerHTML = originalContent;
+                    discordBtn.disabled = false;
                 }
             };
 
@@ -803,8 +732,7 @@
             loginBtn.addEventListener('click', openModal);
             closeBtn.addEventListener('click', closeModal);
             backdrop.addEventListener('click', closeModal);
-            toggleBtn.addEventListener('click', toggleMode);
-            authForm.addEventListener('submit', handleAuthSubmit);
+            discordBtn.addEventListener('click', handleDiscordLogin);
             logoutBtn.addEventListener('click', handleLogout);
 
             // Run initial check
