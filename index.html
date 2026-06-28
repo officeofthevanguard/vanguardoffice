@@ -59,28 +59,28 @@
             from { opacity: 0; transform: translateY(5px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        html.dark body { background-color: #0B1120; color: #F8FAFC; }
+        html.dark .bg-brand-bg { background-color: #0B1120; }
+        html.dark .bg-white { background-color: #1E293B !important; border-color: #334155 !important; }
+        html.dark .bg-slate-50 { background-color: #0F172A !important; border-color: #334155 !important; }
+        html.dark .bg-slate-100 { background-color: #334155 !important; color: #F8FAFC !important;}
+        html.dark .text-slate-900, html.dark .text-slate-800 { color: #F8FAFC !important; }
+        html.dark .text-slate-700 { color: #E2E8F0 !important; }
+        html.dark .text-slate-600, html.dark .text-slate-500 { color: #94A3B8 !important; }
+        html.dark .border-slate-100 { border-color: #334155 !important; }
+        html.dark .border-slate-200 { border-color: #475569 !important; }
+        html.dark header { background-color: rgba(15, 23, 42, 0.8) !important; border-bottom-color: #334155 !important; }
+        html.dark footer { background-color: #0F172A !important; border-top-color: #334155 !important;}
+        
+        /* Modal Custom Scrollbar */
+        .custom-scroll::-webkit-scrollbar { width: 6px; }
+        .custom-scroll::-webkit-scrollbar-track { background: transparent; }
+        .custom-scroll::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; }
+        html.dark .custom-scroll::-webkit-scrollbar-thumb { background-color: #475569; }
     </style>
 </head>
-<body class="bg-brand-bg text-slate-800 font-sans antialiased selection:bg-brand-red selection:text-white">
-
-    <!-- TOP NOTIFICATION BAR -->
-    <div class="bg-brand-slate text-slate-300 text-[11px] font-medium tracking-widest uppercase py-2 px-6 flex justify-between items-center z-50 relative">
-        <div class="flex items-center gap-3">
-            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span>Secure Network Active • Moscow Terminal</span>
-        </div>
-        <span class="hidden sm:inline">Version 2.0 • Modern Interface</span>
-    </div>
-
-    <!-- MAIN STICKY HEADER -->
-    <header class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40 shadow-sm">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
-            <!-- Branding -->
-            <a href="#" class="flex items-center gap-4 group">
-                <div class="w-10 h-10 bg-brand-red rounded-xl flex items-center justify-center text-white shadow-lg shadow-red-500/20 group-hover:scale-105 transition-transform duration-300">
-                    <i class="fas fa-star"></i>
-                </div>
-                <div>
+<body class="bg-brand-bg text-slate-800 font-sans antialiased selection:bg-brand-red selection:text-white transition-colors duration-300">
                     <h1 class="text-xl font-bold text-slate-900 tracking-tight leading-none mb-1">USSR</h1>
                     <p class="text-[10px] uppercase tracking-widest text-slate-500 font-semibold">Union of Soviet Socialist Republics</p>
                 </div>
@@ -100,14 +100,31 @@
                     <button id="nav-login-btn" class="px-4 py-1.5 rounded-lg bg-brand-red text-white font-semibold shadow-md shadow-red-500/20 hover:-translate-y-0.5 transition duration-300 whitespace-nowrap">
                         Sign In
                     </button>
-                    <div id="nav-user-profile" class="hidden items-center gap-3">
-                        <div class="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-brand-red border border-slate-200">
-                            <i class="fas fa-user text-xs"></i>
+                    <div id="nav-user-profile" class="hidden relative items-center cursor-pointer group z-50">
+                        <div id="profile-dropdown-trigger" class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-brand-red border border-slate-200 overflow-hidden relative">
+                                <img id="nav-user-avatar" src="" alt="Avatar" class="w-full h-full object-cover hidden absolute inset-0 z-10" />
+                                <i id="nav-user-icon" class="fas fa-user text-xs"></i>
+                            </div>
+                            <div class="flex flex-col">
+                                <span id="nav-user-email" class="text-xs font-bold text-slate-700 max-w-[100px] truncate hidden sm:block group-hover:text-brand-red transition-colors" title=""></span>
+                            </div>
+                            <i class="fas fa-chevron-down text-[10px] text-slate-400 group-hover:text-brand-red transition-colors"></i>
                         </div>
-                        <span id="nav-user-email" class="text-xs font-bold text-slate-700 max-w-[100px] truncate hidden sm:block"></span>
-                        <button id="nav-logout-btn" class="text-slate-400 hover:text-brand-red transition p-1" title="Sign Out">
-                            <i class="fas fa-sign-out-alt"></i>
-                        </button>
+                        
+                        <!-- Dropdown Menu -->
+                        <div id="profile-dropdown" class="absolute top-full right-0 mt-3 w-48 bg-white border border-slate-100 rounded-xl shadow-floating opacity-0 pointer-events-none transform translate-y-2 transition-all duration-200 overflow-hidden">
+                            <button id="btn-open-profile" class="w-full text-left px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-brand-red transition-colors flex items-center gap-3 font-medium">
+                                <i class="fas fa-id-card w-4 text-center"></i> View Profile
+                            </button>
+                            <button id="btn-open-settings" class="w-full text-left px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-brand-red transition-colors flex items-center gap-3 font-medium">
+                                <i class="fas fa-cog w-4 text-center"></i> Settings
+                            </button>
+                            <div class="border-t border-slate-100"></div>
+                            <button id="nav-logout-btn" class="w-full text-left px-4 py-3 text-sm text-brand-red hover:bg-red-50 transition-colors flex items-center gap-3 font-medium">
+                                <i class="fas fa-sign-out-alt w-4 text-center"></i> Sign Out
+                            </button>
+                        </div>
                     </div>
                 </div>
             </nav>
@@ -560,6 +577,107 @@
         </div>
     </div>
 
+    <div id="settings-modal" class="fixed inset-0 z-[100] hidden items-center justify-center">
+        <div id="settings-backdrop" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity opacity-0"></div>
+        <div id="settings-content" class="relative bg-white rounded-3xl shadow-2xl w-full max-w-lg mx-4 p-8 transform scale-95 opacity-0 transition-all duration-300 max-h-[90vh] overflow-y-auto custom-scroll">
+            <button id="close-settings-btn" class="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-slate-50 text-slate-400 hover:text-slate-900 hover:bg-slate-100 transition">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="mb-6 flex items-center gap-3 border-b border-slate-100 pb-4">
+                <div class="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center text-slate-700">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-slate-900 tracking-tight">Citizen Settings</h3>
+                    <p class="text-xs text-slate-500">Customize your roleplay identity and preferences.</p>
+                </div>
+            </div>
+
+            <form id="settings-form" class="space-y-5">
+                <!-- Dark Mode Toggle -->
+                <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
+                    <div>
+                        <h4 class="text-sm font-bold text-slate-900">Dark Mode</h4>
+                        <p class="text-xs text-slate-500">Switch to night aesthetics</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="setting-dark-mode" class="sr-only peer">
+                        <div class="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-slate"></div>
+                    </label>
+                </div>
+
+                <!-- RP Name -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">Roleplay Name</label>
+                    <input type="text" id="setting-rp-name" placeholder="E.g. Comrade Ivanov" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 text-sm focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red transition">
+                    <p class="text-[10px] text-slate-500 mt-1">Leave blank to use your Discord name.</p>
+                </div>
+
+                <!-- Banner URL -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">Banner Image URL</label>
+                    <input type="url" id="setting-banner" placeholder="https://example.com/image.jpg" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 text-sm focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red transition">
+                </div>
+
+                <!-- Profile Picture URL -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">Profile Picture URL</label>
+                    <input type="url" id="setting-pfp" placeholder="https://example.com/avatar.jpg" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 text-sm focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red transition">
+                </div>
+
+                <!-- Biography -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">Biography / Dossier</label>
+                    <textarea id="setting-bio" rows="4" placeholder="Enter your character's background..." class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 text-sm focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red transition resize-none"></textarea>
+                </div>
+
+                <div class="pt-4 flex justify-end gap-3">
+                    <button type="button" id="btn-cancel-settings" class="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-semibold text-sm hover:bg-slate-50 transition">Cancel</button>
+                    <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-red text-white font-semibold text-sm shadow-md shadow-red-500/20 hover:-translate-y-0.5 transition">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="profile-modal" class="fixed inset-0 z-[100] hidden items-center justify-center">
+        <div id="profile-backdrop" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity opacity-0"></div>
+        <div id="profile-content" class="relative bg-white rounded-3xl shadow-2xl w-full max-w-md mx-4 transform scale-95 opacity-0 transition-all duration-300 overflow-hidden">
+            <!-- Close Button -->
+            <button id="close-profile-btn" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-black/20 text-white hover:bg-black/40 backdrop-blur-md transition z-20">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <!-- Banner -->
+            <div class="h-32 w-full bg-brand-slate relative">
+                <img id="display-banner" src="" alt="Banner" class="w-full h-full object-cover hidden absolute inset-0" onerror="this.style.display='none'">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            </div>
+
+            <!-- Profile Info Body -->
+            <div class="px-8 pb-8 pt-0 relative">
+                <!-- Profile Picture (Overlapping) -->
+                <div class="absolute -top-12 left-8 w-24 h-24 rounded-full border-4 border-white bg-slate-100 shadow-md flex items-center justify-center text-4xl text-slate-300 overflow-hidden">
+                    <img id="display-pfp" src="" alt="Avatar" class="w-full h-full object-cover hidden absolute inset-0 z-10" onerror="this.style.display='none'">
+                    <i class="fas fa-user relative z-0"></i>
+                </div>
+
+                <div class="mt-14">
+                    <h3 id="display-rp-name" class="text-2xl font-black text-slate-900 tracking-tight leading-none mb-1">Roleplay Name</h3>
+                    <div class="flex items-center gap-2 text-sm text-slate-500 font-medium mb-6">
+                        <i class="fab fa-discord text-[#5865F2]"></i>
+                        <span id="display-discord-name">Discord Username</span>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl p-5 border border-slate-100">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Personal Dossier</h4>
+                        <p id="display-bio" class="text-sm text-slate-700 leading-relaxed whitespace-pre-wrap">No biography provided.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- TOAST NOTIFICATION CONTAINER -->
     <div id="toast-container" class="fixed bottom-5 right-5 z-[110] flex flex-col gap-3 pointer-events-none"></div>
 
@@ -572,6 +690,64 @@
         const supabase = createClient(supabaseUrl, supabaseKey);
 
         let currentUser = null;
+        let discordDisplayName = "";
+
+        let userPreferences = {
+            rpName: '',
+            bannerUrl: '',
+            pfpUrl: '',
+            bio: '',
+            darkMode: false
+        };
+
+        const loadPreferences = (userId) => {
+            const saved = localStorage.getItem(`rp_prefs_${userId}`);
+            if (saved) {
+                userPreferences = { ...userPreferences, ...JSON.parse(saved) };
+            } else {
+                // Reset to defaults if new user
+                userPreferences = { rpName: '', bannerUrl: '', pfpUrl: '', bio: '', darkMode: false };
+            }
+            applyPreferences();
+        };
+
+        const savePreferences = () => {
+            if (!currentUser) return;
+            localStorage.setItem(`rp_prefs_${currentUser.id}`, JSON.stringify(userPreferences));
+            applyPreferences();
+            showToast('Settings saved successfully.', 'success');
+        };
+
+        const applyPreferences = () => {
+            // Apply Dark Mode globally
+            if (userPreferences.darkMode) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+
+            // Apply Display Name to Nav Bar
+            const navDisplay = document.getElementById('nav-user-email');
+            if (userPreferences.rpName.trim() !== '') {
+                navDisplay.textContent = userPreferences.rpName;
+                navDisplay.title = `Discord: ${discordDisplayName}`; // Tooltip
+            } else {
+                navDisplay.textContent = discordDisplayName;
+                navDisplay.title = "No RP name set";
+            }
+
+            // Apply Avatar to Nav Bar
+            const navAvatar = document.getElementById('nav-user-avatar');
+            const navIcon = document.getElementById('nav-user-icon');
+            if (userPreferences.pfpUrl) {
+                navAvatar.src = userPreferences.pfpUrl;
+                navAvatar.classList.remove('hidden');
+                navIcon.classList.add('hidden');
+            } else {
+                navAvatar.classList.add('hidden');
+                navIcon.classList.remove('hidden');
+            }
+        };
 
         // Make switchTab available globally since we are now in a module
         window.switchTab = function(tabId) {
@@ -609,28 +785,112 @@
             const closeBtn = document.getElementById('close-modal-btn');
             const discordBtn = document.getElementById('discord-login-btn');
 
-            // Modal Functions
-            const openModal = () => {
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-                // Trigger reflow for transition
-                void modal.offsetWidth; 
-                backdrop.classList.remove('opacity-0');
-                backdrop.classList.add('opacity-100');
-                content.classList.remove('opacity-0', 'scale-95');
-                content.classList.add('opacity-100', 'scale-100');
+            const profileDropdownTrigger = document.getElementById('nav-user-profile');
+            const profileDropdown = document.getElementById('profile-dropdown');
+            
+            const btnOpenSettings = document.getElementById('btn-open-settings');
+            const btnOpenProfile = document.getElementById('btn-open-profile');
+            
+            const settingsModal = document.getElementById('settings-modal');
+            const settingsBackdrop = document.getElementById('settings-backdrop');
+            const settingsContent = document.getElementById('settings-content');
+            const closeSettingsBtn = document.getElementById('close-settings-btn');
+            const cancelSettingsBtn = document.getElementById('btn-cancel-settings');
+            const settingsForm = document.getElementById('settings-form');
+
+            const profileModal = document.getElementById('profile-modal');
+            const profileBackdrop = document.getElementById('profile-backdrop');
+            const profileContent = document.getElementById('profile-content');
+            const closeProfileBtn = document.getElementById('close-profile-btn');
+
+            const toggleElement = (modal, backdrop, content, action) => {
+                if (action === 'open') {
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                    void modal.offsetWidth; // Reflow
+                    backdrop.classList.remove('opacity-0');
+                    backdrop.classList.add('opacity-100');
+                    content.classList.remove('opacity-0', 'scale-95');
+                    content.classList.add('opacity-100', 'scale-100');
+                } else {
+                    backdrop.classList.remove('opacity-100');
+                    backdrop.classList.add('opacity-0');
+                    content.classList.remove('opacity-100', 'scale-100');
+                    content.classList.add('opacity-0', 'scale-95');
+                    setTimeout(() => {
+                        modal.classList.add('hidden');
+                        modal.classList.remove('flex');
+                    }, 300);
+                }
             };
 
-            const closeModal = () => {
-                backdrop.classList.remove('opacity-100');
-                backdrop.classList.add('opacity-0');
-                content.classList.remove('opacity-100', 'scale-100');
-                content.classList.add('opacity-0', 'scale-95');
-                setTimeout(() => {
-                    modal.classList.add('hidden');
-                    modal.classList.remove('flex');
-                }, 300);
+            const openSettings = () => {
+                closeDropdown(); // Ensure dropdown closes
+                // Populate form with current preferences
+                document.getElementById('setting-rp-name').value = userPreferences.rpName || '';
+                document.getElementById('setting-banner').value = userPreferences.bannerUrl || '';
+                document.getElementById('setting-pfp').value = userPreferences.pfpUrl || '';
+                document.getElementById('setting-bio').value = userPreferences.bio || '';
+                document.getElementById('setting-dark-mode').checked = userPreferences.darkMode;
+                
+                toggleElement(settingsModal, settingsBackdrop, settingsContent, 'open');
             };
+            const closeSettings = () => toggleElement(settingsModal, settingsBackdrop, settingsContent, 'close');
+
+            const openProfile = () => {
+                closeDropdown();
+                // Populate Profile View
+                document.getElementById('display-rp-name').textContent = userPreferences.rpName || discordDisplayName;
+                document.getElementById('display-discord-name').textContent = discordDisplayName;
+                document.getElementById('display-bio').textContent = userPreferences.bio || 'No biography provided in the state archives.';
+                
+                const bannerImg = document.getElementById('display-banner');
+                if (userPreferences.bannerUrl) {
+                    bannerImg.src = userPreferences.bannerUrl;
+                    bannerImg.classList.remove('hidden');
+                } else {
+                    bannerImg.classList.add('hidden');
+                }
+
+                const pfpImg = document.getElementById('display-pfp');
+                if (userPreferences.pfpUrl) {
+                    pfpImg.src = userPreferences.pfpUrl;
+                    pfpImg.classList.remove('hidden');
+                } else {
+                    pfpImg.classList.add('hidden');
+                }
+
+                toggleElement(profileModal, profileBackdrop, profileContent, 'open');
+            };
+            const closeProfile = () => toggleElement(profileModal, profileBackdrop, profileContent, 'close');
+
+            let isDropdownOpen = false;
+            const toggleDropdown = (e) => {
+                if (e) e.stopPropagation();
+                isDropdownOpen = !isDropdownOpen;
+                if (isDropdownOpen) {
+                    profileDropdown.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-2');
+                    profileDropdown.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                } else {
+                    closeDropdown();
+                }
+            };
+            const closeDropdown = () => {
+                isDropdownOpen = false;
+                profileDropdown.classList.add('opacity-0', 'pointer-events-none', 'translate-y-2');
+                profileDropdown.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+            };
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (isDropdownOpen && !profileDropdownTrigger.contains(e.target)) {
+                    closeDropdown();
+                }
+            });
+
+            // Modal Functions
+            const openModal = () => toggleElement(modal, backdrop, content, 'open');
+            const closeModal = () => toggleElement(modal, backdrop, content, 'close');
 
             // Custom Toast Notification System
             const showToast = (message, type = 'success') => {
@@ -667,18 +927,23 @@
 
             // Auth Functions
             const updateUI = (user) => {
+                currentUser = user;
                 if (user) {
                     loginBtn.classList.add('hidden');
-                    userProfile.classList.remove('hidden');
-                    userProfile.classList.add('flex');
+                    profileDropdownTrigger.classList.remove('hidden');
+                    profileDropdownTrigger.classList.add('flex');
                     
                     // Attempt to display Discord username or fallback to email
-                    const displayName = user.user_metadata?.custom_claims?.global_name || user.user_metadata?.full_name || user.user_metadata?.name || user.email;
-                    userEmailDisplay.textContent = displayName;
+                    discordDisplayName = user.user_metadata?.custom_claims?.global_name || user.user_metadata?.full_name || user.user_metadata?.name || user.email;
+                    userEmailDisplay.textContent = discordDisplayName;
+                    
+                    // Load and apply local settings
+                    loadPreferences(user.id);
                 } else {
                     loginBtn.classList.remove('hidden');
-                    userProfile.classList.add('hidden');
-                    userProfile.classList.remove('flex');
+                    profileDropdownTrigger.classList.add('hidden');
+                    profileDropdownTrigger.classList.remove('flex');
+                    document.documentElement.classList.remove('dark'); // Reset theme
                 }
             };
 
@@ -734,6 +999,30 @@
             backdrop.addEventListener('click', closeModal);
             discordBtn.addEventListener('click', handleDiscordLogin);
             logoutBtn.addEventListener('click', handleLogout);
+
+            document.getElementById('profile-dropdown-trigger').addEventListener('click', toggleDropdown);
+            btnOpenSettings.addEventListener('click', openSettings);
+            btnOpenProfile.addEventListener('click', openProfile);
+            
+            closeSettingsBtn.addEventListener('click', closeSettings);
+            cancelSettingsBtn.addEventListener('click', closeSettings);
+            settingsBackdrop.addEventListener('click', closeSettings);
+            
+            closeProfileBtn.addEventListener('click', closeProfile);
+            profileBackdrop.addEventListener('click', closeProfile);
+
+            // Handle Settings Form Submission
+            settingsForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                userPreferences.rpName = document.getElementById('setting-rp-name').value;
+                userPreferences.bannerUrl = document.getElementById('setting-banner').value;
+                userPreferences.pfpUrl = document.getElementById('setting-pfp').value;
+                userPreferences.bio = document.getElementById('setting-bio').value;
+                userPreferences.darkMode = document.getElementById('setting-dark-mode').checked;
+                
+                savePreferences();
+                closeSettings();
+            });
 
             // Run initial check
             checkSession();
