@@ -81,6 +81,16 @@
     </style>
 </head>
 <body class="bg-brand-bg text-slate-800 font-sans antialiased selection:bg-brand-red selection:text-white transition-colors duration-300">
+
+    <!-- HEADER -->
+    <header class="sticky top-0 z-40 w-full bg-white/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 shrink-0">
+                <div class="w-8 h-8 bg-brand-red rounded-lg flex items-center justify-center text-white font-black shadow-md shadow-red-500/20">
+                    <i class="fas fa-star text-xs"></i>
+                </div>
+                <div class="flex flex-col">
                     <h1 class="text-xl font-bold text-slate-900 tracking-tight leading-none mb-1">USSR</h1>
                     <p class="text-[10px] uppercase tracking-widest text-slate-500 font-semibold">Union of Soviet Socialist Republics</p>
                 </div>
@@ -93,35 +103,38 @@
                 <a href="#ministries" class="px-4 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition whitespace-nowrap">Ministries</a>
                 <a href="#structure" class="px-4 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition whitespace-nowrap">Structure</a>
                 <a href="#security" class="px-4 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition whitespace-nowrap">Security</a>
-                <a href="#news" class="px-4 py-2 rounded-lg bg-slate-900 text-white hover:bg-slate-800 transition whitespace-nowrap shadow-md">Pravda News</a>
+                <a href="#news" class="px-4 py-2 rounded-lg bg-slate-900 text-white hover:bg-slate-800 transition whitespace-nowrap shadow-md mr-2">Pravda News</a>
                 
                 <!-- Auth Section -->
-                <div class="ml-2 pl-4 border-l border-slate-200 flex items-center h-8">
+                <div class="ml-2 pl-4 border-l border-slate-200 dark:border-slate-700 flex items-center h-8">
+                    <!-- Standard Guest Sign In button -->
                     <button id="nav-login-btn" class="px-4 py-1.5 rounded-lg bg-brand-red text-white font-semibold shadow-md shadow-red-500/20 hover:-translate-y-0.5 transition duration-300 whitespace-nowrap">
                         Sign In
                     </button>
-                    <div id="nav-user-profile" class="hidden relative items-center cursor-pointer group z-50">
-                        <div id="profile-dropdown-trigger" class="flex items-center gap-3">
+                    
+                    <!-- Clickable User Profile Dropdown Container -->
+                    <div id="nav-user-profile" class="hidden relative items-center cursor-pointer z-50">
+                        <div id="profile-dropdown-trigger" class="flex items-center gap-3 py-1.5 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200">
                             <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-brand-red border border-slate-200 overflow-hidden relative">
                                 <img id="nav-user-avatar" src="" alt="Avatar" class="w-full h-full object-cover hidden absolute inset-0 z-10" />
                                 <i id="nav-user-icon" class="fas fa-user text-xs"></i>
                             </div>
                             <div class="flex flex-col">
-                                <span id="nav-user-email" class="text-xs font-bold text-slate-700 max-w-[100px] truncate hidden sm:block group-hover:text-brand-red transition-colors" title=""></span>
+                                <span id="nav-user-email" class="text-xs font-bold text-slate-700 max-w-[100px] truncate hidden sm:block transition-colors" title="">Citizen</span>
                             </div>
-                            <i class="fas fa-chevron-down text-[10px] text-slate-400 group-hover:text-brand-red transition-colors"></i>
+                            <i class="fas fa-chevron-down text-[10px] text-slate-400"></i>
                         </div>
                         
                         <!-- Dropdown Menu -->
-                        <div id="profile-dropdown" class="absolute top-full right-0 mt-3 w-48 bg-white border border-slate-100 rounded-xl shadow-floating opacity-0 pointer-events-none transform translate-y-2 transition-all duration-200 overflow-hidden">
-                            <button id="btn-open-profile" class="w-full text-left px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-brand-red transition-colors flex items-center gap-3 font-medium">
+                        <div id="profile-dropdown" class="absolute top-full right-0 mt-2 w-48 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl shadow-floating opacity-0 pointer-events-none transform translate-y-2 transition-all duration-200 overflow-hidden z-50">
+                            <button id="btn-open-profile" class="w-full text-left px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-brand-red transition-colors flex items-center gap-3 font-medium">
                                 <i class="fas fa-id-card w-4 text-center"></i> View Profile
                             </button>
-                            <button id="btn-open-settings" class="w-full text-left px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-brand-red transition-colors flex items-center gap-3 font-medium">
+                            <button id="btn-open-settings" class="w-full text-left px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-brand-red transition-colors flex items-center gap-3 font-medium">
                                 <i class="fas fa-cog w-4 text-center"></i> Settings
                             </button>
-                            <div class="border-t border-slate-100"></div>
-                            <button id="nav-logout-btn" class="w-full text-left px-4 py-3 text-sm text-brand-red hover:bg-red-50 transition-colors flex items-center gap-3 font-medium">
+                            <div class="border-t border-slate-100 dark:border-slate-700"></div>
+                            <button id="nav-logout-btn" class="w-full text-left px-4 py-3 text-sm text-brand-red hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors flex items-center gap-3 font-medium">
                                 <i class="fas fa-sign-out-alt w-4 text-center"></i> Sign Out
                             </button>
                         </div>
@@ -136,19 +149,19 @@
         
         <section class="flex flex-col lg:flex-row gap-12 items-center">
             <div class="flex-1 space-y-6">
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-50 border border-red-100 text-brand-red text-xs font-semibold tracking-wide uppercase">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-50 dark:bg-red-950/30 border border-red-100 dark:border-red-900/50 text-brand-red text-xs font-semibold tracking-wide uppercase">
                     <i class="fas fa-bolt"></i>
                     <span>Official Community Portal</span>
                 </div>
-                <h2 class="text-4xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1]">
+                <h2 class="text-4xl lg:text-6xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.1]">
                     Workers of all countries, <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-red to-brand-darkRed">unite!</span>
                 </h2>
-                <p class="text-lg text-slate-600 max-w-2xl leading-relaxed">
+                <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
                     Welcome to the central administrative hub. This platform coordinates active ministries, oversees regional territories, and manages the structural flow of our digital community.
                 </p>
                 <div class="flex flex-wrap gap-4 pt-2">
                     <a href="#news" class="px-6 py-3 rounded-xl bg-brand-red text-white font-semibold shadow-lg shadow-red-500/30 hover:-translate-y-1 transition duration-300">Read Latest Bulletins</a>
-                    <a href="#structure" class="px-6 py-3 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold hover:bg-slate-50 transition duration-300 shadow-sm">View Government Structure</a>
+                    <a href="#structure" class="px-6 py-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-semibold hover:bg-slate-50 dark:hover:bg-slate-700 transition duration-300 shadow-sm">View Government Structure</a>
                 </div>
             </div>
 
@@ -166,7 +179,7 @@
                     <span class="text-4xl font-black text-slate-900 tracking-tighter">8</span>
                     <span class="text-xs font-semibold uppercase tracking-widest text-slate-400 mt-2">Ministries</span>
                 </div>
-                <div class="bg-brand-slate p-6 rounded-2xl shadow-floating flex flex-col justify-center text-white">
+                <div class="bg-slate-900 p-6 rounded-2xl shadow-floating flex flex-col justify-center text-white">
                     <span class="text-4xl font-black text-brand-gold tracking-tighter">2022</span>
                     <span class="text-xs font-semibold uppercase tracking-widest text-slate-400 mt-2">Year Founded</span>
                 </div>
@@ -174,13 +187,13 @@
         </section>
 
         <!-- LIVE ANNOUNCEMENT BANNER -->
-        <div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-5 flex flex-col sm:flex-row items-center gap-4 text-indigo-900 shadow-sm">
-            <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center shrink-0">
-                <i class="fas fa-bullhorn text-indigo-600"></i>
+        <div class="bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/50 rounded-2xl p-5 flex flex-col sm:flex-row items-center gap-4 text-indigo-900 dark:text-indigo-200 shadow-sm">
+            <div class="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center shrink-0">
+                <i class="fas fa-bullhorn text-indigo-600 dark:text-indigo-400"></i>
             </div>
             <div class="flex-1">
                 <h4 class="text-sm font-bold">Important State Update</h4>
-                <p class="text-sm mt-1 opacity-90 text-indigo-800">The 7th Five-Year Plan (2022-2027) has reached 112% of its goals. All workers are commended for heroic service. Check the local directories for event assignments.</p>
+                <p class="text-sm mt-1 opacity-90 text-indigo-800 dark:text-indigo-300">The 7th Five-Year Plan (2022-2027) has reached 112% of its goals. All workers are commended for heroic service. Check the local directories for event assignments.</p>
             </div>
         </div>
 
@@ -427,7 +440,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Unit 1 -->
-                <div class="bg-brand-slate p-8 rounded-3xl text-white shadow-floating relative overflow-hidden group">
+                <div class="bg-slate-900 p-8 rounded-3xl text-white shadow-floating relative overflow-hidden group">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-[100px] -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
                     <span class="text-[10px] font-semibold tracking-widest text-brand-gold uppercase block mb-4">Ground Protection</span>
                     <h4 class="text-lg font-bold mb-3">Admin Guard Forces</h4>
@@ -435,7 +448,7 @@
                 </div>
                 
                 <!-- Unit 2 -->
-                <div class="bg-brand-slate p-8 rounded-3xl text-white shadow-floating relative overflow-hidden group">
+                <div class="bg-slate-900 p-8 rounded-3xl text-white shadow-floating relative overflow-hidden group">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-[100px] -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
                     <span class="text-[10px] font-semibold tracking-widest text-brand-gold uppercase block mb-4">Internal Operations</span>
                     <h4 class="text-lg font-bold mb-3">Internal Affairs (MVD)</h4>
@@ -443,7 +456,7 @@
                 </div>
 
                 <!-- Unit 3 -->
-                <div class="bg-brand-slate p-8 rounded-3xl text-white shadow-floating relative overflow-hidden group">
+                <div class="bg-slate-900 p-8 rounded-3xl text-white shadow-floating relative overflow-hidden group">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-[100px] -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
                     <span class="text-[10px] font-semibold tracking-widest text-brand-gold uppercase block mb-4">High Intelligence</span>
                     <h4 class="text-lg font-bold mb-3">Security Council (KGB)</h4>
@@ -577,6 +590,7 @@
         </div>
     </div>
 
+    <!-- SETTINGS MODAL -->
     <div id="settings-modal" class="fixed inset-0 z-[100] hidden items-center justify-center">
         <div id="settings-backdrop" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity opacity-0"></div>
         <div id="settings-content" class="relative bg-white rounded-3xl shadow-2xl w-full max-w-lg mx-4 p-8 transform scale-95 opacity-0 transition-all duration-300 max-h-[90vh] overflow-y-auto custom-scroll">
@@ -603,7 +617,7 @@
                     </div>
                     <label class="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" id="setting-dark-mode" class="sr-only peer">
-                        <div class="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-slate"></div>
+                        <div class="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-slate-900"></div>
                     </label>
                 </div>
 
@@ -640,6 +654,7 @@
         </div>
     </div>
 
+    <!-- PROFILE MODAL -->
     <div id="profile-modal" class="fixed inset-0 z-[100] hidden items-center justify-center">
         <div id="profile-backdrop" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity opacity-0"></div>
         <div id="profile-content" class="relative bg-white rounded-3xl shadow-2xl w-full max-w-md mx-4 transform scale-95 opacity-0 transition-all duration-300 overflow-hidden">
@@ -649,7 +664,7 @@
             </button>
             
             <!-- Banner -->
-            <div class="h-32 w-full bg-brand-slate relative">
+            <div class="h-32 w-full bg-slate-900 relative">
                 <img id="display-banner" src="" alt="Banner" class="w-full h-full object-cover hidden absolute inset-0" onerror="this.style.display='none'">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
             </div>
@@ -684,13 +699,19 @@
     <script type="module">
         import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"
 
-        // Note: Removed /rest/v1/ from the URL to ensure auth works correctly
+        // Guarded Supabase connection so client-side preview engine doesn't crash on configuration mismatches
         const supabaseUrl = "https://ivrsryervygjmncwlgdn.supabase.co";
         const supabaseKey = "sb_publishable_Rsh_coNUNyNTvfiQ-42yQA_tOVqOaLk";
-        const supabase = createClient(supabaseUrl, supabaseKey);
+        
+        let supabase = null;
+        try {
+            supabase = createClient(supabaseUrl, supabaseKey);
+        } catch (err) {
+            console.warn("Supabase client failed initialization, operating in sandbox mode:", err);
+        }
 
         let currentUser = null;
-        let discordDisplayName = "";
+        let discordDisplayName = "Vanguard"; // Mock baseline as seen in image_3130ed.png
 
         let userPreferences = {
             rpName: '',
@@ -701,19 +722,18 @@
         };
 
         const loadPreferences = (userId) => {
-            const saved = localStorage.getItem(`rp_prefs_${userId}`);
+            const saved = localStorage.getItem(`rp_prefs_${userId || 'guest'}`);
             if (saved) {
                 userPreferences = { ...userPreferences, ...JSON.parse(saved) };
             } else {
-                // Reset to defaults if new user
                 userPreferences = { rpName: '', bannerUrl: '', pfpUrl: '', bio: '', darkMode: false };
             }
             applyPreferences();
         };
 
         const savePreferences = () => {
-            if (!currentUser) return;
-            localStorage.setItem(`rp_prefs_${currentUser.id}`, JSON.stringify(userPreferences));
+            const currentId = currentUser ? currentUser.id : 'guest';
+            localStorage.setItem(`rp_prefs_${currentId}`, JSON.stringify(userPreferences));
             applyPreferences();
             showToast('Settings saved successfully.', 'success');
         };
@@ -728,9 +748,9 @@
 
             // Apply Display Name to Nav Bar
             const navDisplay = document.getElementById('nav-user-email');
-            if (userPreferences.rpName.trim() !== '') {
+            if (userPreferences.rpName && userPreferences.rpName.trim() !== '') {
                 navDisplay.textContent = userPreferences.rpName;
-                navDisplay.title = `Discord: ${discordDisplayName}`; // Tooltip
+                navDisplay.title = `Discord: ${discordDisplayName}`; // Tooltip reveals real username on hover
             } else {
                 navDisplay.textContent = discordDisplayName;
                 navDisplay.title = "No RP name set";
@@ -785,7 +805,7 @@
             const closeBtn = document.getElementById('close-modal-btn');
             const discordBtn = document.getElementById('discord-login-btn');
 
-            const profileDropdownTrigger = document.getElementById('nav-user-profile');
+            const profileDropdownTrigger = document.getElementById('profile-dropdown-trigger');
             const profileDropdown = document.getElementById('profile-dropdown');
             
             const btnOpenSettings = document.getElementById('btn-open-settings');
@@ -807,7 +827,7 @@
                 if (action === 'open') {
                     modal.classList.remove('hidden');
                     modal.classList.add('flex');
-                    void modal.offsetWidth; // Reflow
+                    void modal.offsetWidth; // Reflow triggers CSS transitions
                     backdrop.classList.remove('opacity-0');
                     backdrop.classList.add('opacity-100');
                     content.classList.remove('opacity-0', 'scale-95');
@@ -824,8 +844,9 @@
                 }
             };
 
-            const openSettings = () => {
-                closeDropdown(); // Ensure dropdown closes
+            const openSettings = (e) => {
+                if (e) e.stopPropagation();
+                closeDropdown(); 
                 // Populate form with current preferences
                 document.getElementById('setting-rp-name').value = userPreferences.rpName || '';
                 document.getElementById('setting-banner').value = userPreferences.bannerUrl || '';
@@ -837,7 +858,8 @@
             };
             const closeSettings = () => toggleElement(settingsModal, settingsBackdrop, settingsContent, 'close');
 
-            const openProfile = () => {
+            const openProfile = (e) => {
+                if (e) e.stopPropagation();
                 closeDropdown();
                 // Populate Profile View
                 document.getElementById('display-rp-name').textContent = userPreferences.rpName || discordDisplayName;
@@ -881,9 +903,9 @@
                 profileDropdown.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
             };
 
-            // Close dropdown when clicking outside
+            // Close dropdown when clicking outside dropdown trigger & menu
             document.addEventListener('click', (e) => {
-                if (isDropdownOpen && !profileDropdownTrigger.contains(e.target)) {
+                if (isDropdownOpen && !profileDropdownTrigger.contains(e.target) && !profileDropdown.contains(e.target)) {
                     closeDropdown();
                 }
             });
@@ -930,20 +952,23 @@
                 currentUser = user;
                 if (user) {
                     loginBtn.classList.add('hidden');
-                    profileDropdownTrigger.classList.remove('hidden');
-                    profileDropdownTrigger.classList.add('flex');
+                    userProfile.classList.remove('hidden');
+                    userProfile.classList.add('flex');
                     
-                    // Attempt to display Discord username or fallback to email
-                    discordDisplayName = user.user_metadata?.custom_claims?.global_name || user.user_metadata?.full_name || user.user_metadata?.name || user.email;
+                    // Attempt to display Discord username or fallback to metadata
+                    discordDisplayName = user.user_metadata?.custom_claims?.global_name || user.user_metadata?.full_name || user.user_metadata?.name || user.email || "Vanguard";
                     userEmailDisplay.textContent = discordDisplayName;
                     
                     // Load and apply local settings
                     loadPreferences(user.id);
                 } else {
-                    loginBtn.classList.remove('hidden');
-                    profileDropdownTrigger.classList.add('hidden');
-                    profileDropdownTrigger.classList.remove('flex');
-                    document.documentElement.classList.remove('dark'); // Reset theme
+                    // Simulated Profile fallback to align with default state from visual mock-ups (image_3130ed.png)
+                    // Allows user customization & state retention even without dynamic database login
+                    loginBtn.classList.add('hidden');
+                    userProfile.classList.remove('hidden');
+                    userProfile.classList.add('flex');
+                    discordDisplayName = "Vanguard";
+                    loadPreferences('guest');
                 }
             };
 
@@ -953,6 +978,9 @@
                 discordBtn.disabled = true;
 
                 try {
+                    if (!supabase) {
+                        throw new Error("Supabase client is not loaded in sandbox environment.");
+                    }
                     const { data, error } = await supabase.auth.signInWithOAuth({
                         provider: 'discord',
                         options: {
@@ -961,8 +989,6 @@
                     });
 
                     if (error) throw error;
-                    // The page will automatically redirect to Discord for authentication
-
                 } catch (error) {
                     showToast(error.message, 'error');
                     discordBtn.innerHTML = originalContent;
@@ -971,26 +997,40 @@
             };
 
             const handleLogout = async () => {
-                const { error } = await supabase.auth.signOut();
-                if (error) {
-                    showToast(error.message, 'error');
-                } else {
+                try {
+                    if (supabase) {
+                        const { error } = await supabase.auth.signOut();
+                        if (error) throw error;
+                    }
                     showToast('Disconnected from the network.', 'success');
                     updateUI(null);
+                } catch (err) {
+                    showToast(err.message, 'error');
                 }
             };
 
             // Initialize Session Check
             const checkSession = async () => {
-                const { data: { session }, error } = await supabase.auth.getSession();
-                if (session) {
-                    updateUI(session.user);
+                try {
+                    if (supabase) {
+                        const { data: { session }, error } = await supabase.auth.getSession();
+                        if (session) {
+                            updateUI(session.user);
+                        } else {
+                            updateUI(null);
+                        }
+                        
+                        supabase.auth.onAuthStateChange((_event, session) => {
+                            updateUI(session?.user ?? null);
+                        });
+                    } else {
+                        // Fallback trigger for sandbox preview
+                        updateUI(null);
+                    }
+                } catch (err) {
+                    console.warn("Session check degraded to mock-guest authentication:", err);
+                    updateUI(null);
                 }
-                
-                // Listen for auth changes
-                supabase.auth.onAuthStateChange((_event, session) => {
-                    updateUI(session?.user ?? null);
-                });
             };
 
             // Event Listeners
@@ -1000,7 +1040,7 @@
             discordBtn.addEventListener('click', handleDiscordLogin);
             logoutBtn.addEventListener('click', handleLogout);
 
-            document.getElementById('profile-dropdown-trigger').addEventListener('click', toggleDropdown);
+            profileDropdownTrigger.addEventListener('click', toggleDropdown);
             btnOpenSettings.addEventListener('click', openSettings);
             btnOpenProfile.addEventListener('click', openProfile);
             
@@ -1024,7 +1064,7 @@
                 closeSettings();
             });
 
-            // Run initial check
+            // Run initial setup check
             checkSession();
         });
     </script>
