@@ -15,7 +15,7 @@
   <!-- Favicon (red star SVG inline) -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☭</text></svg>">
 
-  <link rel="stylesheet" href="style.css?v=1.0.2">
+  <link rel="stylesheet" href="style.css?v=1.0.3">
 </head>
 <body>
 
@@ -461,8 +461,170 @@
     </div>
   </div>
 
+  <!-- ===== ADMIN DASHBOARD MODAL ===== -->
+  <div id="admin-dashboard-modal" class="modal-overlay admin-overlay">
+    <div class="admin-card">
+      <button class="passport-close" id="admin-close-btn" aria-label="Close admin dashboard">&times;</button>
+      <div class="admin-header">
+        <span class="admin-emblem">☭</span>
+        <h2>CENTRAL COMMITTEE ADMINISTRATIVE PANEL</h2>
+        <p>UNION OF SOVIET SOCIALIST REPUBLICS • SECURE ACCESS ONLY</p>
+      </div>
+      
+      <div class="admin-body">
+        <!-- Sidebar Navigation -->
+        <div class="admin-sidebar">
+          <div class="admin-profile-card">
+            <div class="admin-avatar-glow">
+              <img id="admin-user-avatar" src="" alt="Admin Avatar">
+            </div>
+            <div class="admin-name-tag">Comrade Lester</div>
+            <div class="admin-role-tag">General Secretary</div>
+            <div class="admin-id-tag">SU-9A5D1E23</div>
+          </div>
+          <ul class="admin-tabs">
+            <li class="admin-tab active" data-tab="citizens">Citizen Registry</li>
+            <li class="admin-tab" data-tab="decrees-panel">Publish Decrees</li>
+            <li class="admin-tab" data-tab="medals-panel">Medal Inventory</li>
+          </ul>
+        </div>
+        
+        <!-- Content Pane -->
+        <div class="admin-content-pane">
+          <!-- Citizens Tab -->
+          <div class="admin-pane active" id="pane-citizens">
+            <div class="pane-header">
+              <h3>Comrade Registry</h3>
+              <div class="pane-search">
+                <input type="text" id="citizen-search-input" placeholder="Search Comrades by Name or Passport...">
+              </div>
+            </div>
+            <div class="citizen-table-container">
+              <table class="citizen-table">
+                <thead>
+                  <tr>
+                    <th>Photo</th>
+                    <th>Name</th>
+                    <th>Passport ID</th>
+                    <th>Ministry / Rank</th>
+                    <th>Medals</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="citizen-table-body">
+                  <!-- Dynamic rows -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <!-- Decrees Tab -->
+          <div class="admin-pane" id="pane-decrees-panel">
+            <div class="pane-header">
+              <h3>Publish State Decrees</h3>
+            </div>
+            <form id="publish-decree-form" class="admin-form">
+              <div class="form-group">
+                <label for="decree-type">Decree Type</label>
+                <select id="decree-type">
+                  <option value="Decree">Decree / Указ</option>
+                  <option value="Announcement">Announcement / Объявление</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="decree-title-input">Decree Title</label>
+                <input type="text" id="decree-title-input" required placeholder="e.g., On the Modernization of Heavy Industry">
+              </div>
+              <div class="form-group">
+                <label for="decree-excerpt-input">Decree Content</label>
+                <textarea id="decree-excerpt-input" rows="4" required placeholder="Write the official state statement..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width: 100%;">Publish Decree</button>
+            </form>
+          </div>
+          
+          <!-- Medals Tab -->
+          <div class="admin-pane" id="pane-medals-panel">
+            <div class="pane-header">
+              <h3>State Decorations & Awards</h3>
+            </div>
+            <div class="medals-grid">
+              <div class="medal-info-card">
+                <span class="medal-symbol">⭐</span>
+                <h4>Hero of the Soviet Union</h4>
+                <p>The highest honorary title of the USSR, awarded for heroic feats in service to the state.</p>
+              </div>
+              <div class="medal-info-card">
+                <span class="medal-symbol">🎖️</span>
+                <h4>Order of Lenin</h4>
+                <p>The highest decoration bestowed for exceptional service to the socialist homeland.</p>
+              </div>
+              <div class="medal-info-card">
+                <span class="medal-symbol">🔥</span>
+                <h4>Order of the Red Banner</h4>
+                <p>Recognizes heroism in military activities or outstanding military leadership.</p>
+              </div>
+              <div class="medal-info-card">
+                <span class="medal-symbol">🛠️</span>
+                <h4>Hero of Socialist Labor</h4>
+                <p>Awarded for exceptional achievements in national economy and culture.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CITIZEN EDIT MODAL ===== -->
+  <div id="citizen-edit-modal" class="modal-overlay sub-modal-overlay">
+    <div class="passport-card edit-card">
+      <button class="passport-close" id="edit-close-btn">&times;</button>
+      <div class="passport-header">
+        <span class="passport-star">☭</span>
+        <h3>REASSIGN CITIZEN</h3>
+        <p>CENTRAL COMMITTEE APPOINTMENT SHEET</p>
+      </div>
+      <div class="passport-body" style="padding-top: var(--space-md);">
+        <form id="edit-citizen-form" style="width: 100%; display: flex; flex-direction: column; gap: var(--space-md);">
+          <input type="hidden" id="edit-citizen-id">
+          
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 2px;">
+            <label class="info-label">COMRADE NAME</label>
+            <input type="text" id="edit-citizen-name" readonly class="info-value text-gold" style="background:none; border:none; padding:0; outline:none; font-family:var(--font-mono); font-size:1rem;">
+          </div>
+          
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 4px;">
+            <label for="edit-citizen-ministry" class="info-label">MINISTRY REASSIGNMENT</label>
+            <select id="edit-citizen-ministry" class="admin-select" style="background: var(--surface-2); border: 1px solid var(--border-glass); border-radius: var(--radius-sm); padding: var(--space-sm); color: var(--text-primary); outline: none;">
+              <option value="Politburo">Politburo / Политбюро</option>
+              <option value="Supreme Soviet">Supreme Soviet / Верховный Совет</option>
+              <option value="Council of Ministers">Council of Ministers / Совет Министров</option>
+              <option value="State Security (KGB)">State Security (KGB) / КГБ</option>
+              <option value="Foreign Affairs">Foreign Affairs / МИД</option>
+              <option value="Presidium">Presidium / Президиум</option>
+              <option value="Proletariat">Proletariat / Гражданин</option>
+            </select>
+          </div>
+          
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 4px;">
+            <label class="info-label">STATE DECORATIONS (AWARDED MEDALS)</label>
+            <div class="checkbox-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm); padding: var(--space-sm); background: rgba(0,0,0,0.2); border-radius: var(--radius-sm);">
+              <label class="check-label" style="font-size: 0.8rem; display: flex; align-items: center; gap: 6px; cursor: pointer;"><input type="checkbox" value="⭐" class="medal-check"> ⭐ Hero of USSR</label>
+              <label class="check-label" style="font-size: 0.8rem; display: flex; align-items: center; gap: 6px; cursor: pointer;"><input type="checkbox" value="🎖️" class="medal-check"> 🎖️ Order of Lenin</label>
+              <label class="check-label" style="font-size: 0.8rem; display: flex; align-items: center; gap: 6px; cursor: pointer;"><input type="checkbox" value="🔥" class="medal-check"> 🔥 Red Banner</label>
+              <label class="check-label" style="font-size: 0.8rem; display: flex; align-items: center; gap: 6px; cursor: pointer;"><input type="checkbox" value="🛠️" class="medal-check"> 🛠️ Socialist Labor</label>
+            </div>
+          </div>
+          
+          <button type="submit" class="btn btn-primary" style="margin-top:var(--space-md); width:100%;">Save Changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <!-- Supabase CDN (UMD build for global window.supabase object) -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-  <script src="script.js?v=1.0.2"></script>
+  <script src="script.js?v=1.0.3"></script>
 </body>
 </html>
