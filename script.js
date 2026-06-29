@@ -276,6 +276,156 @@
 })();
 
 
+// ===== SUPABASE AUTHENTICATION SYSTEM =====
+(function initSupabaseAuth() {
+  const supabaseUrl = 'https://ivrsryervygjmncwlgdn.supabase.co';
+  const supabaseKey = 'sb_publishable_Rsh_coNUNyNTvfiQ-42yQA_tOVqOaLk';
+
+  // Check if supabase object is available (loaded via script CDN)
+  if (typeof supabase === 'undefined' || !supabase.createClient) {
+    console.warn('Supabase library is not loaded yet.');
+    return;
+  }
+
+  const client = supabase.createClient(supabaseUrl, supabaseKey);
+
+  const authContainer = document.getElementById('auth-nav-container');
+  const loginBtn = document.getElementById('btn-login');
+  
+  const modal = document.getElementById('passport-modal');
+  const closeBtn = document.getElementById('passport-close-btn');
+  const signOutBtn = document.getElementById('btn-signout');
+
+  const avatarImg = document.getElementById('passport-avatar');
+  const lastNameVal = document.getElementById('passport-lastname');
+  const firstNameVal = document.getElementById('passport-firstname');
+  const passportNumVal = document.getElementById('passport-number');
+  const originVal = document.getElementById('passport-origin');
+
+  if (!authContainer) return;
+
+  // Open / Close Passport modal helper functions
+  function openModal() {
+    if (modal) modal.classList.add('active');
+  }
+
+  function closeModal() {
+    if (modal) modal.classList.remove('active');
+  }
+
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+  }
+
+  // Handle Login Click
+  async function handleLogin() {
+    try {
+      const { error } = await client.auth.signInWithOAuth({
+        provider: 'discord',
+        options: {
+          redirectTo: window.location.origin + window.location.pathname
+        }
+      });
+      if (error) throw error;
+    } catch (err) {
+      console.error('Error logging in:', err.message);
+      alert('Login failed. Please verify Supabase configuration.');
+    }
+  }
+
+  // Handle Sign Out Click
+  async function handleSignOut() {
+    try {
+      const { error } = await client.auth.signOut();
+      if (error) throw error;
+      closeModal();
+    } catch (err) {
+      console.error('Error signing out:', err.message);
+    }
+  }
+
+  if (loginBtn) loginBtn.addEventListener('click', handleLogin);
+  if (signOutBtn) signOutBtn.addEventListener('click', handleSignOut);
+
+  // Update DOM based on Session State
+  function renderAuthState(session) {
+    // Clear previous dynamic elements
+    const existingBadge = authContainer.querySelector('.citizen-profile-badge');
+    if (existingBadge) existingBadge.remove();
+
+    if (session && session.user) {
+      const user = session.user;
+      
+      // Hide standard login button
+      if (loginBtn) loginBtn.style.display = 'none';
+
+      // Create profile badge button
+      const badge = document.createElement('div');
+      badge.className = 'citizen-profile-badge';
+      
+      const avatarUrl = user.user_metadata.avatar_url || 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%23d4a843"><circle cx="50" cy="50" r="45" fill="none" stroke="%23d4a843" stroke-width="5"/><text x="50%" y="65%" text-anchor="middle" font-size="45">☭</text></svg>';
+      const username = user.user_metadata.full_name || user.user_metadata.name || user.email || 'Comrade';
+      
+      badge.innerHTML = `
+        <img src="${avatarUrl}" alt="Avatar" class="citizen-avatar">
+        <span class="citizen-name">☭ ${username.split(' ')[0]}</span>
+      `;
+
+      badge.addEventListener('click', openModal);
+      authContainer.appendChild(badge);
+
+      // Populate Passport fields
+      if (avatarImg) avatarImg.src = avatarUrl;
+      
+      // Separate Surname / First name from Discord name
+      const nameParts = username.split(' ');
+      if (lastNameVal) lastNameVal.textContent = (nameParts[1] || 'COMRADE').toUpperCase();
+      if (firstNameVal) firstNameVal.textContent = nameParts[0].toUpperCase();
+      
+      // Deterministic passport number based on UUID
+      if (passportNumVal) {
+        const shortId = user.id.replace(/-/g, '').slice(0, 8).toUpperCase();
+        passportNumVal.textContent = `SU-${shortId}`;
+      }
+
+      // Immersive Comrade Origin
+      if (originVal) {
+        // Deterministic roles for fun
+        const hash = user.id.charCodeAt(0) + (user.id.charCodeAt(1) || 0);
+        const roles = ['PROLETARIAT', 'SUPREME SOVIET MEMBER', 'RED ARMY COMMISSAR', 'SOVNET ENGINEER', 'POLITBURO DEPUTY', 'STAKHANOVITE WORKER'];
+        originVal.textContent = roles[hash % roles.length];
+      }
+
+    } else {
+      // Logged out state
+      if (loginBtn) loginBtn.style.display = 'inline-flex';
+      
+      // Reset passport fields
+      if (avatarImg) avatarImg.src = '';
+      if (lastNameVal) lastNameVal.textContent = 'COMRADE';
+      if (firstNameVal) firstNameVal.textContent = 'DISCORD USER';
+      if (passportNumVal) passportNumVal.textContent = 'SU-00000000';
+      if (originVal) originVal.textContent = 'PROLETARIAT';
+    }
+  }
+
+  // Subscribe to auth state changes
+  client.auth.onAuthStateChange((event, session) => {
+    console.log(`Auth event: ${event}`);
+    renderAuthState(session);
+  });
+
+  // Initial check
+  client.auth.getSession().then(({ data: { session } }) => {
+    renderAuthState(session);
+  });
+
+})();
+
+
 // ===== CONSOLE EASTER EGG =====
 console.log(
   '%c☭ WORKERS OF THE WORLD, UNITE! ☭',
