@@ -323,6 +323,10 @@
   // Handle Login Click
   async function handleLogin() {
     try {
+      if (window.location.protocol === 'file:') {
+        alert('☭ OAuth Redirection Alert ☭\n\nDiscord OAuth login requires a web server to redirect back to. Please run this page via a local web server (e.g. using Python or Live Server at http://localhost:8000) rather than opening the file:// directly in your browser.');
+        return;
+      }
       const { error } = await client.auth.signInWithOAuth({
         provider: 'discord',
         options: {
